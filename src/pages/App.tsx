@@ -31,18 +31,24 @@ import { OpenClaimAddressModalAndRedirectToSwap, RedirectPathToSwapOnly, Redirec
 import Vote from './Vote'
 import VotePage from './Vote/VotePage'
 
-const AppWrapper = styled.div`
-  display: flex;
-  flex-flow: column;
-  align-items: flex-start;
-  overflow-x: hidden;
-`
+import bgContentsTopLeft from '../assets/images/fo/bg_contents_top_left.png'
+import bgContentsBottomRight from '../assets/images/fo/bg_contents_bottom_right.png'
+import bgBlueCircle01 from '../assets/images/fo/bg_blue_circle_01.png'
+import bgPinkCircle01 from '../assets/images/fo/bg_pink_circle_01.png'
+import bgPinkCircle02 from '../assets/images/fo/bg_pink_circle_02.png'
+import bgWhiteCircle01 from '../assets/images/fo/bg_white_circle_01.png'
+import bgWhiteRing01 from '../assets/images/fo/bg_white_ring_01.png'
 
+import '../assets/css/common.css'
+
+const AppWrapper = styled.div``
+/*
 const HeaderWrapper = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   width: 100%;
   justify-content: space-between;
 `
+*/
 
 const BodyWrapper = styled.div`
   display: flex;
@@ -66,6 +72,29 @@ const BodyWrapper = styled.div`
 const Marginer = styled.div`
   margin-top: 5rem;
 `
+/* ------- */
+const BgImgsBox = () => {
+	return(
+		<section id="bgImgsBox">
+			<img className="bg_contents_top_left" src={bgContentsTopLeft} alt="bg_contents_top_left" />
+      <img className="bg_contents_bottom_right" src={bgContentsBottomRight} alt="bg_contents_bottom_right" />
+      <img className="bg_blue_circle_01" src={bgBlueCircle01} alt="bg_blue_circle_01" />
+      <img className="bg_pink_circle_01" src={bgPinkCircle01} alt="bg_pink_circle_01" />
+      <img className="bg_pink_circle_02" src={bgPinkCircle02} alt="bg_pink_circle_02" />
+      <img className="bg_white_circle_01" src={bgWhiteCircle01} alt="bg_white_circle_01" />
+      <img className="bg_white_ring_01" src={bgWhiteRing01} alt="bg_white_ring_01" />
+		</section>
+	)
+}
+const Wrap = () => {
+	return(
+		<div id="wrap">
+      <Header />
+    </div>
+	)
+}
+
+/* ------- */
 
 function TopLevelModals() {
   const open = useModalOpen(ApplicationModal.ADDRESS_CLAIM)
@@ -78,11 +107,11 @@ export default function App() {
     <Suspense fallback={null}>
       <Route component={GoogleAnalyticsReporter} />
       <Route component={DarkModeQueryParamReader} />
+      <BgImgsBox />
+      <Wrap />
+
       <AppWrapper>
         <URLWarning />
-        <HeaderWrapper>
-          <Header />
-        </HeaderWrapper>
         <BodyWrapper>
           <Popups />
           <Polling />
