@@ -117,7 +117,7 @@ body { position: relative; z-index: 0; }
 
 
 /* header */
-#wrap { overflow: hidden; display: flex; flex-direction: row; width: 100%; height: 100%; }
+#wrap,#root { overflow: hidden; display: flex; flex-direction: row; width: 100%; height: 100%; }
 #header,#headerM { position: relative; background: var(--bg-gradient-white-03); backdrop-filter: var(--bg-filter-blur); box-shadow: var(--bg-box-shadow); }
 #header { width: 15rem; height: 100%; }
 #header .header_in { width: 100%; }
@@ -171,11 +171,11 @@ body { position: relative; z-index: 0; }
 	#bgImgsBox .bg_white_ring_01 { max-width: 7rem; } 
 
 	/* t.header */
-	#wrap { flex-direction: column; }
+	#wrap, #root { flex-direction: column; }
 	#header { position: fixed; left: -100%; width: 70%; height: 100%; z-index: 300;  transition: all .24s; }
 	#header.active { left: 0; }
 	#header .header_in .close_btn { display: block; position: absolute; top: 1rem; right: 1rem; }
-	#header .header_in .logo { margin: 1rem; width: 6rem; }
+	#header .header_in .logo { display: block; margin: 1rem; width: 6rem; }
 	#headerBg { opacity: .24; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(	--blue-06); z-index: 299; }
 	
 	#headerM { display: block; }

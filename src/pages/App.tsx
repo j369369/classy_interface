@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import GoogleAnalyticsReporter from '../components/analytics/GoogleAnalyticsReporter'
 import AddressClaimModal from '../components/claim/AddressClaimModal'
 import Header from '../components/Header'
+import HeaderIn from '../components/HeaderIn'
 import Polling from '../components/Header/Polling'
 import URLWarning from '../components/Header/URLWarning'
 import Popups from '../components/Popups'
@@ -40,6 +41,7 @@ import bgWhiteCircle01 from '../assets/images/fo/bg_white_circle_01.png'
 import bgWhiteRing01 from '../assets/images/fo/bg_white_ring_01.png'
 
 import '../assets/css/common.css'
+import '../assets/vendors/fontawesome-free-5.15.3-web 2/css/all.min.css'
 
 const AppWrapper = styled.div``
 /*
@@ -73,6 +75,11 @@ const Marginer = styled.div`
   margin-top: 5rem;
 `
 /* ------- */
+const ScriptLib = () => {
+	return(
+    <script src="../assets/vendors/gsap-public/minified/gsap.min.js"></script>
+	)
+}
 const BgImgsBox = () => {
 	return(
 		<section id="bgImgsBox">
@@ -89,6 +96,8 @@ const BgImgsBox = () => {
 const Wrap = () => {
 	return(
 		<div id="wrap">
+      <HeaderIn />
+      <header id="headerBg" className="close_btn"></header>
       <Header />
     </div>
 	)
@@ -105,12 +114,13 @@ function TopLevelModals() {
 export default function App() {
   return (
     <Suspense fallback={null}>
+      <ScriptLib />
       <Route component={GoogleAnalyticsReporter} />
       <Route component={DarkModeQueryParamReader} />
       <BgImgsBox />
       <Wrap />
 
-      <AppWrapper>
+      <AppWrapper id={`container`}>
         <URLWarning />
         <BodyWrapper>
           <Popups />
