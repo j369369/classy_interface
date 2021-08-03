@@ -33,6 +33,8 @@ import { Dots } from '../swap/styleds'
 import Modal from '../Modal'
 import UniBalanceContent from './UniBalanceContent'
 import usePrevious from '../../hooks/usePrevious'
+import gsap from 'gsap'
+
 
 const HeaderFrame = styled.header``
 const HeaderControls = styled.div``
@@ -59,26 +61,9 @@ const BalanceText = styled.strong``
 
 const AccountElement = styled.div<{ active: boolean }>``
 
-const UNIAmount = styled(AccountElement)`
-  color: white;
-  padding: 4px 8px;
-  height: 36px;
-  font-weight: 500;
-  background-color: ${({ theme }) => theme.bg3};
-  background: radial-gradient(174.47% 188.91% at 1.84% 0%, #ff007a 0%, #2172e5 100%), #edeef2;
-`
+const CLSYAmount = styled(AccountElement)``
 
-const UNIWrapper = styled.span`
-  width: fit-content;
-  position: relative;
-  cursor: pointer;
-  :hover {
-    opacity: 0.8;
-  }
-  :active {
-    opacity: 0.9;
-  }
-`
+const CLSYWrapper = styled.span``
 
 export const StyledMenuButton = styled.button`
   position: relative;
@@ -115,6 +100,14 @@ const NETWORK_LABELS: { [chainId in ChainId]?: string } = {
   [ChainId.KOVAN]: 'Kovan'
 }
 
+
+const fn_btnHeaderClose = () => {
+  const gsapHeader = gsap.timeline();
+    gsapHeader
+    .to("#header", { className: "", ease: "power4" })
+    .to("#headerBg", { display:"none" , ease: "power4"}, '-=1');
+}
+
 export default function Header() {
   const { account, chainId } = useActiveWeb3React()
   const { t } = useTranslation()
@@ -140,7 +133,7 @@ export default function Header() {
   return (
     <HeaderFrame id={`header`}>
       <section className="header_in">
-        <article className="close_btn"><i className="fas fa-times"></i></article>
+        <article className="close_btn" onClick={fn_btnHeaderClose}><i className="fas fa-times"></i></article>
         <article className="logo">
           <StyledNavLink to={'/swap'}>
             <img src={Logo} alt="logo" />
@@ -189,8 +182,26 @@ export default function Header() {
                       <span className="w_unit">ETH</span>
                     </li>
                     <li className="li">
-                      <strong className="w_num">11.475</strong>
-                      <span className="w_unit">CLSY</span>
+                      {!availableClaim && aggregateBalance && (
+                        <CLSYWrapper onClick={() => setShowUniBalanceModal(true)}>
+                          <CLSYAmount active={!!account && !availableClaim}>
+                            <strong className="w_num">
+                              {account && (
+                                <CountUp
+                                  key={countUpValue}
+                                  isCounting
+                                  start={parseFloat(countUpValuePrevious)}
+                                  end={parseFloat(countUpValue)}
+                                  thousandsSeparator={','}
+                                  duration={1}
+                                />
+                              )}
+                            </strong>
+                            <span className="w_unit">CLSY</span>
+                          </CLSYAmount>
+                          <CardNoise />
+                        </CLSYWrapper>
+                      )}
                     </li>
                   </ul>
                 </article>
@@ -222,47 +233,21 @@ export default function Header() {
         <UniBalanceContent setShowUniBalanceModal={setShowUniBalanceModal} />
       </Modal>
       <HeaderControls>
-        <HeaderElement>
+        <HeaderElement id={`test`}>
           <HideSmall>
             {chainId && NETWORK_LABELS[chainId] && (
               <NetworkCard title={NETWORK_LABELS[chainId]}>{NETWORK_LABELS[chainId]}</NetworkCard>
             )}
           </HideSmall>
           {availableClaim && !showClaimPopup && (
-            <UNIWrapper onClick={toggleClaimModal}>
-              <UNIAmount active={!!account && !availableClaim} style={{ pointerEvents: 'auto' }}>
+            <CLSYWrapper onClick={toggleClaimModal}>
+              <CLSYAmount active={!!account && !availableClaim} style={{ pointerEvents: 'auto' }}>
                 <TYPE.white padding="0 2px">
                   {claimTxn && !claimTxn?.receipt ? <Dots>Claiming UNI</Dots> : 'Claim UNI'}
                 </TYPE.white>
-              </UNIAmount>
+              </CLSYAmount>
               <CardNoise />
-            </UNIWrapper>
-          )}
-          {!availableClaim && aggregateBalance && (
-            <UNIWrapper onClick={() => setShowUniBalanceModal(true)}>
-              <UNIAmount active={!!account && !availableClaim} style={{ pointerEvents: 'auto' }}>
-                {account && (
-                  <HideSmall>
-                    <TYPE.white
-                      style={{
-                        paddingRight: '.4rem'
-                      }}
-                    >
-                      <CountUp
-                        key={countUpValue}
-                        isCounting
-                        start={parseFloat(countUpValuePrevious)}
-                        end={parseFloat(countUpValue)}
-                        thousandsSeparator={','}
-                        duration={1}
-                      />
-                    </TYPE.white>
-                  </HideSmall>
-                )}
-                CLSY
-              </UNIAmount>
-              <CardNoise />
-            </UNIWrapper>
+            </CLSYWrapper>
           )}
         </HeaderElement>
       </HeaderControls>

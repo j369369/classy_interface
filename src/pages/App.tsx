@@ -42,6 +42,7 @@ import bgWhiteRing01 from '../assets/images/fo/bg_white_ring_01.png'
 
 import '../assets/css/common.css'
 import '../assets/vendors/fontawesome-free-5.15.3-web 2/css/all.min.css'
+import gsap from 'gsap'
 
 const AppWrapper = styled.div``
 /*
@@ -74,12 +75,8 @@ const BodyWrapper = styled.div`
 const Marginer = styled.div`
   margin-top: 5rem;
 `
+
 /* ------- */
-const ScriptLib = () => {
-	return(
-    <script src="../assets/vendors/gsap-public/minified/gsap.min.js"></script>
-	)
-}
 const BgImgsBox = () => {
 	return(
 		<section id="bgImgsBox">
@@ -94,7 +91,50 @@ const BgImgsBox = () => {
 	)
 }
 
+const fn_btnHeaderClose = () => {
+  const gsapHeader = gsap.timeline();
+    gsapHeader
+    .to("#header", { className: "", ease: "power4" })
+    .to("#headerBg", { display:"none" , ease: "power4"}, '-=1');
+}
+/*
+const gfn_mouseParallax = (
+  contentEl: any, // Relative Element id and Class Name
+  positionEl: any,   // Absolute Element id and Class Name
+  positionY: string, // top, bottom
+  positionX: string, // left, right
+  num_y: number, //number to move, 'top' and 'bottom'
+  num_x: number  //number to move, 'left' and 'right'
+) => {
 
+  const _contentEl = document.querySelector(contentEl)
+  const _positionEl = document.querySelector(positionEl)
+  const _elStyle = _positionEl.style
+
+  _contentEl.addEventListener('mousemove', function fn_mouseMove(e: any) {
+    const mouseX = e.pageX / 2
+    const mouseY = e.pageY / 2
+
+    if (positionY == 'top') {
+      _elStyle.marginTop = mouseY / num_y + 'px'
+    } else {
+      _elStyle.marginBottom = mouseY / num_y + 'px'
+    }
+
+    if (positionX == 'left') {
+      _elStyle.marginLeft = mouseX / num_x + 'px'
+    } else {
+      _elStyle.marginRight = mouseX / num_x + 'px'
+    }
+  })
+}
+
+gfn_mouseParallax ("html", ".bg_blue_circle_01", "top", "left", 50, -50 );
+gfn_mouseParallax ("html", ".bg_pink_circle_01", "top", "right", -70, -70 );
+gfn_mouseParallax ("html", ".bg_pink_circle_02", "top", "right", 100, 100);
+gfn_mouseParallax ("html", ".bg_white_circle_01", "bottom", "left", 120, 120);
+gfn_mouseParallax ("html", ".bg_white_ring_01", "bottom", "left", -40, -40);
+*/
 /* ------- */
 
 function TopLevelModals() {
@@ -106,13 +146,12 @@ function TopLevelModals() {
 export default function App() {
   return (
     <Suspense fallback={null}>
-      <ScriptLib />
       <Route component={GoogleAnalyticsReporter} />
       <Route component={DarkModeQueryParamReader} />
       <BgImgsBox />
       <div id="wrap">
         <HeaderIn />
-        <header id="headerBg" className="close_btn"></header>
+        <header id="headerBg" className="close_btn" onClick={fn_btnHeaderClose}></header>
         <Header />
 
         <AppWrapper id={`container`}>

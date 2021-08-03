@@ -137,6 +137,7 @@ body { position: relative; z-index: 0; }
 #header .header_in .bottom_contents .signout .wallet .wallet_list { padding: 0.5rem; color: var(--blue-06); }
 #header .header_in .bottom_contents .signout .wallet .wallet_list .li { font-size: 0.8125rem; line-height: 1.5; }
 #header .header_in .bottom_contents .signout .wallet .wallet_list .li strong { font-weight: 700; }
+#header .header_in .bottom_contents .signout .wallet .wallet_list .li .w_unit { margin-left: 0.125rem; }
 #headerBg { display: none; }
 
 #headerM { display: none; width:100%; height: 50px; }
