@@ -93,15 +93,7 @@ const BgImgsBox = () => {
 		</section>
 	)
 }
-const Wrap = () => {
-	return(
-		<div id="wrap">
-      <HeaderIn />
-      <header id="headerBg" className="close_btn"></header>
-      <Header />
-    </div>
-	)
-}
+
 
 /* ------- */
 
@@ -118,9 +110,12 @@ export default function App() {
       <Route component={GoogleAnalyticsReporter} />
       <Route component={DarkModeQueryParamReader} />
       <BgImgsBox />
-      <Wrap />
+      <div id="wrap">
+        <HeaderIn />
+        <header id="headerBg" className="close_btn"></header>
+        <Header />
 
-      <AppWrapper id={`container`}>
+        <AppWrapper id={`container`}>
         <URLWarning />
         <BodyWrapper>
           <Popups />
@@ -156,6 +151,7 @@ export default function App() {
           <Marginer />
         </BodyWrapper>
       </AppWrapper>
+      </div>
     </Suspense>
   )
 }
