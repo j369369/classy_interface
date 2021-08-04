@@ -19,7 +19,7 @@ import { CardNoise } from '../earn/styled'
 import { CountUp } from 'use-count-up'
 import { TYPE } from '../../theme'
 
-import { YellowCard } from '../Card'
+//import { YellowCard } from '../Card'
 //import { Moon, Sun } from 'react-feather'
 //import Menu from '../Menu'
 
@@ -43,54 +43,14 @@ const HeaderLinks = styled.ul``
 const StyledNavLink = styled(NavLink)``
 
 const HideSmall = styled.span``
-
-const NetworkCard = styled(YellowCard)`
-  border-radius: 12px;
-  padding: 8px 12px;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    margin: 0;
-    margin-right: 0.5rem;
-    width: initial;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    flex-shrink: 1;
-  `};
-`
-
+const NetworkCard = styled.span``
 const BalanceText = styled.strong``
 
 const AccountElement = styled.div<{ active: boolean }>``
-
 const CLSYAmount = styled(AccountElement)``
-
 const CLSYWrapper = styled.span``
 
-export const StyledMenuButton = styled.button`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border: none;
-  background-color: transparent;
-  margin: 0;
-  padding: 0;
-  height: 35px;
-  background-color: ${({ theme }) => theme.bg3};
-  margin-left: 8px;
-  padding: 0.15rem 0.5rem;
-  border-radius: 0.5rem;
-  :hover,
-  :focus {
-    cursor: pointer;
-    outline: none;
-    background-color: ${({ theme }) => theme.bg4};
-  }
-  svg {
-    margin-top: 2px;
-  }
-  > * {
-    stroke: ${({ theme }) => theme.text1};
-  }
-`
+export const StyledMenuButton = styled.button``
 
 
 const NETWORK_LABELS: { [chainId in ChainId]?: string } = {
@@ -166,50 +126,62 @@ export default function Header() {
             <Web3Status />
           </div>
           <AccountElement className={`signout`} active={!!account}>
-            <section className="wallet">
-              <HeaderElement className={`wallet_code`} onClick={() => setShowUniBalanceModal(true)}>
-                <span className="ic_code"><i className="fas fa-shield-alt"></i></span>
-                <span id="walletStr">0xF94a ..... bbddaa</span>
-              </HeaderElement>
-                <article className="wallet_info">
-                  <ul className="wallet_list">
-                    <li className="li">
-                      {account && userEthBalance ? (
-                          <BalanceText className={`w_num`}>
-                            {userEthBalance?.toSignificant(4)}
-                          </BalanceText>
-                      ) : null}
-                      <span className="w_unit">ETH</span>
-                    </li>
-                    <li className="li">
-                      {!availableClaim && aggregateBalance && (
-                        <CLSYWrapper onClick={() => setShowUniBalanceModal(true)}>
-                          <CLSYAmount active={!!account && !availableClaim}>
-                            <strong className="w_num">
-                              {account && (
-                                <CountUp
-                                  key={countUpValue}
-                                  isCounting
-                                  start={parseFloat(countUpValuePrevious)}
-                                  end={parseFloat(countUpValue)}
-                                  thousandsSeparator={','}
-                                  duration={1}
-                                />
-                              )}
-                            </strong>
-                            <span className="w_unit">CLSY</span>
-                          </CLSYAmount>
-                          <CardNoise />
-                        </CLSYWrapper>
-                      )}
-                    </li>
-                  </ul>
-                </article>
+            {account && (
+              <section className="wallet">
+                <HeaderElement className={`wallet_network`}>
+                  <HideSmall>
+                    {chainId && NETWORK_LABELS[chainId] && (
+                      <NetworkCard title={NETWORK_LABELS[chainId]}>{NETWORK_LABELS[chainId]}</NetworkCard>
+                    )}
+                  </HideSmall>
+                  {availableClaim && !showClaimPopup && (
+                    <CLSYWrapper onClick={toggleClaimModal}>
+                      <CLSYAmount active={!!account && !availableClaim} style={{ pointerEvents: 'auto' }}>
+                        <TYPE.white padding="0 2px">
+                          {claimTxn && !claimTxn?.receipt ? <Dots>Claiming CLSY</Dots> : 'Claim CLSY'}
+                        </TYPE.white>
+                      </CLSYAmount>
+                      <CardNoise />
+                    </CLSYWrapper>
+                  )}
+                </HeaderElement>
+                  <article className="wallet_info">
+                    <ul className="wallet_list">
+                        {account && userEthBalance ? (
+                          <li className="li">
+                              <BalanceText className={`w_num`}>
+                                {userEthBalance?.toSignificant(4)}
+                              </BalanceText>
+                              <span className="w_unit">ETH</span>
+                          </li>
+                        ) : null}
+                        {!availableClaim && aggregateBalance && (
+                          <li className="li">
+                            <CLSYWrapper onClick={() => setShowUniBalanceModal(true)}>
+                              <CLSYAmount active={!!account && !availableClaim}>
+                                <strong className="w_num">
+                                    <CountUp
+                                      key={countUpValue}
+                                      isCounting
+                                      start={parseFloat(countUpValuePrevious)}
+                                      end={parseFloat(countUpValue)}
+                                      thousandsSeparator={','}
+                                      duration={1}
+                                    />
+                                </strong>
+                                <span className="w_unit">CLSY</span>
+                              </CLSYAmount>
+                              <CardNoise />
+                            </CLSYWrapper>
+                          </li>
+                        )}
+                    </ul>
+                  </article>
               </section>
-              <button type="button" id="btnSignOut" className="button blue06">Sign Out</button>
+            )}
           </AccountElement>
             <div id="footer"> 
-              <section className="footer_sns">
+              {/* <section className="footer_sns">
               <StyledNavLink className={`link`} to={'javascript:;'}>
                 <i className="fab fa-instagram"></i>
               </StyledNavLink>
@@ -219,38 +191,17 @@ export default function Header() {
               <StyledNavLink className={`link`} to={'javascript:;'}>
                 <i className="fab fa-facebook"></i>
               </StyledNavLink>
-              </section>
+              </section> */}
               <section className="footer_address">
                 © 2021 Classy
               </section>
             </div>
         </HeaderControls>
       </section>
-
-
       <ClaimModal />
       <Modal isOpen={showUniBalanceModal} onDismiss={() => setShowUniBalanceModal(false)}>
         <UniBalanceContent setShowUniBalanceModal={setShowUniBalanceModal} />
       </Modal>
-      <HeaderControls>
-        <HeaderElement id={`test`}>
-          <HideSmall>
-            {chainId && NETWORK_LABELS[chainId] && (
-              <NetworkCard title={NETWORK_LABELS[chainId]}>{NETWORK_LABELS[chainId]}</NetworkCard>
-            )}
-          </HideSmall>
-          {availableClaim && !showClaimPopup && (
-            <CLSYWrapper onClick={toggleClaimModal}>
-              <CLSYAmount active={!!account && !availableClaim} style={{ pointerEvents: 'auto' }}>
-                <TYPE.white padding="0 2px">
-                  {claimTxn && !claimTxn?.receipt ? <Dots>Claiming UNI</Dots> : 'Claim UNI'}
-                </TYPE.white>
-              </CLSYAmount>
-              <CardNoise />
-            </CLSYWrapper>
-          )}
-        </HeaderElement>
-      </HeaderControls>
     </HeaderFrame>
   )
 }

@@ -2,7 +2,7 @@ import { AbstractConnector } from '@web3-react/abstract-connector'
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
 //import { darken } from 'polished'
 import React, { useMemo } from 'react'
-import { Activity } from 'react-feather'
+//import { Activity } from 'react-feather'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import CoinbaseWalletIcon from '../../assets/images/coinbaseWalletIcon.svg'
@@ -17,7 +17,7 @@ import { useWalletModalToggle } from '../../state/application/hooks'
 import { isTransactionRecent, useAllTransactions } from '../../state/transactions/hooks'
 import { TransactionDetails } from '../../state/transactions/reducer'
 import { shortenAddress } from '../../utils'
-import { ButtonSecondary } from '../Button'
+//import { ButtonSecondary } from '../Button'
 
 import Identicon from '../Identicon'
 import Loader from '../Loader'
@@ -35,22 +35,22 @@ const IconWrapper = styled.div<{ size?: number }>`
   }
 `
 
-const Web3StatusGeneric = styled(ButtonSecondary)``
+const Web3StatusGeneric = styled.button``
 const Web3StatusError = styled(Web3StatusGeneric)``
 
 const Web3StatusConnect = styled.button``
 
-const Web3StatusConnected = styled(Web3StatusGeneric)<{ pending?: boolean }>``
+const Web3StatusConnected = styled.button<{ pending?: boolean }>``
 
 const Text = styled.p``
-
+/*
 const NetworkIcon = styled(Activity)`
   margin-left: 0.25rem;
   margin-right: 0.5rem;
   width: 16px;
   height: 16px;
 `
-
+*/
 // we want the latest one to come first, so return negative if a is after b
 function newTransactionsFirst(a: TransactionDetails, b: TransactionDetails) {
   return b.addedTime - a.addedTime
@@ -68,25 +68,25 @@ function StatusIcon({ connector }: { connector: AbstractConnector }) {
     return <Identicon />
   } else if (connector === walletconnect) {
     return (
-      <IconWrapper size={16}>
+      <IconWrapper size={12}>
         <img src={WalletConnectIcon} alt={''} />
       </IconWrapper>
     )
   } else if (connector === walletlink) {
     return (
-      <IconWrapper size={16}>
+      <IconWrapper size={12}>
         <img src={CoinbaseWalletIcon} alt={''} />
       </IconWrapper>
     )
   } else if (connector === fortmatic) {
     return (
-      <IconWrapper size={16}>
+      <IconWrapper size={12}>
         <img src={FortmaticIcon} alt={''} />
       </IconWrapper>
     )
   } else if (connector === portis) {
     return (
-      <IconWrapper size={16}>
+      <IconWrapper size={12}>
         <img src={PortisIcon} alt={''} />
       </IconWrapper>
     )
@@ -115,24 +115,28 @@ function Web3StatusInner() {
 
   if (account) {
     return (
-      <Web3StatusConnected id="web3-status-connected" onClick={toggleWalletModal} pending={hasPendingTransactions}>
-        {hasPendingTransactions ? (
-          <RowBetween>
-            <Text>{pending?.length} Pending</Text> <Loader stroke="white" />
-          </RowBetween>
-        ) : (
-          <>
-            {hasSocks ? SOCK : null}
-            <Text>{ENSName || shortenAddress(account)}</Text>
-          </>
-        )}
-        {!hasPendingTransactions && connector && <StatusIcon connector={connector} />}
+      <Web3StatusConnected className={`button gr_white wallet_code`} onClick={toggleWalletModal} pending={hasPendingTransactions}>
+        <span className="col ic">
+          {!hasPendingTransactions && connector && <StatusIcon connector={connector} />}
+        </span>
+        <span className="col">
+          {hasPendingTransactions ? (
+            <RowBetween>
+              <Text>{pending?.length} Pending</Text> <Loader stroke="white" />
+            </RowBetween>
+          ) : (
+            <>
+              {hasSocks ? SOCK : null}
+              <Text>{ENSName || shortenAddress(account)}</Text>
+            </>
+          )}
+        </span>
       </Web3StatusConnected>
     )
   } else if (error) {
     return (
       <Web3StatusError onClick={toggleWalletModal}>
-        <NetworkIcon />
+        {/* <NetworkIcon /> */}
         <Text>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error'}</Text>
       </Web3StatusError>
     )

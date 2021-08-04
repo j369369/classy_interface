@@ -24,14 +24,9 @@ export default function Header() {
 					<i className="fas fa-bars"></i>
 				</article>
 				<article className="logo">
-          <StyledNavLink to={'/swap'}>
-            <img src={Logo} alt="logo" />
-          </StyledNavLink>
-        </article>
-				<article className="headerM_wallet">
-					<button type="button" className="headerM_wallet_btn">
-						<i className="fas fa-wallet"></i>
-					</button>
+					<StyledNavLink to={'/swap'}>
+					<img src={Logo} alt="logo" />
+					</StyledNavLink>
 				</article>
 			</section>
 		</header>
