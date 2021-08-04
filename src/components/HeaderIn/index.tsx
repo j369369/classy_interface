@@ -13,7 +13,7 @@ const fn_btnHeaderOpen = () => {
   const gsapHeader = gsap.timeline();
     gsapHeader
     .to("#header", { className: "+=active", ease: "expo" })
-    .to("#headerBg", { display:"block", ease: "expo" }, '<');
+    .to("#headerBg", { display:"block", ease: "expo" }, '<')
 }
 
 export default function Header() {

@@ -97,44 +97,19 @@ const fn_btnHeaderClose = () => {
     .to("#header", { className: "", ease: "power4" })
     .to("#headerBg", { display:"none" , ease: "power4"}, '-=1');
 }
-/*
-const gfn_mouseParallax = (
-  contentEl: any, // Relative Element id and Class Name
-  positionEl: any,   // Absolute Element id and Class Name
-  positionY: string, // top, bottom
-  positionX: string, // left, right
-  num_y: number, //number to move, 'top' and 'bottom'
-  num_x: number  //number to move, 'left' and 'right'
-) => {
 
-  const _contentEl = document.querySelector(contentEl)
-  const _positionEl = document.querySelector(positionEl)
-  const _elStyle = _positionEl.style
+const fn_mouseParallax = (e: any) => {
+  let mouseX = e.pageX / 2
+  let mouseY = e.pageY / 2
 
-  _contentEl.addEventListener('mousemove', function fn_mouseMove(e: any) {
-    const mouseX = e.pageX / 2
-    const mouseY = e.pageY / 2
-
-    if (positionY == 'top') {
-      _elStyle.marginTop = mouseY / num_y + 'px'
-    } else {
-      _elStyle.marginBottom = mouseY / num_y + 'px'
-    }
-
-    if (positionX == 'left') {
-      _elStyle.marginLeft = mouseX / num_x + 'px'
-    } else {
-      _elStyle.marginRight = mouseX / num_x + 'px'
-    }
-  })
+  const mouseParallax = gsap.timeline();
+  mouseParallax
+    .to(".bg_blue_circle_01", { marginTop: (mouseY / 40), marginLeft: (mouseX / -40), duration: 0.5, ease: "expo"})
+    .to(".bg_pink_circle_01", { marginTop: (mouseY / -60), marginRight: (mouseX / -60), duration: 0.5, ease: "expo"}, '-=1')
+    .to(".bg_pink_circle_02", { marginTop: (mouseY / 90), marginRight: (mouseX / 90), duration: 0.5, ease: "expo"}, '-=1')
+    .to(".bg_white_circle_01", { marginBottom: (mouseY / 90), marginLeft: (mouseX / 90), duration: 0.5, ease: "expo"}, '-=1')
+    .to(".bg_white_ring_01", { marginBottom: (mouseY / -30), marginLeft: (mouseX / -30), duration: 0.5, ease: "expo"}, '-=1')
 }
-
-gfn_mouseParallax ("html", ".bg_blue_circle_01", "top", "left", 50, -50 );
-gfn_mouseParallax ("html", ".bg_pink_circle_01", "top", "right", -70, -70 );
-gfn_mouseParallax ("html", ".bg_pink_circle_02", "top", "right", 100, 100);
-gfn_mouseParallax ("html", ".bg_white_circle_01", "bottom", "left", 120, 120);
-gfn_mouseParallax ("html", ".bg_white_ring_01", "bottom", "left", -40, -40);
-*/
 /* ------- */
 
 function TopLevelModals() {
@@ -149,7 +124,7 @@ export default function App() {
       <Route component={GoogleAnalyticsReporter} />
       <Route component={DarkModeQueryParamReader} />
       <BgImgsBox />
-      <div id="wrap">
+      <div id="wrap" onMouseMove={fn_mouseParallax}>
         <HeaderIn />
         <header id="headerBg" className="close_btn" onClick={fn_btnHeaderClose}></header>
         <Header />

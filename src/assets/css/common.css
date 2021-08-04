@@ -109,11 +109,11 @@ body { position: relative; z-index: 0; }
 #bgImgsBox .bg_contents_top_left, .bg_contents_bottom_right {opacity: .6; position: fixed; width: 100%; max-width: 32.5rem; z-index: -1; }
 #bgImgsBox .bg_contents_top_left { top: -2%; left: -2%; }
 #bgImgsBox .bg_contents_bottom_right { bottom: -5%; right: -2%; }
-#bgImgsBox .bg_blue_circle_01 { position: fixed; top: 10%; left: 40%; width: 100%; max-width: 8.75rem; z-index: -1; }
-#bgImgsBox .bg_pink_circle_01 { position: fixed; top: 10%; right: 10%; width: 100%; max-width: 13.75rem; z-index: -1; }
-#bgImgsBox .bg_pink_circle_02 { position: fixed; top: 3%; right: 3%; width: 100%; max-width: 3.125rem; z-index: -1; }
-#bgImgsBox .bg_white_circle_01 { position: fixed; bottom: 12%; left: 9%; width: 100%; max-width: 6.25rem; z-index: -1; }
-#bgImgsBox .bg_white_ring_01 { position: fixed; bottom: 7%; left: 7%; width: 100%; max-width: 11.25rem; z-index: -2; }
+#bgImgsBox .bg_blue_circle_01 { position: fixed; top: 10%; left: 40%; width: 100%; max-width: 8.75rem; z-index: -1; transition: all .1s; }
+#bgImgsBox .bg_pink_circle_01 { position: fixed; top: 10%; right: 10%; width: 100%; max-width: 13.75rem; z-index: -1; transition: all .1s; }
+#bgImgsBox .bg_pink_circle_02 { position: fixed; top: 3%; right: 3%; width: 100%; max-width: 3.125rem; z-index: -1; transition: all .1s; }
+#bgImgsBox .bg_white_circle_01 { position: fixed; bottom: 12%; left: 9%; width: 100%; max-width: 6.25rem; z-index: -1; transition: all .1s; }
+#bgImgsBox .bg_white_ring_01 { position: fixed; bottom: 7%; left: 7%; width: 100%; max-width: 11.25rem; z-index: -2; transition: all .1s; }
 
 
 /* header */
