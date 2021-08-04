@@ -102,7 +102,10 @@ body { position: relative; z-index: 0; }
 .button.blue04 { background: var(--blue-04); }
 .button.blue05 { background: var(--blue-05); }
 .button.blue06 { background: var(--blue-06); }
-.button.gr_white { background: var(--bg-gradient-white-03); color: var(--black); }
+.button.gr_white { background: var(--bg-gradient-white-03); color: var(--black); box-shadow: var(--bg-box-shadow); }
+
+.card { background: var(--bg-gradient-white-03); box-shadow: var(--bg-box-shadow); }
+
 
 /* bg */
 #bgImgsBox {  }
