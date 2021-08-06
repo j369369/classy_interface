@@ -8,6 +8,13 @@
 #swapFrom .swap_input_box input::placeholder,
 #swapTo .swap_input_box input::placeholder { opacity: .5; color: var(--white); }
 
+#swapRate { padding: 1rem; background: var(--bg-gradient-white-03); box-shadow: var(--bg-box-shadow); border-radius: 0.5rem; }
+
+#swapInfoTextBox { margin: 1rem; }
+#swapInfoTextBox .swap_info_list {  }
+#swapInfoTextBox .swap_info_list .li { margin-bottom: 0.5rem; color: var(--black); font-size: 0.875rem; }
+
+
 /* Laptop ----------------------------------------------------- */
 @media (min-width: 768px) {
 
@@ -20,7 +27,7 @@
 
 /* Mobile ----------------------------------------------------- */
 @media(max-width: 480px) {
-	
+	#swapInfoList .li { font-size: 0.75rem; }
 }
 
 

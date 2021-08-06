@@ -116,6 +116,10 @@ body { position: relative; z-index: 0; }
 .text.green { color: var(--green); }
 .text.yellow { color: var(--yellow); }
 .text.aqua { color: var(--aqua); }
+.text.blue03 { color: var(--blue-03); }
+.text.blue04 { color: var(--blue-04); }
+.text.blue05 { color: var(--blue-05); }
+.text.blue06 { color: var(--blue-06); }
 
 /* bg */
 #bgImgsBox {  }

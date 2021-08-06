@@ -5,7 +5,7 @@ import { darken, lighten } from 'polished'
 import { RowBetween } from '../Row'
 import { ChevronDown } from 'react-feather'
 import { Button as RebassButton, ButtonProps } from 'rebass/styled-components'
-
+/*
 const Base = styled(RebassButton)<{
   padding?: string
   width?: string
@@ -16,7 +16,7 @@ const Base = styled(RebassButton)<{
   width: ${({ width }) => (width ? width : '100%')};
   font-weight: 500;
   text-align: center;
-  border-radius: 20px;
+  border-radius: 1rem;
   border-radius: ${({ borderRadius }) => borderRadius && borderRadius};
   outline: none;
   border: 1px solid transparent;
@@ -37,7 +37,38 @@ const Base = styled(RebassButton)<{
     user-select: none;
   }
 `
+*/
+const Base = styled(RebassButton)<{
+  padding?: string
+  width?: string
+  borderRadius?: string
+  altDisabledStyle?: boolean
+}>`
+  padding: ${({ padding }) => (padding ? padding : '18px')};
+  width: ${({ width }) => (width ? width : '100%')};
+  font-weight: 500;
+  text-align: center;
+  border-radius: 0.5rem;
+  outline: none;
+  border: 1px solid transparent;
+  color: white;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  &:disabled {
+    cursor: auto;
+  }
 
+  > * {
+    user-select: none;
+  }
+`
+/*
 export const ButtonPrimary = styled(Base)`
   background-color: ${({ theme }) => theme.primary1};
   color: white;
@@ -57,6 +88,20 @@ export const ButtonPrimary = styled(Base)`
       altDisabledStyle ? (disabled ? theme.bg3 : theme.primary1) : theme.bg3};
     color: ${({ theme, altDisabledStyle, disabled }) =>
       altDisabledStyle ? (disabled ? theme.text3 : 'white') : theme.text3};
+    cursor: auto;
+    box-shadow: none;
+    border: 1px solid transparent;
+    outline: none;
+    opacity: ${({ altDisabledStyle }) => (altDisabledStyle ? '0.5' : '1')};
+  }
+`
+*/
+export const ButtonPrimary = styled(Base)`
+  background-color: var(--blue-04);
+  color: white;
+  &:disabled {
+    background-color: var(--blue-02);
+    color: var(--blue-03);
     cursor: auto;
     box-shadow: none;
     border: 1px solid transparent;
@@ -302,7 +347,7 @@ export function ButtonDropdown({ disabled = false, children, ...rest }: { disabl
     <ButtonPrimary {...rest} disabled={disabled}>
       <RowBetween>
         <div style={{ display: 'flex', alignItems: 'center' }}>{children}</div>
-        <ChevronDown size={24} />
+        <ChevronDown size={18} />
       </RowBetween>
     </ButtonPrimary>
   )
@@ -313,7 +358,7 @@ export function ButtonDropdownGrey({ disabled = false, children, ...rest }: { di
     <ButtonGray {...rest} disabled={disabled} style={{ borderRadius: '20px' }}>
       <RowBetween>
         <div style={{ display: 'flex', alignItems: 'center' }}>{children}</div>
-        <ChevronDown size={24} />
+        <ChevronDown size={18} />
       </RowBetween>
     </ButtonGray>
   )
@@ -324,7 +369,7 @@ export function ButtonDropdownLight({ disabled = false, children, ...rest }: { d
     <ButtonOutlined {...rest} disabled={disabled}>
       <RowBetween>
         <div style={{ display: 'flex', alignItems: 'center' }}>{children}</div>
-        <ChevronDown size={24} />
+        <ChevronDown size={18} />
       </RowBetween>
     </ButtonOutlined>
   )

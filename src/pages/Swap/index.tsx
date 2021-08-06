@@ -43,7 +43,7 @@ import { LinkStyledButton, TYPE } from '../../theme'
 import { maxAmountSpend } from '../../utils/maxAmountSpend'
 import { computeTradePriceBreakdown, warningSeverity } from '../../utils/prices'
 import AppBody from '../AppBody'
-import { ClickableText } from '../Pool/styleds'
+//import { ClickableText } from '../Pool/styleds'
 import Loader from '../../components/Loader'
 import { useIsTransactionUnsupported } from 'hooks/Trades'
 import UnsupportedCurrencyFooter from 'components/swap/UnsupportedCurrencyFooter'
@@ -58,6 +58,7 @@ const ChangeIcon = styled.div`
   background: var(--white);
   border-radius: 10rem;
   box-shadow: var(--bg-box-shadow);
+  cursor: pointer;
 
   img {
     position: absolute;
@@ -67,6 +68,13 @@ const ChangeIcon = styled.div`
     left: 0;
     margin: auto;
   }
+`
+
+const SlippageText = styled.strong`
+  font-weight: 500;
+`
+const SlippageText2 = styled.strong`
+  font-weight: 700;
 `
 
 export default function Swap() {
@@ -350,24 +358,14 @@ export default function Swap() {
             />
             <AutoColumn justify="space-between">
               <AutoRow justify={isExpertMode ? 'space-between' : 'center'} id="swapIcon">
-                <ArrowWrapper clickable>
-                  {/* <ArrowDown
-                    size="16"
-                    onClick={() => {
-                      setApprovalSubmitted(false) // reset 2 step UI for approvals
-                      onSwitchTokens()
-                    }}
-                    color={currencies[Field.INPUT] && currencies[Field.OUTPUT] ? theme.primary1 : theme.text2}
-                  /> */}
-                  <ChangeIcon
+                <ChangeIcon
                     onClick={() => {
                       setApprovalSubmitted(false) // reset 2 step UI for approvals
                       onSwitchTokens()
                     }}
                   >
-                    <img src={IcChange} alt="logo" />
-                  </ChangeIcon>
-                </ArrowWrapper>
+                  <img src={IcChange} alt="logo" />
+                </ChangeIcon>
                 {recipient === null && !showWrap && isExpertMode ? (
                   <LinkStyledButton id="add-recipient-button" onClick={() => onChangeRecipient('')}>
                     + Add a send (optional)
@@ -402,38 +400,40 @@ export default function Swap() {
 
             {showWrap ? null : (
               <Card padding={showWrap ? '.25rem 1rem 0 1rem' : '0px'} borderRadius={'20px'}>
-                <AutoColumn gap="8px" style={{ padding: '0 16px' }}>
+                <AutoColumn gap="8px">
                   {Boolean(trade) && (
-                    <RowBetween align="center">
-                      <Text fontWeight={500} fontSize={14} color={theme.text2}>
+                    <RowBetween align="center" id={`swapRate`} >
+                      <Text className={`text blue04`} fontWeight={500} fontSize={14}>
                         Price
                       </Text>
-                      <TradePrice
-                        price={trade?.executionPrice}
-                        showInverted={showInverted}
-                        setShowInverted={setShowInverted}
-                      />
-                    </RowBetween>
-                  )}
-                  {allowedSlippage !== INITIAL_ALLOWED_SLIPPAGE && (
-                    <RowBetween align="center">
-                      <ClickableText fontWeight={500} fontSize={14} color={theme.text2} onClick={toggleSettings}>
-                        Slippage Tolerance
-                      </ClickableText>
-                      <ClickableText fontWeight={500} fontSize={14} color={theme.text2} onClick={toggleSettings}>
-                        {allowedSlippage / 100}%
-                      </ClickableText>
+                        <TradePrice
+                          price={trade?.executionPrice}
+                          showInverted={showInverted}
+                          setShowInverted={setShowInverted}
+                        />
                     </RowBetween>
                   )}
                 </AutoColumn>
               </Card>
             )}
           </AutoColumn>
-          {!swapIsUnsupported ? (
-          <AdvancedSwapDetailsDropdown trade={trade} />
-          ) : (
-            <UnsupportedCurrencyFooter show={swapIsUnsupported} currencies={[currencies.INPUT, currencies.OUTPUT]} />
-          )}
+          <div id="swapInfoTextBox">
+            {allowedSlippage !== INITIAL_ALLOWED_SLIPPAGE && (
+              <RowBetween align="center" className={`swap_info_list`}>
+                <SlippageText className={`li`} onClick={toggleSettings}>
+                  Slippage Tolerance
+                </SlippageText>
+                <SlippageText2 className={`li`} onClick={toggleSettings}>
+                  {allowedSlippage / 100}%
+                </SlippageText2>
+              </RowBetween>
+            )}
+            {!swapIsUnsupported ? (
+            <AdvancedSwapDetailsDropdown trade={trade} />
+            ) : (
+              <UnsupportedCurrencyFooter show={swapIsUnsupported} currencies={[currencies.INPUT, currencies.OUTPUT]} />
+            )}
+          </div>
           <BottomGrouping>
             {swapIsUnsupported ? (
               <ButtonPrimary disabled={true}>
