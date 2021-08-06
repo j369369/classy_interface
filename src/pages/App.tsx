@@ -41,6 +41,7 @@ import bgWhiteCircle01 from '../assets/images/fo/bg_white_circle_01.png'
 import bgWhiteRing01 from '../assets/images/fo/bg_white_ring_01.png'
 
 import '../assets/css/common.css'
+import '../assets/css/css.css'
 import '../assets/vendors/fontawesome-free-5.15.3-web 2/css/all.min.css'
 import gsap from 'gsap'
 

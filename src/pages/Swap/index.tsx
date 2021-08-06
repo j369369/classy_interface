@@ -3,7 +3,7 @@ import React, { useCallback, useContext, useEffect, useMemo, useState } from 're
 import { ArrowDown } from 'react-feather'
 import ReactGA from 'react-ga'
 import { Text } from 'rebass'
-import { ThemeContext } from 'styled-components'
+import styled, { ThemeContext } from 'styled-components'
 import AddressInputPanel from '../../components/AddressInputPanel'
 import { ButtonError, ButtonLight, ButtonPrimary, ButtonConfirmed } from '../../components/Button'
 import Card, { GreyCard } from '../../components/Card'
@@ -48,6 +48,26 @@ import Loader from '../../components/Loader'
 import { useIsTransactionUnsupported } from 'hooks/Trades'
 import UnsupportedCurrencyFooter from 'components/swap/UnsupportedCurrencyFooter'
 import { isTradeBetter } from 'utils/trades'
+import IcChange from '../../assets/images/fo/ic_change.svg'
+
+const ChangeIcon = styled.div`
+  position: relative;
+  margin-top: -1.5rem;
+  width: 3.125rem;
+  height: 3.125rem;
+  background: var(--white);
+  border-radius: 10rem;
+  box-shadow: var(--bg-box-shadow);
+
+  img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+  }
+`
 
 export default function Swap() {
   const loadedUrlParams = useDefaultsFromURLSearch()
@@ -326,19 +346,27 @@ export default function Swap() {
               onMax={handleMaxInput}
               onCurrencySelect={handleInputSelect}
               otherCurrency={currencies[Field.OUTPUT]}
-              id="swap-currency-input"
+              id="swapFrom"
             />
             <AutoColumn justify="space-between">
-              <AutoRow justify={isExpertMode ? 'space-between' : 'center'} style={{ padding: '0 1rem' }}>
+              <AutoRow justify={isExpertMode ? 'space-between' : 'center'} id="swapIcon">
                 <ArrowWrapper clickable>
-                  <ArrowDown
+                  {/* <ArrowDown
                     size="16"
                     onClick={() => {
                       setApprovalSubmitted(false) // reset 2 step UI for approvals
                       onSwitchTokens()
                     }}
                     color={currencies[Field.INPUT] && currencies[Field.OUTPUT] ? theme.primary1 : theme.text2}
-                  />
+                  /> */}
+                  <ChangeIcon
+                    onClick={() => {
+                      setApprovalSubmitted(false) // reset 2 step UI for approvals
+                      onSwitchTokens()
+                    }}
+                  >
+                    <img src={IcChange} alt="logo" />
+                  </ChangeIcon>
                 </ArrowWrapper>
                 {recipient === null && !showWrap && isExpertMode ? (
                   <LinkStyledButton id="add-recipient-button" onClick={() => onChangeRecipient('')}>
@@ -355,7 +383,7 @@ export default function Swap() {
               currency={currencies[Field.OUTPUT]}
               onCurrencySelect={handleOutputSelect}
               otherCurrency={currencies[Field.INPUT]}
-              id="swap-currency-output"
+              id="swapTo"
             />
 
             {recipient !== null && !showWrap ? (
@@ -401,6 +429,11 @@ export default function Swap() {
               </Card>
             )}
           </AutoColumn>
+          {!swapIsUnsupported ? (
+          <AdvancedSwapDetailsDropdown trade={trade} />
+          ) : (
+            <UnsupportedCurrencyFooter show={swapIsUnsupported} currencies={[currencies.INPUT, currencies.OUTPUT]} />
+          )}
           <BottomGrouping>
             {swapIsUnsupported ? (
               <ButtonPrimary disabled={true}>
@@ -507,11 +540,6 @@ export default function Swap() {
           </BottomGrouping>
         </Wrapper>
       </AppBody>
-      {!swapIsUnsupported ? (
-        <AdvancedSwapDetailsDropdown trade={trade} />
-      ) : (
-        <UnsupportedCurrencyFooter show={swapIsUnsupported} currencies={[currencies.INPUT, currencies.OUTPUT]} />
-      )}
     </>
   )
 }

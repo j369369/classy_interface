@@ -3,9 +3,10 @@ import styled from 'styled-components'
 
 export const BodyWrapper = styled.div`
   position: relative;
-  max-width: 420px;
+  max-width: 26.25rem;
   width: 100%;
-  background: var(--bg-gradient-white-03);
+  background: var(--bg-gradient-white-02);
+  backdrop-filter: var(--bg-filter-blur);
   border-radius: 1rem;
 `
 

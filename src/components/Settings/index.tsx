@@ -85,12 +85,12 @@ const StyledMenu = styled.div`
   text-align: left;
 `
 
-const MenuFlyout = styled.span`
+const MenuFlyout = styled.div`
   min-width: 20.125rem;
-  background-color: ${({ theme }) => theme.bg2};
-  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
-    0px 24px 32px rgba(0, 0, 0, 0.01);
-  border-radius: 12px;
+  background: var(--bg-gradient-white-02);
+  backdrop-filter: var(--bg-filter-blur);
+  box-shadow: var(--bg-box-shadow);
+  border-radius: 1rem;
   display: flex;
   flex-direction: column;
   font-size: 1rem;

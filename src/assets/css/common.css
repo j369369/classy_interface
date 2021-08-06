@@ -27,6 +27,7 @@
 	--lightBlue-06: #166191;
 
 	--red: #f33;
+	--yellow: #ffef86;
 	--green: #21CC70;
 	--aqua: #21B9CC;
 
@@ -106,6 +107,15 @@ body { position: relative; z-index: 0; }
 
 .card { background: var(--bg-gradient-white-03); box-shadow: var(--bg-box-shadow); }
 
+/* text */
+.text {  }
+.text.underline { text-decoration: underline; }
+.text.white { color: var(--white); }
+.text.balck { color: var(--black); }
+.text.red { color: var(--red); }
+.text.green { color: var(--green); }
+.text.yellow { color: var(--yellow); }
+.text.aqua { color: var(--aqua); }
 
 /* bg */
 #bgImgsBox {  }
@@ -129,7 +139,7 @@ body { position: relative; z-index: 0; }
 #header .header_in .logo { margin: 2rem auto; width: 8rem; }
 #header .header_in .logo img { width: inherit; }
 #header .header_in .menu_list { width: 100%; }
-#header .header_in .menu_list .li { width: 100%; height: 3.125rem; background: var(--bg-gradient-white-03); color: var(--blue-04); }
+#header .header_in .menu_list .li { width: 100%; height: 3.125rem; background: var(--bg-gradient-white-03); backdrop-filter: var(--bg-filter-blur); color: var(--blue-04); }
 #header .header_in .menu_list .li:first-child a { border-top: 0.0625rem solid var(--blue-01); }
 #header .header_in .menu_list .li a { display: block; padding: 1rem; width: inherit; height: inherit; border-bottom: 0.0625rem solid var(--blue-01); }
 #header .header_in .menu_list .li a .text { margin-left: 0.5rem; font-weight: 500; }

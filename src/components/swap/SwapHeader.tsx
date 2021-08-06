@@ -22,7 +22,7 @@ const Setting = styled.span`
 
   svg > * {
     color: var(--blue-05);
-    fill: var(--blue-05);
+    stroke: var(--blue-05);
   }
 `
 
