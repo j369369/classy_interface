@@ -26,7 +26,7 @@ const ToggleElement = styled.span<{ isActive?: boolean; bgColor?: string }>`
 
 const StatusText = styled(TYPE.main)<{ isActive?: boolean }>`
   margin: 0 10px;
-  width: 24px;
+  //width: 24px;
   color: ${({ theme, isActive }) => (isActive ? theme.text1 : theme.text3)};
 `
 

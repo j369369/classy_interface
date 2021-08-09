@@ -118,13 +118,13 @@ export function ImportToken({ tokens, onBack, onDismiss, handleCurrencySelect }:
         >
           <AutoColumn justify="center" style={{ textAlign: 'center', gap: '16px', marginBottom: '12px' }}>
             <AlertTriangle stroke={fromLists ? theme.yellow2 : theme.red1} size={32} />
-            <TYPE.body fontWeight={600} fontSize={20} color={fromLists ? theme.yellow2 : theme.red1}>
+            <TYPE.body fontWeight={600} fontSize={18} color={fromLists ? theme.yellow2 : theme.red1}>
               Trade at your own risk!
             </TYPE.body>
           </AutoColumn>
 
           <AutoColumn style={{ textAlign: 'center', gap: '16px', marginBottom: '12px' }}>
-            <TYPE.body fontWeight={400} color={fromLists ? theme.yellow2 : theme.red1}>
+            <TYPE.body fontWeight={400} fontSize={14} color={fromLists ? theme.yellow2 : theme.red1}>
               Anyone can create a token, including creating fake versions of existing tokens that claim to represent
               projects.
             </TYPE.body>
@@ -140,7 +140,7 @@ export function ImportToken({ tokens, onBack, onDismiss, handleCurrencySelect }:
               checked={confirmed}
               onChange={() => setConfirmed(!confirmed)}
             />
-            <TYPE.body ml="10px" fontSize="16px" color={fromLists ? theme.yellow2 : theme.red1} fontWeight={500}>
+            <TYPE.body ml="10px" fontSize="16px" /*color={fromLists ? theme.yellow2 : theme.red1}*/ fontWeight={500}>
               I understand
             </TYPE.body>
           </AutoRow>
@@ -148,7 +148,7 @@ export function ImportToken({ tokens, onBack, onDismiss, handleCurrencySelect }:
         <ButtonPrimary
           disabled={!confirmed}
           altDisabledStyle={true}
-          borderRadius="20px"
+          borderRadius="0.5rem"
           padding="10px 1rem"
           onClick={() => {
             tokens.map(token => addToken(token))

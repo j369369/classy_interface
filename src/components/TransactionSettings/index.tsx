@@ -221,7 +221,7 @@ export default function SlippageTabs({ rawSlippage, setRawSlippage, deadline, se
           <RowBetween
             style={{
               fontSize: '14px',
-              paddingTop: '7px',
+              paddingTop: '0',
               color: slippageError === SlippageError.InvalidInput ? 'red' : '#F3841E'
             }}
           >
