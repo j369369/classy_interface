@@ -8,12 +8,16 @@
 #swapFrom .swap_input_box input::placeholder,
 #swapTo .swap_input_box input::placeholder { opacity: .5; color: var(--white); }
 
+#swapIcon { position: relative; }
 #swapRate { padding: 1rem; background: var(--bg-gradient-white-03); box-shadow: var(--bg-box-shadow); border-radius: 0.5rem; }
 
 #swapInfoTextBox { margin: 1rem; }
 #swapInfoTextBox .swap_info_list {  }
 #swapInfoTextBox .swap_info_list .li { margin-bottom: 0.5rem; color: var(--black); font-size: 0.875rem; }
 
+#optionCustom { position: relative; width: 100%; }
+#optionCustom .input_min { padding-right: 30px; }
+#optionCustom .txt_min { position: absolute; top: 0.5rem; right: 0.875rem; }
 
 /* Laptop ----------------------------------------------------- */
 @media (min-width: 768px) {

@@ -9,12 +9,26 @@ const Wrapper = styled(AutoColumn)``
 const Grouping = styled(RowBetween)`
   width: 50%;
 `
-
+/*
 const Circle = styled.div<{ confirmed?: boolean; disabled?: boolean }>`
   min-width: 20px;
   min-height: 20px;
   background-color: ${({ theme, confirmed, disabled }) =>
     disabled ? theme.bg4 : confirmed ? theme.green1 : theme.primary1};
+  border-radius: 50%;
+  color: ${({ theme }) => theme.white};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 8px;
+  font-size: 12px;
+`
+*/
+const Circle = styled.div<{ confirmed?: boolean; disabled?: boolean }>`
+  min-width: 20px;
+  min-height: 20px;
+  background-color: ${({ theme, confirmed, disabled }) =>
+    disabled ? theme.bg4 : confirmed ? theme.green1 : `var(--blue-04)`};
   border-radius: 50%;
   color: ${({ theme }) => theme.white};
   display: flex;
@@ -37,7 +51,7 @@ const Connector = styled.div<{ prevConfirmed?: boolean; disabled?: boolean }>`
   background: linear-gradient(
     90deg,
     ${({ theme, prevConfirmed, disabled }) =>
-        disabled ? theme.bg4 : transparentize(0.5, prevConfirmed ? theme.green1 : theme.primary1)}
+        disabled ? theme.bg4 : transparentize(0.5, prevConfirmed ? theme.green1 : "#597EA5")}
       0%,
     ${({ theme, prevConfirmed, disabled }) => (disabled ? theme.bg4 : prevConfirmed ? theme.primary1 : theme.bg4)} 80%
   );

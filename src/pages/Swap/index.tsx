@@ -356,8 +356,8 @@ export default function Swap() {
               otherCurrency={currencies[Field.OUTPUT]}
               id="swapFrom"
             />
-            <AutoColumn justify="space-between">
-              <AutoRow justify={isExpertMode ? 'space-between' : 'center'} id="swapIcon">
+            <AutoColumn justify="center">
+              <AutoRow justify="center" /*justify={isExpertMode ? 'space-between' : 'center'}*/ id="swapIcon">
                 <ChangeIcon
                     onClick={() => {
                       setApprovalSubmitted(false) // reset 2 step UI for approvals
@@ -367,7 +367,7 @@ export default function Swap() {
                   <img src={IcChange} alt="logo" />
                 </ChangeIcon>
                 {recipient === null && !showWrap && isExpertMode ? (
-                  <LinkStyledButton id="add-recipient-button" onClick={() => onChangeRecipient('')}>
+                  <LinkStyledButton id="add-recipient-button" onClick={() => onChangeRecipient('')} style={{position: "absolute", top: "-0.5rem", right: 0}}>
                     + Add a send (optional)
                   </LinkStyledButton>
                 ) : null}
@@ -386,11 +386,11 @@ export default function Swap() {
 
             {recipient !== null && !showWrap ? (
               <>
-                <AutoRow justify="space-between" style={{ padding: '0 1rem' }}>
+                <AutoRow justify="center" style={{position: "relative"}}>
                   <ArrowWrapper clickable={false}>
                     <ArrowDown size="16" color={theme.text2} />
                   </ArrowWrapper>
-                  <LinkStyledButton id="remove-recipient-button" onClick={() => onChangeRecipient(null)}>
+                  <LinkStyledButton id="remove-recipient-button" onClick={() => onChangeRecipient(null)} style={{position: "absolute", right: 0}}>
                     - Remove send
                   </LinkStyledButton>
                 </AutoRow>

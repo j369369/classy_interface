@@ -109,7 +109,7 @@ export const ButtonPrimary = styled(Base)`
     opacity: ${({ altDisabledStyle }) => (altDisabledStyle ? '0.5' : '1')};
   }
 `
-
+/*
 export const ButtonLight = styled(Base)`
   background-color: ${({ theme }) => theme.primary5};
   color: ${({ theme }) => theme.primaryText1};
@@ -135,6 +135,16 @@ export const ButtonLight = styled(Base)`
       border: 1px solid transparent;
       outline: none;
     }
+  }
+`
+*/
+export const ButtonLight = styled(Base)`
+  background-color: var(--aqua);
+  color: var(--white);
+  font-size: 16px;
+  font-weight: 500;
+  :disabled {
+    opacity: 0.4;
   }
 `
 

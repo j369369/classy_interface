@@ -1,7 +1,7 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { /*useContext,*/ useRef, useState } from 'react'
 import { Settings, X } from 'react-feather'
 import { Text } from 'rebass'
-import styled, { ThemeContext } from 'styled-components'
+import styled/*, { ThemeContext }*/ from 'styled-components'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { ApplicationModal } from '../../state/application/actions'
 import { useModalOpen, useToggleSettingsMenu } from '../../state/application/hooks'
@@ -73,6 +73,12 @@ const EmojiWrapper = styled.div`
   bottom: -6px;
   right: 0px;
   font-size: 14px;
+
+  span {
+    display: block; 
+    margin: -40px 35px 0 0; 
+    font-size: 24px;
+  }
 `
 
 const StyledMenu = styled.div`
@@ -87,7 +93,7 @@ const StyledMenu = styled.div`
 
 const MenuFlyout = styled.div`
   min-width: 20.125rem;
-  background: var(--bg-gradient-white-02);
+  background: var(--bg-gradient-white-03);
   backdrop-filter: var(--bg-filter-blur);
   box-shadow: var(--bg-box-shadow);
   border-radius: 1rem;
@@ -114,9 +120,8 @@ const ModalContentWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem 0;
-  background-color: ${({ theme }) => theme.bg2};
-  border-radius: 20px;
+  padding: 1rem 0;
+  border-radius: 1rem;
 `
 
 export default function SettingsTab() {
@@ -124,7 +129,7 @@ export default function SettingsTab() {
   const open = useModalOpen(ApplicationModal.SETTINGS)
   const toggle = useToggleSettingsMenu()
 
-  const theme = useContext(ThemeContext)
+  //const theme = useContext(ThemeContext)
   const [userSlippageTolerance, setUserslippageTolerance] = useUserSlippageTolerance()
 
   const [ttl, setTtl] = useUserTransactionTTL()
@@ -143,21 +148,22 @@ export default function SettingsTab() {
     <StyledMenu ref={node as any}>
       <Modal isOpen={showConfirmation} onDismiss={() => setShowConfirmation(false)} maxHeight={100}>
         <ModalContentWrapper>
-          <AutoColumn gap="lg">
-            <RowBetween style={{ padding: '0 2rem' }}>
+          <AutoColumn gap="md" >
+            <RowBetween style={{ padding: '0 1rem', textAlign: 'center' }}>
               <div />
-              <Text fontWeight={500} fontSize={20}>
-                Are you sure?
+              <Text fontWeight={500} fontSize={16}>
+                {/* Are you sure? */}
+                Confirm expert mode
               </Text>
               <StyledCloseIcon onClick={() => setShowConfirmation(false)} />
             </RowBetween>
             <Break />
-            <AutoColumn gap="lg" style={{ padding: '0 2rem' }}>
-              <Text fontWeight={500} fontSize={20}>
+            <AutoColumn gap="md" style={{ padding: '0 1rem', textAlign: 'center' }}>
+              <Text fontWeight={400} fontSize={14}>
                 Expert mode turns off the confirm transaction prompt and allows high slippage trades that often result
                 in bad rates and lost funds.
               </Text>
-              <Text fontWeight={600} fontSize={20}>
+              <Text fontWeight={700} fontSize={14}>
                 ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING.
               </Text>
               <ButtonError
@@ -170,7 +176,7 @@ export default function SettingsTab() {
                   }
                 }}
               >
-                <Text fontSize={20} fontWeight={500} id="confirm-expert-mode">
+                <Text fontSize={16} fontWeight={500} id="confirm-expert-mode">
                   Turn On Expert Mode
                 </Text>
               </ButtonError>
@@ -205,7 +211,7 @@ export default function SettingsTab() {
             </Text>
             <RowBetween>
               <RowFixed>
-                <TYPE.black fontWeight={400} fontSize={14} color={theme.text2}>
+                <TYPE.black fontWeight={400} fontSize={14}>
                   Toggle Expert Mode
                 </TYPE.black>
                 <QuestionHelper text="Bypasses confirmation modals and allows high slippage trades. Use at your own risk." />
@@ -228,7 +234,7 @@ export default function SettingsTab() {
             </RowBetween>
             <RowBetween>
               <RowFixed>
-                <TYPE.black fontWeight={400} fontSize={14} color={theme.text2}>
+                <TYPE.black fontWeight={400} fontSize={14}>
                   Disable Multihops
                 </TYPE.black>
                 <QuestionHelper text="Restricts swaps to direct pairs only." />
