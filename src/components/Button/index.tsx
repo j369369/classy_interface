@@ -44,7 +44,7 @@ const Base = styled(RebassButton)<{
   borderRadius?: string
   altDisabledStyle?: boolean
 }>`
-  padding: ${({ padding }) => (padding ? padding : '18px')};
+  padding: ${({ padding }) => (padding ? padding : '0.75rem')};
   width: ${({ width }) => (width ? width : '100%')};
   font-weight: 500;
   text-align: center;
@@ -97,7 +97,7 @@ export const ButtonPrimary = styled(Base)`
 `
 */
 export const ButtonPrimary = styled(Base)`
-  background-color: var(--blue-04);
+  background-color: var(--lightBlue-03);
   color: white;
   &:disabled {
     background-color: var(--blue-02);
@@ -307,7 +307,7 @@ const ButtonConfirmedStyle = styled(Base)`
     cursor: auto;
   }
 `
-
+/*
 const ButtonErrorStyle = styled(Base)`
   background-color: ${({ theme }) => theme.red1};
   border: 1px solid ${({ theme }) => theme.red1};
@@ -329,6 +329,22 @@ const ButtonErrorStyle = styled(Base)`
     box-shadow: none;
     background-color: ${({ theme }) => theme.red1};
     border: 1px solid ${({ theme }) => theme.red1};
+  }
+`
+*/
+
+const ButtonErrorStyle = styled(Base)`
+  background-color: var(--aqua);
+  border: 1px solid var(--aqua);
+
+  &:disabled {
+    background-color: var(--blue-02);
+    color: var(--blue-03);
+    cursor: auto;
+    box-shadow: none;
+    border: 1px solid transparent;
+    outline: none;
+    opacity: ${({ altDisabledStyle }) => (altDisabledStyle ? '0.5' : '1')};
   }
 `
 

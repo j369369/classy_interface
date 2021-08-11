@@ -5,6 +5,7 @@ import { RowBetween } from '../Row'
 //import { TYPE } from '../../theme'
 
 const StyledSwapHeader = styled.div`
+  position: relative;
   padding: 12px 1rem 0px 1.5rem;
   margin-bottom: -4px;
   width: 100%;
@@ -14,6 +15,10 @@ const SwapHeaderTitle = styled.strong`
   color: var(--blue-05);
   font-size: 1rem;
   font-weight: 500;
+
+  @media(max-width: 768px) {
+    font-size: 0.875rem;
+  }
 `
 
 const Setting = styled.span`

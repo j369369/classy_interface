@@ -33,7 +33,7 @@ const InputContainer = styled.div`
 `
 
 const Input = styled.input<{ error?: boolean }>`
-  font-size: 1.25rem;
+  font-size: 1rem;
   outline: none;
   border: none;
   flex: 1 1 auto;
@@ -96,9 +96,9 @@ export default function AddressInputPanel({
     <InputPanel id={id}>
       <ContainerRow error={error}>
         <InputContainer>
-          <AutoColumn gap="md">
+          <AutoColumn gap="sm">
             <RowBetween>
-              <TYPE.black color={theme.text2} fontWeight={500} fontSize={14}>
+              <TYPE.black color={theme.text2} fontWeight={500} fontSize={12} style={{marginBottom: '0.25rem'}}>
                 Recipient
               </TYPE.black>
               {address && chainId && (

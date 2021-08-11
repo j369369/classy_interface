@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next'
 const InputRow = styled.div<{ selected: boolean }>`
   display: flex;
   align-items: center;
-  padding: ${({ selected }) => (selected ? '0.75rem 0.5rem 0.75rem 1rem' : '0.75rem 0.75rem 0.75rem 1rem')};
+  padding: ${({ selected }) => (selected ? '0.75rem 0.75rem 0.75rem 0.75rem' : '0.75rem 0.75rem 0.75rem 0.75rem')};
   background: transparent;
   color: var(--white);
   `
@@ -40,7 +40,7 @@ const CurrencySelect = styled.button<{ selected: boolean }>`
     span.token-symbol-container {
       color: var(--white)
     }
-  
+
     span.token-symbol-container ~ svg path {
       stroke: var(--white)
     }
@@ -75,20 +75,19 @@ const StyledDropDown = styled(DropDown)<{ selected: boolean }>`
 const InputPanel = styled.div<{ hideInput?: boolean }>``
 
 const Container = styled.div<{ hideInput: boolean }>`
-  padding: 0.5rem;
   border-radius: 0.5rem;
 `
 
 const StyledTokenName = styled.span<{ active?: boolean }>`
-  ${({ active }) => (active ? '  margin: 0 0.25rem 0 0.75rem;' : '  margin: 0 0.25rem 0 0.25rem;')}
-  font-size:  ${({ active }) => (active ? '20px' : '16px')};
-
+  ${({ active }) => (active ? '  margin: 0 0.25rem 0 0.5rem;' : '  margin: 0 0.25rem 0 0.5rem;')}
+  //font-size:  ${({ active }) => (active ? '20px' : '16px')};
+  font-size:  16px;
 `
 
 const StyledBalanceMax = styled.button`
-  margin-top: 0.5rem;
-  margin-left: 0.5rem;
-  height: 1.75rem;
+  margin-top: 0.25rem;
+  margin-left: 0.25rem;
+  height: 1.6rem;
   background-color: var(--yellow);
   border: 1px solid transparent;
   border-radius: 0.5rem;
@@ -96,6 +95,10 @@ const StyledBalanceMax = styled.button`
   font-weight: 700;
   cursor: pointer;
   color: #f5700f;
+
+  @media(max-width: 768px) {
+    
+  }
 `
 
 interface CurrencyInputPanelProps {
@@ -188,7 +191,7 @@ export default function CurrencyInputPanel({
               {pair ? (
                 <DoubleCurrencyLogo currency0={pair.token0} currency1={pair.token1} size={24} margin={true} />
               ) : currency ? (
-                <CurrencyLogo currency={currency} size={'40px'} />
+                <CurrencyLogo currency={currency} size={'32px'} />
               ) : null}
               {pair ? (
                 <StyledTokenName className="pair-name-container">
@@ -213,7 +216,7 @@ export default function CurrencyInputPanel({
               )}
               <NumericalInput
                 className="token-amount-input tran_input"
-                style={{ textAlign: 'right' }}
+                style={{ textAlign: 'right', fontSize: '20px' }}
                 value={value}
                 onUserInput={val => {
                   onUserInput(val)

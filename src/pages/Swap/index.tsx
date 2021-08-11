@@ -68,6 +68,15 @@ const ChangeIcon = styled.div`
     left: 0;
     margin: auto;
   }
+
+  @media(max-width: 768px) {
+    width: 2.75rem;
+    height: 2.75rem;
+
+    img {
+      width: 14px;
+    }
+  }
 `
 
 const SlippageText = styled.strong`
@@ -75,6 +84,24 @@ const SlippageText = styled.strong`
 `
 const SlippageText2 = styled.strong`
   font-weight: 700;
+`
+const AddSendButton = styled.div`
+  position: absolute;
+  top: -8px;
+  right: 0;
+  font-size: 12px;
+
+  * {
+    color: var(--blue-05);
+    font-size: 12px;
+  }
+
+  @media(max-width: 768px) {
+    overflow: hidden;
+    top: -11px;
+    width: 90px;
+    height: 15px;
+  }
 `
 
 export default function Swap() {
@@ -367,9 +394,11 @@ export default function Swap() {
                   <img src={IcChange} alt="logo" />
                 </ChangeIcon>
                 {recipient === null && !showWrap && isExpertMode ? (
-                  <LinkStyledButton id="add-recipient-button" onClick={() => onChangeRecipient('')} style={{position: "absolute", top: "-0.5rem", right: 0}}>
-                    + Add a send (optional)
-                  </LinkStyledButton>
+                  <AddSendButton>
+                    <LinkStyledButton id="add-recipient-button" onClick={() => onChangeRecipient('')}>
+                      + Add a send (optional)
+                    </LinkStyledButton>
+                  </AddSendButton>
                 ) : null}
               </AutoRow>
             </AutoColumn>
@@ -403,8 +432,8 @@ export default function Swap() {
                 <AutoColumn gap="8px">
                   {Boolean(trade) && (
                     <RowBetween align="center" id={`swapRate`} >
-                      <Text className={`text blue04`} fontWeight={500} fontSize={14}>
-                        Price
+                      <Text className={`text blue04`} fontWeight={500} fontSize={14} style={{width: '50px'}}>
+                        Rate
                       </Text>
                         <TradePrice
                           price={trade?.executionPrice}
@@ -485,7 +514,7 @@ export default function Swap() {
                     }
                   }}
                   width="48%"
-                  id="swap-button"
+                  id="swapButton"
                   disabled={
                     !isValid || approval !== ApprovalState.APPROVED || (priceImpactSeverity > 3 && !isExpertMode)
                   }
@@ -513,11 +542,11 @@ export default function Swap() {
                     })
                   }
                 }}
-                id="swap-button"
+                id="swapButton"
                 disabled={!isValid || (priceImpactSeverity > 3 && !isExpertMode) || !!swapCallbackError}
                 error={isValid && priceImpactSeverity > 2 && !swapCallbackError}
               >
-                <Text fontSize={20} fontWeight={500}>
+                <Text fontSize={16} fontWeight={500}>
                   {swapInputError
                     ? swapInputError
                     : priceImpactSeverity > 3 && !isExpertMode

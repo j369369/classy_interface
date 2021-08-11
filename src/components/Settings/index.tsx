@@ -1,7 +1,7 @@
 import React, { /*useContext,*/ useRef, useState } from 'react'
 import { Settings, X } from 'react-feather'
 import { Text } from 'rebass'
-import styled/*, { ThemeContext }*/ from 'styled-components'
+import styled /*, { ThemeContext }*/ from 'styled-components'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { ApplicationModal } from '../../state/application/actions'
 import { useModalOpen, useToggleSettingsMenu } from '../../state/application/hooks'
@@ -124,6 +124,16 @@ const ModalContentWrapper = styled.div`
   border-radius: 1rem;
 `
 
+const ExpertModeIcon = styled.strong`
+  display: inline-block;
+  margin: 6px 6px 0 0
+  width: 80px;
+  color: var(--purple);
+  font-size: 17px;
+`
+
+
+
 export default function SettingsTab() {
   const node = useRef<HTMLDivElement>()
   const open = useModalOpen(ApplicationModal.SETTINGS)
@@ -184,13 +194,16 @@ export default function SettingsTab() {
           </AutoColumn>
         </ModalContentWrapper>
       </Modal>
-      <StyledMenuButton onClick={toggle} id="open-settings-dialog-button">
+      <StyledMenuButton onClick={toggle} id="open -settings-dialog-button">
         <StyledMenuIcon />
         {expertMode ? (
           <EmojiWrapper>
             <span role="img" aria-label="wizard-icon">
-              🧙
+              {/* 🧙 */}
             </span>
+            <ExpertModeIcon>
+              <i className="fas fa-bong"></i>
+            </ExpertModeIcon>
           </EmojiWrapper>
         ) : null}
       </StyledMenuButton>

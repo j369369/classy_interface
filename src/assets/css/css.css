@@ -9,9 +9,9 @@
 #swapTo .swap_input_box input::placeholder { opacity: .5; color: var(--white); }
 
 #swapIcon { position: relative; }
-#swapRate { padding: 1rem; background: var(--bg-gradient-white-03); box-shadow: var(--bg-box-shadow); border-radius: 0.5rem; }
+#swapRate { padding: 0.75rem 1rem; background: var(--bg-gradient-white-03); box-shadow: var(--bg-box-shadow); border-radius: 0.5rem; }
 
-#swapInfoTextBox { margin: 1rem; }
+#swapInfoTextBox { margin: 1rem 0.25rem; }
 #swapInfoTextBox .swap_info_list {  }
 #swapInfoTextBox .swap_info_list .li { margin-bottom: 0.5rem; color: var(--black); font-size: 0.875rem; }
 
@@ -26,12 +26,13 @@
 
 /* Tablet ----------------------------------------------------- */
 @media(max-width: 768px) {
-	
+	#swapFrom .swap_input_box { padding: 0rem;}
+	#swapInfoList .li { font-size: 0.75rem; }
 }
 
 /* Mobile ----------------------------------------------------- */
 @media(max-width: 480px) {
-	#swapInfoList .li { font-size: 0.75rem; }
+	
 }
 
 

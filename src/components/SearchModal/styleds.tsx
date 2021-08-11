@@ -77,7 +77,7 @@ export const MenuItem = styled(RowBetween)`
 export const SearchInput = styled.input`
   position: relative;
   display: flex;
-  padding: 16px;
+  padding: 14px;
   align-items: center;
   width: 100%;
   white-space: nowrap;
@@ -90,14 +90,14 @@ export const SearchInput = styled.input`
   border: 1px solid ${({ theme }) => theme.bg3};
   -webkit-appearance: none;
 
-  font-size: 18px;
+  font-size: 16px;
 
   ::placeholder {
     color: ${({ theme }) => theme.text3};
   }
   transition: border 100ms;
   :focus {
-    border: 1px solid ${({ theme }) => `var(--lightBlue-04)`};
+    border: 1px solid var(--lightBlue-04);
     outline: none;
   }
 `

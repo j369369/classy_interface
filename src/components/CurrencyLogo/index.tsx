@@ -11,23 +11,33 @@ export const getTokenLogoURL = (address: string) =>
   `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${address}/logo.png`
 
 const StyledEthereumLogo = styled.img<{ size: string }>`
-  width: ${({ size }) => size};
-  height: ${({ size }) => size};
+  //width: ${({ size }) => size};
+  //height: ${({ size }) => size};
+  width: 32px;
+  height: 32px;
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.075);
   border-radius: 24px;
 
   @media(max-width: 768px) {
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
   }
 `
 
 const StyledLogo = styled(Logo)<{ size: string }>`
-  width: ${({ size }) => size};
-  height: ${({ size }) => size};
+  // width: ${({ size }) => size};
+  // height: ${({ size }) => size};
+  width: 32px;
+  height: 32px;
   border-radius: ${({ size }) => size};
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.075);
   background-color: ${({ theme }) => theme.white};
+
+  @media(max-width: 768px) {
+    min-widtdh: 24px;
+    width: 24px;
+    height: 24px;
+  }
 `
 
 export default function CurrencyLogo({
