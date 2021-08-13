@@ -202,7 +202,7 @@ export default function SettingsTab() {
               {/* 🧙 */}
             </span>
             <ExpertModeIcon>
-              <i className="fas fa-bong"></i>
+              <i className="fas fa-bong"></i> 
             </ExpertModeIcon>
           </EmojiWrapper>
         ) : null}

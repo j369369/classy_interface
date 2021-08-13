@@ -163,7 +163,7 @@ export const ButtonGray = styled(Base)`
     background-color: ${({ theme, disabled }) => !disabled && darken(0.1, theme.bg4)};
   }
 `
-
+/*
 export const ButtonSecondary = styled(Base)`
   border: 1px solid ${({ theme }) => theme.primary4};
   color: ${({ theme }) => theme.primary1};
@@ -183,6 +183,23 @@ export const ButtonSecondary = styled(Base)`
     box-shadow: 0 0 0 1pt ${({ theme }) => theme.primary4};
     border: 1px solid ${({ theme }) => theme.primary3};
   }
+  &:disabled {
+    opacity: 50%;
+    cursor: auto;
+  }
+  a:hover {
+    text-decoration: none;
+  }
+`
+*/
+export const ButtonSecondary = styled(Base)`
+  border: 1px solid var(--blue-03);
+  color: var(--blue-04);
+  background-color: transparent;
+  font-size: 16px;
+  border-radius: 12px;
+  padding: ${({ padding }) => (padding ? padding : '10px')};
+
   &:disabled {
     opacity: 50%;
     cursor: auto;
@@ -334,8 +351,8 @@ const ButtonErrorStyle = styled(Base)`
 */
 
 const ButtonErrorStyle = styled(Base)`
-  background-color: var(--aqua);
-  border: 1px solid var(--aqua);
+  background-color: var(--blue-04);
+  border: 1px solid var(--blue-04);
 
   &:disabled {
     background-color: var(--blue-02);

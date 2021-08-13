@@ -47,7 +47,7 @@ const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
   padding: 1rem 1rem;
   font-weight: 500;
-  color: ${props => (props.color === 'blue' ? ({ theme }) => theme.primary1 : 'inherit')};
+  //color: ${props => (props.color === 'blue' ? ({ theme }) => theme.primary1 : 'inherit')};
   ${({ theme }) => theme.mediaWidth.upToMedium`
     padding: 1rem;
   `};
@@ -107,6 +107,10 @@ const HoverText = styled.div`
   :hover {
     cursor: pointer;
   }
+`
+
+const LeftArrowIcon = styled.span`
+  margin-right: 0.25rem;
 `
 
 const WALLET_VIEWS = {
@@ -330,7 +334,10 @@ export default function WalletModal({
                 setWalletView(WALLET_VIEWS.ACCOUNT)
               }}
             >
-              Back
+              <LeftArrowIcon>
+                <i className="fas fa-angle-left"></i> 
+              </LeftArrowIcon>
+              <span>Back</span>
             </HoverText>
           </HeaderRow>
         ) : (

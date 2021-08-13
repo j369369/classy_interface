@@ -9,9 +9,9 @@ const InfoCard = styled.button<{ active?: boolean }>`
   border: 1px solid;
   border-radius: 12px;
   width: 100% !important;
-  &:focus {
-    box-shadow: 0 0 0 1px ${({ theme }) => theme.primary1};
-  }
+  // &:focus {
+  //   box-shadow: 0 0 0 1px ${({ theme }) => theme.primary1};
+  // }
   border-color: ${({ theme, active }) => (active ? 'transparent' : theme.bg3)};
 `
 
@@ -34,7 +34,8 @@ const OptionCardClickable = styled(OptionCard as any)<{ clickable?: boolean }>`
   margin-top: 0;
   &:hover {
     cursor: ${({ clickable }) => (clickable ? 'pointer' : '')};
-    border: ${({ clickable, theme }) => (clickable ? `1px solid ${theme.primary1}` : ``)};
+    // border: ${({ clickable, theme }) => (clickable ? `1px solid ${theme.primary1}` : ``)};
+    border: ${({ clickable, theme }) => (clickable ? `1px solid var(--lightBlue-03)` : ``)};
   }
   opacity: ${({ disabled }) => (disabled ? '0.5' : '1')};
 `

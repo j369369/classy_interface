@@ -21,7 +21,7 @@ import Identicon from '../Identicon'
 import { ButtonSecondary } from '../Button'
 import { ExternalLink as LinkIcon } from 'react-feather'
 import { ExternalLink, LinkStyledButton, TYPE } from '../../theme'
-
+/*
 const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
   padding: 1rem 1rem;
@@ -30,6 +30,13 @@ const HeaderRow = styled.div`
   ${({ theme }) => theme.mediaWidth.upToMedium`
     padding: 1rem;
   `};
+`
+*/
+const HeaderRow = styled.div`
+  ${({ theme }) => theme.flexRowNoWrap};
+  padding: 1rem 1rem;
+  font-weight: 500;
+  color: var(--blue-04)
 `
 
 const UpperSection = styled.div`
@@ -54,8 +61,11 @@ const UpperSection = styled.div`
 
 const InfoCard = styled.div`
   padding: 1rem;
-  border: 1px solid ${({ theme }) => theme.bg3};
-  border-radius: 20px;
+  background: var(--bg-gradient-white-02); 
+  backdrop-filter: var(--bg-filter-blur); 
+  box-shadow: var(--bg-box-shadow);
+  //border: 1px solid ${({ theme }) => theme.bg3};
+  border-radius: 1rem;
   position: relative;
   display: grid;
   grid-row-gap: 12px;
@@ -74,11 +84,15 @@ const AccountGroupingRow = styled.div`
     align-items: center;
   }
 `
-
+/*
 const AccountSection = styled.div`
   background-color: ${({ theme }) => theme.bg1};
   padding: 0rem 1rem;
   ${({ theme }) => theme.mediaWidth.upToMedium`padding: 0rem 1rem 1.5rem 1rem;`};
+`
+*/
+const AccountSection = styled.div`
+  padding: 0rem 1rem;
 `
 
 const YourAccount = styled.div`
@@ -98,7 +112,7 @@ const LowerSection = styled.div`
   padding: 1.5rem;
   flex-grow: 1;
   overflow: auto;
-  background-color: ${({ theme }) => theme.bg2};
+  //background-color: ${({ theme }) => theme.bg2};
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 
@@ -162,7 +176,7 @@ const WalletName = styled.div`
   width: initial;
   font-size: 0.825rem;
   font-weight: 500;
-  color: ${({ theme }) => theme.text3};
+  color: var(--blue-03);
 `
 
 const IconWrapper = styled.div<{ size?: number }>`
@@ -395,7 +409,7 @@ export default function AccountDetails({
       {!!pendingTransactions.length || !!confirmedTransactions.length ? (
         <LowerSection>
           <AutoRow mb={'1rem'} style={{ justifyContent: 'space-between' }}>
-            <TYPE.body>Recent Transactions</TYPE.body>
+            <TYPE.black fontSize={14}>Recent Transactions</TYPE.black>
             <LinkStyledButton onClick={clearAllTransactionsCallback}>(clear all)</LinkStyledButton>
           </AutoRow>
           {renderTransactions(pendingTransactions)}

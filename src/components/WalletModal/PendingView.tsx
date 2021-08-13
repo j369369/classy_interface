@@ -39,6 +39,8 @@ const ErrorGroup = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
   align-items: center;
   justify-content: flex-start;
+  font-size: 14px;
+  font-weight: 500;
 `
 
 const ErrorButton = styled.div`
