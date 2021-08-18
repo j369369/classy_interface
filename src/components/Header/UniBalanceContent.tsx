@@ -15,7 +15,7 @@ import { computeUniCirculation } from '../../utils/computeUniCirculation'
 import useUSDCPrice from '../../utils/useUSDCPrice'
 import { AutoColumn } from '../Column'
 import { RowBetween } from '../Row'
-import { Break, CardBGImage, CardNoise, CardSection, DataCard } from '../earn/styled'
+import { Break, CardNoise, CardSection, DataCard } from '../earn/styled'
 
 const ContentWrapper = styled(AutoColumn)`
   width: 100%;
@@ -23,8 +23,9 @@ const ContentWrapper = styled(AutoColumn)`
 
 const ModalUpper = styled(DataCard)`
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  background: radial-gradient(76.02% 75.41% at 1.84% 0%, #ff007a 0%, #021d43 100%);
-  padding: 0.5rem;
+  //background: radial-gradient(76.02% 75.41% at 1.84% 0%, #ff007a 0%, #021d43 100%);
+  background: none;
+  padding: 1rem;
 `
 
 const StyledClose = styled(X)`
@@ -35,6 +36,14 @@ const StyledClose = styled(X)`
   :hover {
     cursor: pointer;
   }
+`
+
+const TokenInfoWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  width: 100%;
 `
 
 /**
@@ -63,39 +72,43 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
   return (
     <ContentWrapper gap="lg">
       <ModalUpper>
-        <CardBGImage />
+        {/* <CardBGImage /> */}
         <CardNoise />
         <CardSection gap="md">
           <RowBetween>
-            <TYPE.white color="white">Your CLSY Breakdown</TYPE.white>
-            <StyledClose stroke="white" onClick={() => setShowUniBalanceModal(false)} />
+            <TYPE.title>Your CLSY Breakdown</TYPE.title>
+            <StyledClose onClick={() => setShowUniBalanceModal(false)} />
           </RowBetween>
         </CardSection>
         <Break />
         {account && (
           <>
-            <CardSection gap="sm">
-              <AutoColumn gap="md" justify="center">
-                <UniTokenAnimated width="48px" src={tokenLogo} />{' '}
-                <TYPE.white fontSize={48} fontWeight={600} color="white">
-                  {total?.toFixed(2, { groupSeparator: ',' })}
-                </TYPE.white>
+            <CardSection gap="sm" id="infoBreakdown" className="card">
+              <AutoColumn gap="md">
+                <RowBetween>
+                  <TokenInfoWrap>
+                    <UniTokenAnimated width="48px" src={tokenLogo} />{' '}
+                    <TYPE.title_B fontSize={24} fontWeight={600}>
+                      {total?.toFixed(2, { groupSeparator: ',' })}
+                    </TYPE.title_B>
+                  </TokenInfoWrap>
+                </RowBetween>
               </AutoColumn>
               <AutoColumn gap="md">
                 <RowBetween>
-                  <TYPE.white color="white">Balance:</TYPE.white>
-                  <TYPE.white color="white">{uniBalance?.toFixed(2, { groupSeparator: ',' })}</TYPE.white>
+                  <TYPE.title_L>Balance:</TYPE.title_L>
+                  <TYPE.main>{uniBalance?.toFixed(2, { groupSeparator: ',' })}</TYPE.main>
                 </RowBetween>
                 <RowBetween>
-                  <TYPE.white color="white">Unclaimed:</TYPE.white>
-                  <TYPE.white color="white">
+                  <TYPE.title_L>Unclaimed:</TYPE.title_L>
+                  <TYPE.main>
                     {uniToClaim?.toFixed(4, { groupSeparator: ',' })}{' '}
                     {uniToClaim && uniToClaim.greaterThan('0') && (
                       <StyledInternalLink onClick={() => setShowUniBalanceModal(false)} to="/uni">
                         (claim)
                       </StyledInternalLink>
                     )}
-                  </TYPE.white>
+                  </TYPE.main>
                 </RowBetween>
               </AutoColumn>
             </CardSection>
@@ -105,16 +118,16 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
         <CardSection gap="sm">
           <AutoColumn gap="md">
             <RowBetween>
-              <TYPE.white color="white">CLSY price:</TYPE.white>
-              <TYPE.white color="white">${uniPrice?.toFixed(2) ?? '-'}</TYPE.white>
+              <TYPE.title_L>CLSY price:</TYPE.title_L>
+              <TYPE.main>${uniPrice?.toFixed(2) ?? '-'}</TYPE.main>
             </RowBetween>
             <RowBetween>
-              <TYPE.white color="white">CLSY in circulation:</TYPE.white>
-              <TYPE.white color="white">{circulation?.toFixed(0, { groupSeparator: ',' })}</TYPE.white>
+              <TYPE.title_L>CLSY in circulation:</TYPE.title_L>
+              <TYPE.main>{circulation?.toFixed(0, { groupSeparator: ',' })}</TYPE.main>
             </RowBetween>
             <RowBetween>
-              <TYPE.white color="white">Total Supply</TYPE.white>
-              <TYPE.white color="white">{totalSupply?.toFixed(0, { groupSeparator: ',' })}</TYPE.white>
+              <TYPE.title_L>Total Supply</TYPE.title_L>
+              <TYPE.main>{totalSupply?.toFixed(0, { groupSeparator: ',' })}</TYPE.main>
             </RowBetween>
             {uni && uni.chainId === ChainId.MAINNET ? (
               <ExternalLink href={`https://uniswap.info/token/${uni.address}`}>View CLSY Analytics</ExternalLink>

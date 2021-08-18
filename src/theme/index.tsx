@@ -132,6 +132,15 @@ export const TYPE = {
   main(props: TextProps) {
     return <TextWrapper fontWeight={500} color={'text2'} {...props} />
   },
+  title(props: TextProps) {
+    return <TextWrapper fontWeight={500} color={'var(--blue-04)'} {...props} />
+  },
+  title_L(props: TextProps) {
+    return <TextWrapper fontWeight={400} color={'var(--blue-04)'} {...props} />
+  },
+  title_B(props: TextProps) {
+    return <TextWrapper fontWeight={600} color={'var(--blue-04)'} {...props} />
+  },
   link(props: TextProps) {
     return <TextWrapper fontWeight={500} color={'primary1'} {...props} />
   },

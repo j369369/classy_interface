@@ -11,26 +11,32 @@ import { StyledInternalLink, ExternalLink, TYPE, HideSmall } from '../../theme'
 import { Text } from 'rebass'
 import Card from '../../components/Card'
 import { RowBetween, RowFixed } from '../../components/Row'
-import { ButtonPrimary, ButtonSecondary } from '../../components/Button'
+import { /*ButtonPrimary, */ ButtonSecondary } from '../../components/Button'
 import { AutoColumn } from '../../components/Column'
 
 import { useActiveWeb3React } from '../../hooks'
 import { usePairs } from '../../data/Reserves'
 import { toV2LiquidityToken, useTrackedTokenPairs } from '../../state/user/hooks'
 import { Dots } from '../../components/swap/styleds'
-import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/earn/styled'
+//import { DataCard,  CardSection, CardNoise, CardBGImage } from '../../components/earn/styled'
 import { useStakingInfo } from '../../state/stake/hooks'
 import { BIG_INT_ZERO } from '../../constants'
 
 const PageWrapper = styled(AutoColumn)`
-  max-width: 640px;
+  padding: 1.5rem;
+  max-width: 1200px;
   width: 100%;
+  background: var(--bg-gradient-white-02);
+  backdrop-filter: var(--bg-filter-blur);
+  box-shadow: var(--bg-box-shadow);
+  border-radius: 1rem;
 `
-
+/*
 const VoteCard = styled(DataCard)`
   background: radial-gradient(76.02% 75.41% at 1.84% 0%, #27ae60 0%, #000000 100%);
   overflow: hidden;
 `
+*/
 
 const TitleRow = styled(RowBetween)`
   ${({ theme }) => theme.mediaWidth.upToSmall`
@@ -49,16 +55,23 @@ const ButtonRow = styled(RowFixed)`
     justify-content: space-between;
   `};
 `
-
+/*
 const ResponsiveButtonPrimary = styled(ButtonPrimary)`
   width: fit-content;
   ${({ theme }) => theme.mediaWidth.upToSmall`
     width: 48%;
   `};
 `
+*/
 
 const ResponsiveButtonSecondary = styled(ButtonSecondary)`
   width: fit-content;
+  //background: var(--aqua);
+  border: none;
+  //border-radius: 0.25rem;
+  //color: var(--white);
+  font-size: 14px;
+
   ${({ theme }) => theme.mediaWidth.upToSmall`
     width: 48%;
   `};
@@ -127,7 +140,7 @@ export default function Pool() {
     <>
       <PageWrapper>
         <SwapPoolTabs active={'pool'} />
-        <VoteCard>
+        {/* <VoteCard>
           <CardBGImage />
           <CardNoise />
           <CardSection>
@@ -151,21 +164,21 @@ export default function Pool() {
           </CardSection>
           <CardBGImage />
           <CardNoise />
-        </VoteCard>
+        </VoteCard> */}
 
         <AutoColumn gap="lg" justify="center">
           <AutoColumn gap="lg" style={{ width: '100%' }}>
-            <TitleRow style={{ marginTop: '1rem' }} padding={'0'}>
+            <TitleRow padding={'0'}>
               <HideSmall>
-                <TYPE.mediumHeader style={{ marginTop: '0.5rem', justifySelf: 'flex-start' }}>
-                  Your liquidity
-                </TYPE.mediumHeader>
+                <TYPE.title_B style={{ fontSize: '16px', justifySelf: 'flex-start' }}>
+                  Provide liquidity and get LP tokens
+                </TYPE.title_B>
               </HideSmall>
               <ButtonRow>
-                <ResponsiveButtonSecondary as={Link} padding="6px 8px" to="/create/ETH">
-                  Create a pair
+                <ResponsiveButtonSecondary className="button aqua" as={Link} padding="6px 8px" to="/create/ETH">
+                  Create New Pool
                 </ResponsiveButtonSecondary>
-                <ResponsiveButtonPrimary
+                {/* <ResponsiveButtonPrimary
                   id="join-pool-button"
                   as={Link}
                   padding="6px 8px"
@@ -175,7 +188,7 @@ export default function Pool() {
                   <Text fontWeight={500} fontSize={16}>
                     Add Liquidity
                   </Text>
-                </ResponsiveButtonPrimary>
+                </ResponsiveButtonPrimary> */}
               </ButtonRow>
             </TitleRow>
 

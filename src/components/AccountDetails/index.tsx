@@ -65,7 +65,7 @@ const InfoCard = styled.div`
   backdrop-filter: var(--bg-filter-blur); 
   box-shadow: var(--bg-box-shadow);
   //border: 1px solid ${({ theme }) => theme.bg3};
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   position: relative;
   display: grid;
   grid-row-gap: 12px;
@@ -113,8 +113,9 @@ const LowerSection = styled.div`
   flex-grow: 1;
   overflow: auto;
   //background-color: ${({ theme }) => theme.bg2};
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+  // border-bottom-left-radius: 20px;
+  // border-bottom-right-radius: 20px;
+    border-radius: 0.5rem;
 
   h5 {
     margin: 0;

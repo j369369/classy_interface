@@ -7,6 +7,7 @@ export const BodyWrapper = styled.div`
   width: 100%;
   background: var(--bg-gradient-white-02);
   backdrop-filter: var(--bg-filter-blur);
+  box-shadow: var(--bg-box-shadow);
   border-radius: 1rem;
 `
 

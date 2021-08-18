@@ -171,7 +171,7 @@ body { position: relative; z-index: 0; }
 #footer .footer_address { margin-top: 2rem; color: var(--blue-04); font-size: 0.75rem; font-weight: 400; }
 
 /* container */
-#container { overflow: auto; width: 100%; height: 100%; }
+#container { overflow: auto; padding: 1rem; width: 100%; height: 100%; }
 
 
 /* Laptop ----------------------------------------------------- */
@@ -195,11 +195,11 @@ body { position: relative; z-index: 0; }
 
 	/* t.header */
 	#wrap, #root { flex-direction: column; }
-	#header { position: fixed; left: -100%; width: 70%; height: 100%; z-index: 300;  transition: all .24s; }
+	#header { position: fixed; left: -100%; width: 70%; height: 100%; z-index: 60;  transition: all .24s; }
 	#header.active { left: 0; }
 	#header .header_in .close_btn { display: block; position: absolute; top: 1rem; right: 1rem; }
 	#header .header_in .logo { display: block; margin: 1rem; width: 6rem; }
-	#headerBg { opacity: .24; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(	--blue-06); z-index: 299; }
+	#headerBg { opacity: .24; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(	--blue-06); z-index: 59; }
 	
 	#headerM { display: block; }
 	#headerM .headerM_in { display: table; width: 100%; height: 100%; }

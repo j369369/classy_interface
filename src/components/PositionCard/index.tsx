@@ -193,6 +193,8 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
   const backgroundColor = useColor(pair?.token0)
 
   return (
+    <>
+
     <StyledPositionCard border={border} bgColor={backgroundColor}>
       <CardNoise />
       <AutoColumn gap="12px">
@@ -337,5 +339,6 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
         )}
       </AutoColumn>
     </StyledPositionCard>
+    </>
   )
 }
