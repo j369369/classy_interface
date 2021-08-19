@@ -127,6 +127,7 @@
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "@uniswap/default-token-list": "^2.0.0",
-    "gsap": "^3.7.1"
+    "gsap": "^3.7.1",
+    "vanilla-tilt": "^1.7.1"
   }
 }

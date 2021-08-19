@@ -7,11 +7,11 @@ import { SwapPoolTabs } from '../../components/NavigationTabs'
 import FullPositionCard from '../../components/PositionCard'
 import { useUserHasLiquidityInAllTokens } from '../../data/V1'
 import { useTokenBalancesWithLoadingIndicator } from '../../state/wallet/hooks'
-import { StyledInternalLink, ExternalLink, TYPE, HideSmall } from '../../theme'
+import { StyledInternalLink/*, ExternalLink*/, TYPE, HideSmall } from '../../theme'
 import { Text } from 'rebass'
 import Card from '../../components/Card'
 import { RowBetween, RowFixed } from '../../components/Row'
-import { /*ButtonPrimary, */ ButtonSecondary } from '../../components/Button'
+import { ButtonPrimary,  ButtonSecondary } from '../../components/Button'
 import { AutoColumn } from '../../components/Column'
 
 import { useActiveWeb3React } from '../../hooks'
@@ -55,14 +55,14 @@ const ButtonRow = styled(RowFixed)`
     justify-content: space-between;
   `};
 `
-/*
+
 const ResponsiveButtonPrimary = styled(ButtonPrimary)`
   width: fit-content;
   ${({ theme }) => theme.mediaWidth.upToSmall`
     width: 48%;
   `};
 `
-*/
+
 
 const ResponsiveButtonSecondary = styled(ButtonSecondary)`
   width: fit-content;
@@ -174,22 +174,26 @@ export default function Pool() {
                   Provide liquidity and get LP tokens
                 </TYPE.title_B>
               </HideSmall>
-              <ButtonRow>
-                <ResponsiveButtonSecondary className="button aqua" as={Link} padding="6px 8px" to="/create/ETH">
-                  Create New Pool
-                </ResponsiveButtonSecondary>
-                {/* <ResponsiveButtonPrimary
-                  id="join-pool-button"
-                  as={Link}
-                  padding="6px 8px"
-                  borderRadius="12px"
-                  to="/add/ETH"
-                >
-                  <Text fontWeight={500} fontSize={16}>
-                    Add Liquidity
-                  </Text>
-                </ResponsiveButtonPrimary> */}
-              </ButtonRow>
+              {!account ? (
+                <></>
+              ) : (
+                <ButtonRow>
+                  <ResponsiveButtonSecondary className="button aqua" as={Link} padding="6px 8px" to="/create/ETH">
+                    Create New Pool
+                  </ResponsiveButtonSecondary>
+                  {<ResponsiveButtonPrimary
+                    id="join-pool-button"
+                    as={Link}
+                    padding="6px 8px"
+                    borderRadius="12px"
+                    to="/add/ETH"
+                  >
+                    <Text fontWeight={500} fontSize={16}>
+                      Add Liquidity
+                    </Text>
+                  </ResponsiveButtonPrimary> }
+                </ButtonRow>
+              )}
             </TitleRow>
 
             {!account ? (
@@ -206,16 +210,19 @@ export default function Pool() {
               </EmptyProposals>
             ) : allV2PairsWithLiquidity?.length > 0 || stakingPairs?.length > 0 ? (
               <>
-                <ButtonSecondary>
+                {/* <ButtonSecondary>
                   <RowBetween>
                     <ExternalLink href={'https://uniswap.info/account/' + account}>
                       Account analytics and accrued fees
                     </ExternalLink>
                     <span> ↗</span>
                   </RowBetween>
-                </ButtonSecondary>
+                </ButtonSecondary> */}
                 {v2PairsWithoutStakedAmount.map(v2Pair => (
-                  <FullPositionCard key={v2Pair.liquidityToken.address} pair={v2Pair} />
+                  <>
+                    <TYPE.largeHeader>My Pool</TYPE.largeHeader>
+                    <FullPositionCard key={v2Pair.liquidityToken.address} pair={v2Pair} />
+                  </>
                 ))}
                 {stakingPairs.map(
                   (stakingPair, i) =>
@@ -235,15 +242,18 @@ export default function Pool() {
                 </TYPE.body>
               </EmptyProposals>
             )}
-
+            {!account ? (
+              <></>
+            ) : (
             <AutoColumn justify={'center'} gap="md">
               <Text textAlign="center" fontSize={14} style={{ padding: '.5rem 0 .5rem 0' }}>
-                {hasV1Liquidity ? 'Uniswap V1 liquidity found!' : "Don't see a pool you joined?"}{' '}
+                {hasV1Liquidity ? 'Classy liquidity found!' : "Don't see a pool you joined?"}{' '}
                 <StyledInternalLink id="import-pool-link" to={hasV1Liquidity ? '/migrate/v1' : '/find'}>
                   {hasV1Liquidity ? 'Migrate now.' : 'Import it.'}
                 </StyledInternalLink>
               </Text>
             </AutoColumn>
+            )}
           </AutoColumn>
         </AutoColumn>
       </PageWrapper>

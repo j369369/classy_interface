@@ -31,6 +31,7 @@ import Swap from './Swap'
 import { OpenClaimAddressModalAndRedirectToSwap, RedirectPathToSwapOnly, RedirectToSwap } from './Swap/redirects'
 import Vote from './Vote'
 import VotePage from './Vote/VotePage'
+import Intro from './Intro'
 
 import bgContentsTopLeft from '../assets/images/fo/bg_contents_top_left.png'
 import bgContentsBottomRight from '../assets/images/fo/bg_contents_bottom_right.png'
@@ -138,6 +139,7 @@ export default function App() {
           <TopLevelModals />
           <Web3ReactManager>
             <Switch>
+              <Route exact strict path="/intro" component={Intro} />
               <Route exact strict path="/swap" component={Swap} />
               <Route exact strict path="/claim" component={OpenClaimAddressModalAndRedirectToSwap} />
               <Route exact strict path="/swap/:outputCurrency" component={RedirectToSwap} />

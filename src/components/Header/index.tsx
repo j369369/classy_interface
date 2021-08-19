@@ -120,6 +120,11 @@ export default function Header() {
               <span className="text">{t('pool')}</span>
             </StyledNavLink>
           </li>
+          <li className="li">
+            <StyledNavLink to={'/intro'}>
+              <span className="text">{t('intro')}</span>
+            </StyledNavLink>
+          </li>
         </HeaderLinks>
         <HeaderControls className={`bottom_contents`}>
           <div className="connect">

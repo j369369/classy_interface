@@ -13,7 +13,7 @@ import { ExternalLink, TYPE } from '../../theme'
 import { currencyId } from '../../utils/currencyId'
 import { unwrappedToken } from '../../utils/wrappedCurrency'
 import { ButtonPrimary, ButtonSecondary, ButtonEmpty } from '../Button'
-import { transparentize } from 'polished'
+//import { transparentize } from 'polished'
 import { CardNoise } from '../earn/styled'
 
 import { useColor } from '../../hooks/useColor'
@@ -36,13 +36,47 @@ export const HoverCard = styled(Card)`
     border: 1px solid ${({ theme }) => darken(0.06, theme.bg2)};
   }
 `
+
 const StyledPositionCard = styled(LightCard)<{ bgColor: any }>`
   border: none;
-  background: ${({ theme, bgColor }) =>
-    `radial-gradient(91.85% 100% at 1.84% 0%, ${transparentize(0.8, bgColor)} 0%, ${theme.bg3} 100%) `};
+  background: var(--bg-gradient-white-03); 
+  backdrop-filter: var(--bg-filter-blur); 
+  box-shadow: var(--bg-box-shadow);
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 `
+
+/*
+const StyledPositionHead = styled.section`
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+  padding: 0.5rem 1rem;
+  background: var(--lightBlue-04); 
+  box-shadow: var(--bg-box-shadow);
+  border-radius: 0.5rem;
+  color: var(--white);
+  font-weight: 500;
+  text-align: center;
+`
+
+const StyledPositionBody = styled.section`
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+  padding: 0.5rem 1rem;
+  background: var(--bg-gradient-white-03); 
+  backdrop-filter: var(--bg-filter-blur); 
+  box-shadow: var(--bg-box-shadow);
+`
+
+
+const StyleRow = styled.div`
+  
+`
+*/
+
 
 interface PositionCardProps {
   pair: Pair
@@ -194,6 +228,24 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
 
   return (
     <>
+    {/* <StyledPositionHead>
+      <StyleRow>Pair</StyleRow>
+      <StyleRow>APR</StyleRow>
+      <StyleRow>TVL</StyleRow>
+      <StyleRow>Volume 24H</StyleRow>
+    </StyledPositionHead>
+    
+    <StyledPositionBody>
+      <StyleRow>
+        <DoubleCurrencyLogo currency0={currency0} currency1={currency1} size={20} />
+        <Text fontWeight={500} fontSize={20}>
+          {!currency0 || !currency1 ? <Dots>Loading</Dots> : `${currency0.symbol}/${currency1.symbol}`}
+        </Text>
+      </StyleRow>
+      <StyleRow>APR</StyleRow>
+      <StyleRow>TVL</StyleRow>
+      <StyleRow>Volume 24H</StyleRow>
+    </StyledPositionBody> */}
 
     <StyledPositionCard border={border} bgColor={backgroundColor}>
       <CardNoise />
