@@ -20,6 +20,8 @@
 #optionCustom .txt_min { position: absolute; top: 0.5rem; right: 0.875rem; }
 
 #infoBreakdown { padding: 1.25rem; border-radius: 1rem; }
+#poolButtonRow { width: 33%; }
+
 
 /* Laptop ----------------------------------------------------- */
 @media (min-width: 768px) {
@@ -30,6 +32,8 @@
 @media(max-width: 768px) {
 	#swapFrom .swap_input_box { padding: 0rem;}
 	#swapInfoList .li { font-size: 0.75rem; }
+
+	#poolButtonRow { width: 100%; }
 }
 
 /* Mobile ----------------------------------------------------- */

@@ -8,7 +8,7 @@ import { RouteComponentProps } from 'react-router-dom'
 import { Text } from 'rebass'
 import { ThemeContext } from 'styled-components'
 import { ButtonError, ButtonLight, ButtonPrimary } from '../../components/Button'
-import { BlueCard, LightCard } from '../../components/Card'
+import { /*BlueCard,*/ LightCard } from '../../components/Card'
 import { AutoColumn, ColumnCenter } from '../../components/Column'
 import TransactionConfirmationModal, { ConfirmationModalContent } from '../../components/TransactionConfirmationModal'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel'
@@ -331,7 +331,7 @@ export default function AddLiquidity({
             currencyToAdd={pair?.liquidityToken}
           />
           <AutoColumn gap="20px">
-            {noLiquidity ||
+            {/* {noLiquidity ||
               (isCreate ? (
                 <ColumnCenter>
                   <BlueCard>
@@ -360,7 +360,7 @@ export default function AddLiquidity({
                     </AutoColumn>
                   </BlueCard>
                 </ColumnCenter>
-              ))}
+              ))} */}
             <CurrencyInputPanel
               value={formattedAmounts[Field.CURRENCY_A]}
               onUserInput={onFieldAInput}
@@ -370,11 +370,11 @@ export default function AddLiquidity({
               onCurrencySelect={handleCurrencyASelect}
               showMaxButton={!atMaxAmounts[Field.CURRENCY_A]}
               currency={currencies[Field.CURRENCY_A]}
-              id="add-liquidity-input-tokena"
+              id="swapFrom"
               showCommonBases
             />
             <ColumnCenter>
-              <Plus size="16" color={theme.text2} />
+              <Plus size="16" color={theme.text2} style={{ marginBottom: '20px' }}/>
             </ColumnCenter>
             <CurrencyInputPanel
               value={formattedAmounts[Field.CURRENCY_B]}
@@ -385,7 +385,7 @@ export default function AddLiquidity({
               }}
               showMaxButton={!atMaxAmounts[Field.CURRENCY_B]}
               currency={currencies[Field.CURRENCY_B]}
-              id="add-liquidity-input-tokenb"
+              id="swapTo"
               showCommonBases
             />
             {currencies[Field.CURRENCY_A] && currencies[Field.CURRENCY_B] && pairState !== PairState.INVALID && (

@@ -7,11 +7,11 @@ import { SwapPoolTabs } from '../../components/NavigationTabs'
 import FullPositionCard from '../../components/PositionCard'
 import { useUserHasLiquidityInAllTokens } from '../../data/V1'
 import { useTokenBalancesWithLoadingIndicator } from '../../state/wallet/hooks'
-import { StyledInternalLink/*, ExternalLink*/, TYPE, HideSmall } from '../../theme'
+import { StyledInternalLink/*, ExternalLink*/, TYPE, /*HideSmall*/ } from '../../theme'
 import { Text } from 'rebass'
 import Card from '../../components/Card'
 import { RowBetween, RowFixed } from '../../components/Row'
-import { ButtonPrimary,  ButtonSecondary } from '../../components/Button'
+import { /*ButtonPrimary,*/ ButtonSecondary } from '../../components/Button'
 import { AutoColumn } from '../../components/Column'
 
 import { useActiveWeb3React } from '../../hooks'
@@ -30,6 +30,10 @@ const PageWrapper = styled(AutoColumn)`
   backdrop-filter: var(--bg-filter-blur);
   box-shadow: var(--bg-box-shadow);
   border-radius: 1rem;
+
+  @media(max-width: 768px) {
+    padding: 1rem;
+  }
 `
 /*
 const VoteCard = styled(DataCard)`
@@ -43,7 +47,8 @@ const TitleRow = styled(RowBetween)`
     flex-wrap: wrap;
     gap: 12px;
     width: 100%;
-    flex-direction: column-reverse;
+    //flex-direction: column-reverse;
+    text-align: center;
   `};
 `
 
@@ -55,14 +60,14 @@ const ButtonRow = styled(RowFixed)`
     justify-content: space-between;
   `};
 `
-
+/*
 const ResponsiveButtonPrimary = styled(ButtonPrimary)`
   width: fit-content;
   ${({ theme }) => theme.mediaWidth.upToSmall`
     width: 48%;
   `};
 `
-
+*/
 
 const ResponsiveButtonSecondary = styled(ButtonSecondary)`
   width: fit-content;
@@ -85,6 +90,12 @@ const EmptyProposals = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`
+
+const PoolTitle = styled.div`
+  @media(max-width: 768px) {
+    font-size: 18px;
+  }
 `
 
 export default function Pool() {
@@ -169,29 +180,25 @@ export default function Pool() {
         <AutoColumn gap="lg" justify="center">
           <AutoColumn gap="lg" style={{ width: '100%' }}>
             <TitleRow padding={'0'}>
-              <HideSmall>
-                <TYPE.title_B style={{ fontSize: '16px', justifySelf: 'flex-start' }}>
-                  Provide liquidity and get LP tokens
-                </TYPE.title_B>
-              </HideSmall>
+              <TYPE.title_B style={{ fontSize: '16px', justifySelf: 'flex-start' }}>
+                Provide liquidity and get LP tokens
+              </TYPE.title_B>
               {!account ? (
                 <></>
               ) : (
-                <ButtonRow>
+                <ButtonRow id="poolButtonRow">
                   <ResponsiveButtonSecondary className="button aqua" as={Link} padding="6px 8px" to="/create/ETH">
                     Create New Pool
                   </ResponsiveButtonSecondary>
-                  {<ResponsiveButtonPrimary
+                  {<ResponsiveButtonSecondary
                     id="join-pool-button"
+                    className="button blue04"
                     as={Link}
                     padding="6px 8px"
-                    borderRadius="12px"
                     to="/add/ETH"
                   >
-                    <Text fontWeight={500} fontSize={16}>
-                      Add Liquidity
-                    </Text>
-                  </ResponsiveButtonPrimary> }
+                    Add Liquidity
+                  </ResponsiveButtonSecondary> }
                 </ButtonRow>
               )}
             </TitleRow>
@@ -220,7 +227,11 @@ export default function Pool() {
                 </ButtonSecondary> */}
                 {v2PairsWithoutStakedAmount.map(v2Pair => (
                   <>
-                    <TYPE.largeHeader>My Pool</TYPE.largeHeader>
+                    <TYPE.largeHeader>
+                      <PoolTitle>
+                        My Pool
+                      </PoolTitle>
+                    </TYPE.largeHeader>
                     <FullPositionCard key={v2Pair.liquidityToken.address} pair={v2Pair} />
                   </>
                 ))}

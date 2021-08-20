@@ -41,10 +41,16 @@ import bgPinkCircle02 from '../assets/images/fo/bg_pink_circle_02.png'
 import bgWhiteCircle01 from '../assets/images/fo/bg_white_circle_01.png'
 import bgWhiteRing01 from '../assets/images/fo/bg_white_ring_01.png'
 
+import gsap from 'gsap'
+
+import '../assets/vendors/fontawesome-free-5.15.3-web 2/css/all.min.css'
 import '../assets/css/common.css'
 import '../assets/css/css.css'
-import '../assets/vendors/fontawesome-free-5.15.3-web 2/css/all.min.css'
-import gsap from 'gsap'
+
+
+
+
+
 
 const AppWrapper = styled.div``
 /*
@@ -112,6 +118,7 @@ const fn_mouseParallax = (e: any) => {
     .to(".bg_white_circle_01", { marginBottom: (mouseY / 90), marginLeft: (mouseX / 90), duration: 0.5, ease: "expo"}, '-=1')
     .to(".bg_white_ring_01", { marginBottom: (mouseY / -30), marginLeft: (mouseX / -30), duration: 0.5, ease: "expo"}, '-=1')
 }
+
 /* ------- */
 
 function TopLevelModals() {
@@ -139,13 +146,13 @@ export default function App() {
           <TopLevelModals />
           <Web3ReactManager>
             <Switch>
-              <Route exact strict path="/intro" component={Intro} />
               <Route exact strict path="/swap" component={Swap} />
               <Route exact strict path="/claim" component={OpenClaimAddressModalAndRedirectToSwap} />
               <Route exact strict path="/swap/:outputCurrency" component={RedirectToSwap} />
               <Route exact strict path="/send" component={RedirectPathToSwapOnly} />
               <Route exact strict path="/find" component={PoolFinder} />
               <Route exact strict path="/pool" component={Pool} />
+              <Route exact strict path="/intro" component={Intro} />
               <Route exact strict path="/uni" component={Earn} />
               <Route exact strict path="/vote" component={Vote} />
               <Route exact strict path="/create" component={RedirectToAddLiquidity} />

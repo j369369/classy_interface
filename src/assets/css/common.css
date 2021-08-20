@@ -171,7 +171,7 @@ body { position: relative; z-index: 0; }
 #footer .footer_address { margin-top: 2rem; color: var(--blue-04); font-size: 0.75rem; font-weight: 400; }
 
 /* container */
-#container { overflow: auto; padding: 1rem; width: 100%; height: 100%; }
+#container { position: relative; overflow: auto; padding: 1rem; width: 100%; height: 100%; }
 
 
 /* Laptop ----------------------------------------------------- */
@@ -208,6 +208,8 @@ body { position: relative; z-index: 0; }
 	#headerM .headerM_in .logo img { margin-left: -2rem; width: 6rem; }
 	#headerM .headerM_in .headerM_wallet { display: table-cell; padding-right: 1rem; width: 20px; font-size: 1.25rem; vertical-align: middle; }
 	#headerM .headerM_in .headerM_wallet .headerM_wallet_btn { border: none; border-radius: 0.25rem; color: var(--aqua); font-size: 1.25rem; vertical-align: middle;}
+
+	#container { padding: 0; }
 }
 
 /* Mobile ----------------------------------------------------- */

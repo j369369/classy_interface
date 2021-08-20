@@ -4,7 +4,7 @@
 body { overflow: hidden; }
 
 /* intro */
-#intro { overflow: hidden; display: table; width: 100%; height: 100%; }
+#intro { position: absolute; top: 0; left: 0; overflow: hidden; display: table; width: 100%; height: 100%; }
 #intro .intro_in { display: table-cell; padding: 0 10%; vertical-align: middle; }
 #intro .intro_in .intro_title { color: var(--white); font-size: 7vw; font-weight: 900; text-shadow: 0 0.1875rem 0.5rem rgba(58,91,126,.2); line-height: 1.2; }
 #intro .intro_in .intro_link { display: flex; flex-direction: row; margin-top: 2rem; }
