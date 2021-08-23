@@ -1,9 +1,11 @@
 import React, { useEffect }  from 'react'
+import { NavLink } from 'react-router-dom'
 import VanillaTilt from 'vanilla-tilt'
 import '../../assets/css/intro.css'
 import styled from 'styled-components'
 
 const TiltIntro = styled.section``
+const StyledNavLink = styled(NavLink)``
 
 
 const Tilt = () => {
@@ -24,15 +26,17 @@ export default function Intro() {
           Crypto Assets Land
         </h1>
           <ul id="introLink" className="intro_link">
-          <li className="li"><a href="/fo/swap.html">
-            <i className="fas fa-exchange-alt"></i> Classy App
-          </a></li>
-          <li className="li"><a href="javascript:;">
+          <li className="li">
+            <StyledNavLink to={'/swap'}>
+              <i className="fas fa-exchange-alt"></i> Classy App
+            </StyledNavLink>
+           </li>
+          <li className="li">
             <i className="fas fa-images"></i> Classy NFTs
-          </a></li>
-          <li className="li"><a href="javascript:;">
+          </li>
+          <li className="li">
             <i className="fas fa-burn"></i> Classy Stadium
-          </a></li>
+          </li>
         </ul>
       </article>
     </TiltIntro>
