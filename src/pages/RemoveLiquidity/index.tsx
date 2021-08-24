@@ -9,7 +9,7 @@ import { RouteComponentProps } from 'react-router'
 import { Text } from 'rebass'
 import { ThemeContext } from 'styled-components'
 import { ButtonPrimary, ButtonLight, ButtonError, ButtonConfirmed } from '../../components/Button'
-import { BlueCard, LightCard } from '../../components/Card'
+import { /*BlueCard, */LightCard } from '../../components/Card'
 import { AutoColumn, ColumnCenter } from '../../components/Column'
 import TransactionConfirmationModal, { ConfirmationModalContent } from '../../components/TransactionConfirmationModal'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel'
@@ -392,7 +392,21 @@ export default function RemoveLiquidity({
         </RowBetween>
         {pair && (
           <>
-            <RowBetween>
+            <RowBetween align="center" className={`rate-card`} >
+              <Text className={`text blue04`} fontWeight={500} fontSize={14} style={{width: '50px'}}>
+                Rate
+              </Text>
+              <div>
+                <Text fontWeight={500} fontSize={14}>
+                  1 {currencyA?.symbol} = {tokenA ? pair.priceOf(tokenA).toSignificant(6) : '-'} {currencyB?.symbol}
+                </Text>
+                <Text fontWeight={500} fontSize={14}>
+                  1 {currencyB?.symbol} = {tokenB ? pair.priceOf(tokenB).toSignificant(6) : '-'} {currencyA?.symbol}
+                </Text>
+              </div>
+            </RowBetween>
+
+            {/* <RowBetween>
               <Text color={theme.text2} fontWeight={500} fontSize={16}>
                 Price
               </Text>
@@ -405,7 +419,7 @@ export default function RemoveLiquidity({
               <Text fontWeight={500} fontSize={16} color={theme.text1}>
                 1 {currencyB?.symbol} = {tokenB ? pair.priceOf(tokenB).toSignificant(6) : '-'} {currencyA?.symbol}
               </Text>
-            </RowBetween>
+            </RowBetween> */}
           </>
         )}
         <ButtonPrimary disabled={!(approval === ApprovalState.APPROVED || signatureData !== null)} onClick={onRemove}>
@@ -492,20 +506,21 @@ export default function RemoveLiquidity({
             pendingText={pendingText}
           />
           <AutoColumn gap="md">
-            <BlueCard>
+            {/* <BlueCard>
               <AutoColumn gap="10px">
                 <TYPE.link fontWeight={400} color={'primaryText1'}>
                   <b>Tip:</b> Removing pool tokens converts your position back into underlying tokens at the current
                   rate, proportional to your share of the pool. Accrued fees are included in the amounts you receive.
                 </TYPE.link>
               </AutoColumn>
-            </BlueCard>
-            <LightCard>
-              <AutoColumn gap="20px">
+            </BlueCard> */}
+            <LightCard style={{ borderRadius: '8px' }}>
+              <AutoColumn gap="10px">
                 <RowBetween>
                   <Text fontWeight={500}>Amount</Text>
                   <ClickableText
                     fontWeight={500}
+                    fontSize={14}
                     onClick={() => {
                       setShowDetailed(!showDetailed)
                     }}
@@ -514,7 +529,7 @@ export default function RemoveLiquidity({
                   </ClickableText>
                 </RowBetween>
                 <Row style={{ alignItems: 'flex-end' }}>
-                  <Text fontSize={72} fontWeight={500}>
+                  <Text fontSize={32} fontWeight={500}>
                     {formattedAmounts[Field.LIQUIDITY_PERCENT]}%
                   </Text>
                 </Row>
@@ -547,23 +562,23 @@ export default function RemoveLiquidity({
                 <LightCard>
                   <AutoColumn gap="10px">
                     <RowBetween>
-                      <Text fontSize={24} fontWeight={500}>
+                      <Text fontSize={18} fontWeight={700}>
                         {formattedAmounts[Field.CURRENCY_A] || '-'}
                       </Text>
                       <RowFixed>
                         <CurrencyLogo currency={currencyA} style={{ marginRight: '12px' }} />
-                        <Text fontSize={24} fontWeight={500} id="remove-liquidity-tokena-symbol">
+                        <Text fontSize={18} fontWeight={500} id="remove-liquidity-tokena-symbol">
                           {currencyA?.symbol}
                         </Text>
                       </RowFixed>
                     </RowBetween>
                     <RowBetween>
-                      <Text fontSize={24} fontWeight={500}>
+                      <Text fontSize={18} fontWeight={700}>
                         {formattedAmounts[Field.CURRENCY_B] || '-'}
                       </Text>
                       <RowFixed>
                         <CurrencyLogo currency={currencyB} style={{ marginRight: '12px' }} />
-                        <Text fontSize={24} fontWeight={500} id="remove-liquidity-tokenb-symbol">
+                        <Text fontSize={18} fontWeight={500} id="remove-liquidity-tokenb-symbol">
                           {currencyB?.symbol}
                         </Text>
                       </RowFixed>
@@ -606,7 +621,7 @@ export default function RemoveLiquidity({
                   disableCurrencySelect
                   currency={pair?.liquidityToken}
                   pair={pair}
-                  id="liquidity-amount"
+                  id="swapSend"
                 />
                 <ColumnCenter>
                   <ArrowDown size="16" color={theme.text2} />
@@ -620,10 +635,10 @@ export default function RemoveLiquidity({
                   currency={currencyA}
                   label={'Output'}
                   onCurrencySelect={handleSelectCurrencyA}
-                  id="remove-liquidity-tokena"
+                  id="swapFrom"
                 />
                 <ColumnCenter>
-                  <Plus size="16" color={theme.text2} />
+                  <Plus size="16" color={theme.text2} style={{ marginTop: '-4px', paddingBottom: '20px' }} />
                 </ColumnCenter>
                 <CurrencyInputPanel
                   hideBalance={true}
@@ -634,13 +649,26 @@ export default function RemoveLiquidity({
                   currency={currencyB}
                   label={'Output'}
                   onCurrencySelect={handleSelectCurrencyB}
-                  id="remove-liquidity-tokenb"
+                  id="swapTo"
                 />
               </>
             )}
             {pair && (
-              <div style={{ padding: '10px 20px' }}>
-                <RowBetween>
+              <div>
+                <RowBetween align="center" className={`rate-card`} >
+                  <Text className={`text blue04`} fontWeight={500} fontSize={14} style={{width: '50px'}}>
+                    Rate
+                  </Text>
+                  <div>
+                    <Text fontWeight={500} fontSize={14}>
+                      1 {currencyA?.symbol} = {tokenA ? pair.priceOf(tokenA).toSignificant(6) : '-'} {currencyB?.symbol}
+                    </Text>
+                    <Text fontWeight={500} fontSize={14}>
+                      1 {currencyB?.symbol} = {tokenB ? pair.priceOf(tokenB).toSignificant(6) : '-'} {currencyA?.symbol}
+                    </Text>
+                  </div>
+                </RowBetween>
+                {/* <RowBetween>
                   Price:
                   <div>
                     1 {currencyA?.symbol} = {tokenA ? pair.priceOf(tokenA).toSignificant(6) : '-'} {currencyB?.symbol}
@@ -651,14 +679,14 @@ export default function RemoveLiquidity({
                   <div>
                     1 {currencyB?.symbol} = {tokenB ? pair.priceOf(tokenB).toSignificant(6) : '-'} {currencyA?.symbol}
                   </div>
-                </RowBetween>
+                </RowBetween> */}
               </div>
             )}
             <div style={{ position: 'relative' }}>
               {!account ? (
                 <ButtonLight onClick={toggleWalletModal}>Connect Wallet</ButtonLight>
               ) : (
-                <RowBetween>
+                <RowBetween style={{ alignItems: 'stretch' }}>
                   <ButtonConfirmed
                     onClick={onAttemptToApprove}
                     confirmed={approval === ApprovalState.APPROVED || signatureData !== null}
@@ -694,8 +722,8 @@ export default function RemoveLiquidity({
       </AppBody>
 
       {pair ? (
-        <AutoColumn style={{ minWidth: '20rem', width: '100%', maxWidth: '400px', marginTop: '1rem' }}>
-          <MinimalPositionCard showUnwrapped={oneCurrencyIsWETH} pair={pair} />
+        <AutoColumn style={{ width: '100%', maxWidth: '26.25rem', marginTop: '1rem' }}>
+            <MinimalPositionCard showUnwrapped={oneCurrencyIsWETH} pair={pair} />
         </AutoColumn>
       ) : null}
     </>

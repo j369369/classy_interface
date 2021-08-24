@@ -68,6 +68,7 @@ const fn_btnHeaderClose = () => {
     .to("#headerBg", { display:"none" , ease: "power4"}, '-=1');
 }
 
+
 export default function Header() {
   const { account, chainId } = useActiveWeb3React()
   const { t } = useTranslation()
@@ -100,13 +101,13 @@ export default function Header() {
           </StyledNavLink>
         </article>
         <HeaderLinks className={`menu_list`}>
-          <li className="li">
+          <li className="li" onClick={fn_btnHeaderClose}>
             <StyledNavLink to={'/swap'}>
               <i className="fas fa-exchange-alt"></i>
               <span className="text">{t('swap')}</span>
             </StyledNavLink>
           </li>
-          <li className="li">
+          <li className="li" onClick={fn_btnHeaderClose}>
             <StyledNavLink to={'/pool'}
                 isActive={(match, { pathname }) =>
                 Boolean(match) ||
@@ -120,7 +121,7 @@ export default function Header() {
               <span className="text">{t('pool')}</span>
             </StyledNavLink>
           </li>
-          <li className="li">
+          <li className="li" onClick={fn_btnHeaderClose}>
             <StyledNavLink to={'/intro'}>
               <span className="text">{t('intro')}</span>
             </StyledNavLink>

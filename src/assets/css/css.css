@@ -3,13 +3,17 @@
 
 #swapFrom .swap_input_box { background: #6D9FBF; }
 #swapTo .swap_input_box { margin-top: -1.5rem; background: var(--blue-04); }
+#swapSend .swap_input_box  { background: var(--lightBlue-04); }
+#swapSend .swap_input_box  .pair-name-container { color: var(--white); }
+
 #swapFrom .swap_input_box input,
-#swapTo .swap_input_box input { background: transparent !important; color: var(--white); }
+#swapTo .swap_input_box input,
+#swapSend .swap_input_box input  { background: transparent !important; color: var(--white); }
 #swapFrom .swap_input_box input::placeholder,
 #swapTo .swap_input_box input::placeholder { opacity: .5; color: var(--white); }
 
 #swapIcon { position: relative; }
-#swapRate { padding: 0.75rem 1rem; background: var(--bg-gradient-white-03); box-shadow: var(--bg-box-shadow); border-radius: 0.5rem; }
+#swapRate, .rate-card { padding: 0.75rem 1rem; background: var(--bg-gradient-white-03); box-shadow: var(--bg-box-shadow); border-radius: 0.5rem; }
 
 #swapInfoTextBox { margin: 1rem 0.25rem; }
 #swapInfoTextBox .swap_info_list {  }

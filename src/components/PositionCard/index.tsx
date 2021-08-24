@@ -1,4 +1,4 @@
-import { JSBI, Pair, Percent, TokenAmount } from '@uniswap/sdk'
+import { JSBI, Percent, Pair, TokenAmount } from '@uniswap/sdk'
 import { darken } from 'polished'
 import React, { useState } from 'react'
 import { ChevronDown, ChevronUp } from 'react-feather'
@@ -9,10 +9,10 @@ import { useTotalSupply } from '../../data/TotalSupply'
 
 import { useActiveWeb3React } from '../../hooks'
 import { useTokenBalance } from '../../state/wallet/hooks'
-import { ExternalLink, TYPE } from '../../theme'
+import { /*ExternalLink,*/ TYPE } from '../../theme'
 import { currencyId } from '../../utils/currencyId'
 import { unwrappedToken } from '../../utils/wrappedCurrency'
-import { ButtonPrimary, ButtonSecondary, ButtonEmpty } from '../Button'
+import { ButtonPrimary, /*, ButtonSecondary,*/ ButtonEmpty } from '../Button'
 //import { transparentize } from 'polished'
 import { CardNoise } from '../earn/styled'
 
@@ -140,40 +140,40 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
           <AutoColumn gap="12px">
             <FixedHeightRow>
               <RowFixed>
-                <Text fontWeight={500} fontSize={16}>
+                <Text fontWeight={500} fontSize={14}>
                   Your position
                 </Text>
               </RowFixed>
             </FixedHeightRow>
             <FixedHeightRow onClick={() => setShowMore(!showMore)}>
               <RowFixed>
-                <DoubleCurrencyLogo currency0={currency0} currency1={currency1} margin={true} size={20} />
-                <Text fontWeight={500} fontSize={20}>
+                <DoubleCurrencyLogo currency0={currency0} currency1={currency1} margin={true} size={18} />
+                <Text fontWeight={500} fontSize={18} style={{ marginLeft: "0.5rem" }}> 
                   {currency0.symbol}/{currency1.symbol}
                 </Text>
               </RowFixed>
               <RowFixed>
-                <Text fontWeight={500} fontSize={20}>
+                <Text fontWeight={500} fontSize={18}>
                   {userPoolBalance ? userPoolBalance.toSignificant(4) : '-'}
                 </Text>
               </RowFixed>
             </FixedHeightRow>
             <AutoColumn gap="4px">
               <FixedHeightRow>
-                <Text fontSize={16} fontWeight={500}>
+                <Text fontSize={14} fontWeight={400}>
                   Your pool share:
                 </Text>
-                <Text fontSize={16} fontWeight={500}>
+                <Text fontSize={14} fontWeight={400}>
                   {poolTokenPercentage ? poolTokenPercentage.toFixed(6) + '%' : '-'}
                 </Text>
               </FixedHeightRow>
               <FixedHeightRow>
-                <Text fontSize={16} fontWeight={500}>
+                <Text fontSize={14} fontWeight={400}>
                   {currency0.symbol}:
                 </Text>
                 {token0Deposited ? (
                   <RowFixed>
-                    <Text fontSize={16} fontWeight={500} marginLeft={'6px'}>
+                    <Text fontSize={14} fontWeight={400} marginLeft={'6px'}>
                       {token0Deposited?.toSignificant(6)}
                     </Text>
                   </RowFixed>
@@ -182,12 +182,12 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
                 )}
               </FixedHeightRow>
               <FixedHeightRow>
-                <Text fontSize={16} fontWeight={500}>
+                <Text fontSize={14} fontWeight={400}>
                   {currency1.symbol}:
                 </Text>
                 {token1Deposited ? (
                   <RowFixed>
-                    <Text fontSize={16} fontWeight={500} marginLeft={'6px'}>
+                    <Text fontSize={14} fontWeight={400} marginLeft={'6px'}>
                       {token1Deposited?.toSignificant(6)}
                     </Text>
                   </RowFixed>
@@ -369,14 +369,14 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
               </Text>
             </FixedHeightRow>
             <Pdnbap />
-            <ButtonSecondary padding="8px" borderRadius="8px">
+            {/* <ButtonSecondary padding="8px" borderRadius="8px">
               <ExternalLink
-                style={{ width: '100%', textAlign: 'center' }}
+                style={{ width: '100%', textAlign: 'center', fontSize: '12px' }}
                 href={`https://uniswap.info/account/${account}`}
               >
                 View accrued fees and analytics<span style={{ fontSize: '11px' }}>↗</span>
               </ExternalLink>
-            </ButtonSecondary>
+            </ButtonSecondary> */}
             {userDefaultPoolBalance && JSBI.greaterThan(userDefaultPoolBalance.raw, BIG_INT_ZERO) && (
               <RowBetween marginTop="10px">
                 <ButtonPrimary

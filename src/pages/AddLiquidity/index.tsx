@@ -213,7 +213,7 @@ export default function AddLiquidity({
 
   const modalHeader = () => {
     return noLiquidity ? (
-      <AutoColumn gap="20px">
+      <AutoColumn gap="10px">
         <LightCard mt="20px" borderRadius="20px">
           <RowFlat>
             <Text fontSize="48px" fontWeight={500} lineHeight="42px" marginRight={10}>
@@ -228,9 +228,9 @@ export default function AddLiquidity({
         </LightCard>
       </AutoColumn>
     ) : (
-      <AutoColumn gap="20px">
-        <RowFlat style={{ marginTop: '20px' }}>
-          <Text fontSize="48px" fontWeight={500} lineHeight="42px" marginRight={10}>
+      <AutoColumn gap="10px">
+        <RowFlat style={{ marginTop: '20px',justifyContent: 'space-between' }}>
+          <Text fontSize="32px" fontWeight={500} lineHeight="42px" marginRight={10}>
             {liquidityMinted?.toSignificant(6)}
           </Text>
           <DoubleCurrencyLogo
@@ -240,7 +240,7 @@ export default function AddLiquidity({
           />
         </RowFlat>
         <Row>
-          <Text fontSize="24px">
+          <Text fontSize="18px" fontWeight={500}>
             {currencies[Field.CURRENCY_A]?.symbol + '/' + currencies[Field.CURRENCY_B]?.symbol + ' Pool Tokens'}
           </Text>
         </Row>
@@ -330,7 +330,7 @@ export default function AddLiquidity({
             pendingText={pendingText}
             currencyToAdd={pair?.liquidityToken}
           />
-          <AutoColumn gap="20px">
+          <AutoColumn gap="10px">
             {/* {noLiquidity ||
               (isCreate ? (
                 <ColumnCenter>

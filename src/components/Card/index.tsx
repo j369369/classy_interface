@@ -23,7 +23,10 @@ export const LightGreyCard = styled(Card)`
 `
 
 export const GreyCard = styled(Card)`
-  background-color: ${({ theme }) => theme.bg3};
+  //background-color: ${({ theme }) => theme.bg3};
+  background: var(--bg-gradient-white-02);
+  backdrop-filter: var(--bg-filter-blur);
+  box-shadow: var(--bg-box-shadow);
 `
 
 export const OutlineCard = styled(Card)`
