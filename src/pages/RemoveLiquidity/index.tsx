@@ -637,8 +637,8 @@ export default function RemoveLiquidity({
                   onCurrencySelect={handleSelectCurrencyA}
                   id="swapFrom"
                 />
-                <ColumnCenter>
-                  <Plus size="16" color={theme.text2} style={{ marginTop: '-4px', paddingBottom: '20px' }} />
+                <ColumnCenter style={{ marginTop: '-4px', paddingBottom: '20px' }}>
+                  <Plus size="16" color={theme.text2} />
                 </ColumnCenter>
                 <CurrencyInputPanel
                   hideBalance={true}
