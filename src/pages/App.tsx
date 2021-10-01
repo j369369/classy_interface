@@ -49,6 +49,9 @@ import '../assets/css/css.css'
 
 
 
+import Farm from './Farm'
+
+
 
 
 
@@ -152,6 +155,7 @@ export default function App() {
               <Route exact strict path="/send" component={RedirectPathToSwapOnly} />
               <Route exact strict path="/find" component={PoolFinder} />
               <Route exact strict path="/pool" component={Pool} />
+              <Route exact strict path="/farms" component={Farm} />
               <Route exact strict path="/intro" component={Intro} />
               <Route exact strict path="/uni" component={Earn} />
               <Route exact strict path="/vote" component={Vote} />

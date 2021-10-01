@@ -54,10 +54,12 @@ export default function CurrencyLogo({
   const srcs: string[] = useMemo(() => {
     if (currency === ETHER) return []
 
+    
     if (currency instanceof Token) {
       if (currency instanceof WrappedTokenInfo) {
         return [...uriLocations, getTokenLogoURL(currency.address)]
       }
+      console.log(getTokenLogoURL(currency.address))
       return [getTokenLogoURL(currency.address)]
     }
     return []
@@ -68,4 +70,31 @@ export default function CurrencyLogo({
   }
 
   return <StyledLogo size={size} srcs={srcs} alt={`${currency?.symbol ?? 'token'} logo`} style={style} />
+}
+
+
+
+
+
+export const getImageUrlFromToken = (address: string) =>
+  `/images/tokens/${address}.svg`
+
+export function TokenLogo({
+  address,
+  size = '24px',
+  style
+}: {
+  address?: string
+  size?: string
+  style?: React.CSSProperties
+}) {
+
+  const srcs: string[] = useMemo(() => {
+    if (address === '') return []
+
+    return [getImageUrlFromToken(address as any)]
+  }, [address])
+
+
+  return <StyledLogo size={size} srcs={srcs} alt={`token logo`} style={style} />
 }

@@ -88,3 +88,19 @@ export function useListColor(listImageUri?: string) {
 
   return color
 }
+
+
+export function useDefaultBg() {
+  const [color, setColor] = useState('#2172E5')
+
+  useLayoutEffect(() => {
+    let stale = false
+
+    return () => {
+      stale = true
+      setColor('#2172E5')
+    }
+  })
+
+  return color
+}

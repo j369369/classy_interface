@@ -121,6 +121,14 @@ export default function Header() {
               <span className="text">{t('pool')}</span>
             </StyledNavLink>
           </li>
+
+          <li className="li" onClick={fn_btnHeaderClose}>
+            <StyledNavLink to={'/farms'}>
+              <i className="fas fa-egg"></i>
+              <span className="text">{t('farm')}</span>
+            </StyledNavLink>
+          </li>
+
           <li className="li" onClick={fn_btnHeaderClose}>
             <StyledNavLink to={'/intro'}>
               <span className="text">{t('intro')}</span>
