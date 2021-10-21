@@ -7,11 +7,11 @@ const farms: FarmConfig[] = [
    */
 
    {
-    pid: 1,
+    pid: 0,
     lpSymbol: 'CLSY-ETH',
     lpAddresses: {
-      1: '0x9aE628733F545aFDE743e2B610F6392f7cD23a87',
-      3: '0x9ae628733f545afde743e2b610f6392f7cd23a87',
+      1: '0x9b164fb2c8ed9c412d48439476350f8a9f867404',
+      3: '0x9b164fb2c8ed9c412d48439476350f8a9f867404',
     },
     token: tokens.clsy,
     quoteToken: tokens.eth

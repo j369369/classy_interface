@@ -1,4 +1,6 @@
-import React, { useContext } from 'react'
+import React, { useContext, useCallback } from 'react'
+// import React, { useEffect, useCallback, useState, useMemo, useRef } from 'react'
+
 import styled, { ThemeContext } from 'styled-components'
 // import { Pair, JSBI } from '@uniswap/sdk'
 import { SwapPoolTabs } from '../../components/NavigationTabs'
@@ -24,7 +26,17 @@ import { useActiveWeb3React } from '../../hooks'
 
 import farms  from '../../constants/farm/farms'
 
-import {usePollFarmsPublicData} from 'state/farms/hooks'
+import {usePollFarmsPublicData, usePollFarmsWithUserData} from 'state/farms/hooks'
+
+import { Farm as FarmConfig } from 'state/farms/types'
+import BigNumber from 'bignumber.js'
+import { ChainId } from '@uniswap/sdk'
+import { getFarmApr } from 'utils/apr'
+import { BIG_ZERO,BIG_ONE } from 'utils/bigNumber'
+import { useFarms } from 'state/farms/hooks'
+
+
+
 
 
 const PageWrapper = styled(AutoColumn)`
@@ -104,111 +116,63 @@ const PoolTitle = styled.div`
 `
 */
 
+interface FarmWithStakedValue extends FarmConfig {
+  apr?: number
+  lpRewardsApr?: number
+  liquidity?: BigNumber
+}
+
 export default function Farm() {
 
 
+  // usePollFarmsPublicData()
+  usePollFarmsWithUserData()
+  const { data: farmsLP, userDataLoaded } = useFarms()
+  const isActive = true
+  // TODO: cakeprice 구해야함
+  const classyPrice = BIG_ONE;
+        
+  const chainid = ChainId.MAINNET;
 
+  const farmsList = useCallback(
+    (farmsToDisplay: FarmConfig[]): FarmWithStakedValue[] => {
+      let farmsToDisplayWithAPR: FarmWithStakedValue[] = farmsToDisplay.map((farm) => {
+        
+        // if (!farm.lpTotalInQuoteToken || !farm.quoteToken.ethPrice) {
+        //   return farm
+        // }
 
-  // const farmsList = state.farmsList
+        const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken!).times(farm.quoteToken.ethPrice!)
+        const { cakeRewardsApr, lpRewardsApr } = isActive
+          ? getFarmApr(new BigNumber(farm.poolWeight!), classyPrice, totalLiquidity, farm.lpAddresses[1]!)
+          : { cakeRewardsApr: 0, lpRewardsApr: 0 }
 
-  const farm = usePollFarmsPublicData()
+        return { ...farm, apr: cakeRewardsApr, lpRewardsApr, liquidity: totalLiquidity }
+      })
+
+      // if (query) {
+      //   const lowercaseQuery = latinise(query.toLowerCase())
+      //   farmsToDisplayWithAPR = farmsToDisplayWithAPR.filter((farm: FarmWithStakedValue) => {
+      //     return latinise(farm.lpSymbol.toLowerCase()).includes(lowercaseQuery)
+      //   })
+      // }
+      return farmsToDisplayWithAPR
+    },
+    [classyPrice, isActive],
+  )
+  
   
   const renderContent = (): JSX.Element => {
-
-
-    
     return <> 
-    
     <div className="space-y-4">
-          {farms.map((farm, index) => (
-            <FarmRow key={index} farm={farm} />
+          {farmsList(farmsLP).map((farm, index) => (
+            <FarmRow key={index} farm={farm} price={classyPrice} />
           ))}
         </div>
     </>
-
-
-
-
-      // console.log(rowData)
-      // const columnSchema = DesktopColumnSchema
-
-      // const columns = columnSchema.map((column) => ({
-      //   id: column.id,
-      //   name: column.name,
-      //   label: column.label,
-      //   sort: (a: RowType<RowProps>, b: RowType<RowProps>) => {
-      //     switch (column.name) {
-      //       case 'farm':
-      //         return b.id - a.id
-      //       case 'apr':
-      //         if (a.original.apr.value && b.original.apr.value) {
-      //           return Number(a.original.apr.value) - Number(b.original.apr.value)
-      //         }
-
-      //         return 0
-      //       case 'earned':
-      //         return a.original.earned.earnings - b.original.earned.earnings
-      //       default:
-      //         return 1
-      //     }
-      //   },
-      //   sortable: column.sortable,
-      // }))
-
-      // return <Table data={rowData} columns={columns} userDataReady={userDataReady} />
-
   }
 
 
-
-
-  // const theme = useContext(ThemeContext)
-  // const { account } = useActiveWeb3React()
-
-  // // fetch the user's balances of all tracked V2 LP tokens
-  // const trackedTokenPairs = useTrackedTokenPairs()
-  // const tokenPairsWithLiquidityTokens = useMemo(
-  //   () => trackedTokenPairs.map(tokens => ({ liquidityToken: toV2LiquidityToken(tokens), tokens })),
-  //   [trackedTokenPairs]
-  // )
-  // const liquidityTokens = useMemo(() => tokenPairsWithLiquidityTokens.map(tpwlt => tpwlt.liquidityToken), [
-  //   tokenPairsWithLiquidityTokens
-  // ])
-  // const [v2PairsBalances, fetchingV2PairBalances] = useTokenBalancesWithLoadingIndicator(
-  //   account ?? undefined,
-  //   liquidityTokens
-  // )
-
-  // // fetch the reserves for all V2 pools in which the user has a balance
-  // const liquidityTokensWithBalances = useMemo(
-  //   () =>
-  //     tokenPairsWithLiquidityTokens.filter(({ liquidityToken }) =>
-  //       v2PairsBalances[liquidityToken.address]?.greaterThan('0')
-  //     ),
-  //   [tokenPairsWithLiquidityTokens, v2PairsBalances]
-  // )
-
-  // const v2Pairs = usePairs(liquidityTokensWithBalances.map(({ tokens }) => tokens))
-  // const v2IsLoading =
-  //   fetchingV2PairBalances || v2Pairs?.length < liquidityTokensWithBalances.length || v2Pairs?.some(V2Pair => !V2Pair)
-
-  // const allV2PairsWithLiquidity = v2Pairs.map(([, pair]) => pair).filter((v2Pair): v2Pair is Pair => Boolean(v2Pair))
-
-  // const hasV1Liquidity = useUserHasLiquidityInAllTokens()
-
-  // // show liquidity even if its deposited in rewards contract
-  // const stakingInfo = useStakingInfo()
-  // const stakingInfosWithBalance = stakingInfo?.filter(pool => JSBI.greaterThan(pool.stakedAmount.raw, BIG_INT_ZERO))
-  // const stakingPairs = usePairs(stakingInfosWithBalance?.map(stakingInfo => stakingInfo.tokens))
-
-  // // remove any pairs that also are included in pairs with stake in mining pool
-  // const v2PairsWithoutStakedAmount = allV2PairsWithLiquidity.filter(v2Pair => {
-  //   return (
-  //     stakingPairs
-  //       ?.map(stakingPair => stakingPair[1])
-  //       .filter(stakingPair => stakingPair?.liquidityToken.address === v2Pair.liquidityToken.address).length === 0
-  //   )
-  // })
 
   return (
     <>
@@ -220,7 +184,6 @@ export default function Farm() {
               <TYPE.title_B style={{ fontSize: '16px', justifySelf: 'flex-start' }}>
               Stake LP tokens to earn.
               </TYPE.title_B>
-   
             </TitleRow>
 
             {renderContent()}

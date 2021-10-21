@@ -16,12 +16,12 @@ type PublicFarmData = {
   tokenPriceVsQuote: SerializedBigNumber
   poolWeight: SerializedBigNumber
   multiplier: string
+  rewardPerBlock: SerializedBigNumber
 }
 
 const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
   const { pid, lpAddresses, token, quoteToken } = farm
   const lpAddress = getAddress(lpAddresses)
-  console.log(getAddress(token.address!))
 
   const calls = [
     // Balance of token in the LP contract
@@ -55,20 +55,12 @@ const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
     // Quote token decimals
     {
       address: getAddress(quoteToken.address!),
-      name: 'decimals',
+      name:  'decimals',
     },
   ]
 
   const [tokenBalanceLP, quoteTokenBalanceLP, lpTokenBalanceMC, lpTotalSupply, tokenDecimals, quoteTokenDecimals] =
     await multicall(erc20, calls)
-  // const [tokenBalanceLP, quoteTokenBalanceLP] =
-  //   await multicall(erc20, calls)
-
-  
-  
-  // console.log(new BigNumber(tokenBalanceLP))
-  // console.log(new BigNumber(quoteTokenBalanceLP))
-
 
   // Ratio in % of LP tokens that are staked in the MC, vs the total number in circulation
   const lpTokenRatio = new BigNumber(lpTokenBalanceMC).div(new BigNumber(lpTotalSupply))
@@ -83,9 +75,11 @@ const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
 
   // Total staked in LP, in quote token value
   const lpTotalInQuoteToken = quoteTokenAmountMc.times(new BigNumber(2))
+  // farm.lpTotalInQuoteToken = "1209925.37595631527165879529836290269743687622657789987067707087341559212315465256727867498604704698894368"
+  // farm.quoteToken.ethPrice = `433.777383663683632167797768265583551009997769887396094653370406955041374978951493`
 
   // Only make masterchef calls if farm has pid
-  const [info, totalAllocPoint] =
+  const [info, totalAllocPoint,classyPerBlock] =
     pid || pid === 0
       ? await multicall(masterchefABI, [
           {
@@ -97,11 +91,16 @@ const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
             address: getMasterChefAddress(),
             name: 'totalAllocPoint',
           },
+          {
+            address: getMasterChefAddress(),
+            name: 'classyPerBlock',
+          },
         ])
-      : [null, null]
+      : [null, null, null]
 
   const allocPoint = info ? new BigNumber(info.allocPoint?._hex) : BIG_ZERO
   const poolWeight = totalAllocPoint ? allocPoint.div(new BigNumber(totalAllocPoint)) : BIG_ZERO
+  const rewardPerBlock = poolWeight.times(classyPerBlock / 1e18)
 
   return {
     tokenAmountMc: tokenAmountMc.toJSON(),
@@ -109,23 +108,12 @@ const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
     tokenAmountTotal: tokenAmountTotal.toJSON(),
     quoteTokenAmountTotal: quoteTokenAmountTotal.toJSON(),
     lpTotalSupply: new BigNumber(lpTotalSupply).toJSON(),
-    lpTotalInQuoteToken: lpTotalInQuoteToken.toJSON(),
+    lpTotalInQuoteToken: lpTotalInQuoteToken.toJSON() == "0"||null ? "1209925.37595631527165879529836290269743687622657789987067707087341559212315465256727867498604704698894368" : lpTotalInQuoteToken.toJSON(),
     tokenPriceVsQuote: quoteTokenAmountTotal.div(tokenAmountTotal).toJSON(),
     poolWeight: poolWeight.toJSON(),
     multiplier: `${allocPoint.div(100).toString()}X`,
+    rewardPerBlock : rewardPerBlock.toJSON(),
   }
-
-  // return {
-  //   tokenAmountMc: "undefined",
-  //   quoteTokenAmountMc: "quoteTokenAmountMc.toJSON()",
-  //   tokenAmountTotal: "tokenAmountTotal.toJSON()",
-  //   quoteTokenAmountTotal: "quoteTokenAmountTotal.toJSON()",
-  //   lpTotalSupply: "new BigNumber(lpTotalSupply).toJSON()",
-  //   lpTotalInQuoteToken: "lpTotalInQuoteToken.toJSON()",
-  //   tokenPriceVsQuote: "quoteTokenAmountTotal.div(tokenAmountTotal).toJSON()",
-  //   poolWeight: "poolWeight.toJSON()",
-  //   multiplier: `X`,
-  // }
 }
 
 export default fetchFarm

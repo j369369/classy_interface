@@ -3,10 +3,11 @@ import styled from 'styled-components'
 
 import { FarmConfig } from '../../constants/farm/types'
 
+import RowProps from './types'
+import {useAverageBlockTime} from 'hooks/useBlockPerDay'
+import { Dots } from '../swap/styleds'
 
-interface FarmsProps {
-  farm?: FarmConfig
-}
+
 const Pooltext = styled.span`
   font-size: 18px;
   font-weight: 500;
@@ -16,27 +17,64 @@ const Pooltext = styled.span`
   width : 20%;
 `
 
-export default function renderReward({
-  farm
-}: FarmsProps) {
+  export interface ITableProps {
+    data: RowProps
+    userDataReady: boolean
+  }
 
-const pid = farm?.pid
+const FarmTable: React.FC<ITableProps> = (props) => {
 
+    const { data,  userDataReady } = props
+    const averageBlockTime = useAverageBlockTime()
+    const blocksPerDay = 86400 / Number(averageBlockTime)
+    const rewardPerDay = blocksPerDay * Number(data.details.rewardPerBlock)
 
-  return (
-    <>
-            <Pooltext>
-              TVL
-              ${pid}
-            </Pooltext>
+    return (
+         <>
+          {!Number(data.details.liquidity) ? <Dots>Loading</Dots> : 
+          <>
+          <Pooltext>
+          ${Number(data.details.liquidity).toLocaleString(undefined, { maximumFractionDigits: 0 })}
+          {/* `$${Number(liquidity).toLocaleString(undefined, { maximumFractionDigits: 0 })}` */}
+        </Pooltext>
 
-            <Pooltext>
-            Rewards
-            </Pooltext>
+        <Pooltext>
+         {rewardPerDay.toLocaleString(undefined, { maximumFractionDigits: 0 })} CLSY / DAY
+        </Pooltext>
 
-            <Pooltext>
-              APR
-            </Pooltext>
-    </>
-  )
+        <Pooltext>
+           {data.apr.value} %
+        </Pooltext>
+        </>
+          }
+            
+     </>
+    )
 }
+
+export default FarmTable
+
+
+// export default function renderReward(row: RowProps) {
+
+// const pid = row?.pid
+
+
+//   return (
+//     <>
+//             <Pooltext>
+//               TVL
+//               ${pid}
+//             </Pooltext>
+
+//             <Pooltext>
+//             Rewards
+//             </Pooltext>
+
+//             <Pooltext>
+//               APR
+//               {getDisplayApr(farm?.apr, farm.lpRewardsApr)}
+//             </Pooltext>
+//     </>
+//   )
+// }

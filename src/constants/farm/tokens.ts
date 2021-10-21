@@ -9,8 +9,8 @@ const tokens = {
     clsy: {
       symbol: 'CLSY',
       address: {
-        1: '0x5F5DB7F75b67B13E858d79564483E1B6C36163C1',
-        3: '0x5F5DB7F75b67B13E858d79564483E1B6C36163C1',
+        1: '0x2a9c9beB311c50c64c23FE435685489C51996d6F',
+        3: '0x2a9c9beB311c50c64c23FE435685489C51996d6F',
       },
       decimals: 18,
       projectLink: 'https://pancakeswap.finance/',

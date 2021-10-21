@@ -1,103 +1,48 @@
 import { useEffect, useMemo } from 'react'
 import { useSelector } from 'react-redux'
+import { useAppDispatch } from 'state'
 import { useWeb3React } from '@web3-react/core'
 import BigNumber from 'bignumber.js'
 import { BIG_ZERO } from 'utils/bigNumber'
 import { getBalanceAmount } from 'utils/formatBalance'
-// import { farmsConfig } from 'config/constants'
 import farmsConfig  from '../../constants/farm/farms'
 
-// import useRefresh from 'hooks/useRefresh'
-// import { fetchFarmsPublicDataAsync } from './fetchPublicFarmData'
+import { fetchFarmsPublicDataAsync, fetchFarmUserDataAsync } from '.'
 import { State, Farm, FarmsState } from './types'
-
-import fetchFarms from './fetchFarms'
-import fetchFarmsPrices from './fetchFarmsPrices'
-
-// export const fetchFarmsPublicDataAsync = createAsyncThunk<Farm[], number[]>(
-//   'farms/fetchFarmsPublicDataAsync',
-//   async (pids) => {
-
-//     console.log(`fetchFarmsPublicDataAsync`)
-//     const farmsToFetch = farmsConfig.filter((farmConfig) => pids.includes(farmConfig.pid))
-
-//     // Add price helper farms
-//     const farmsWithPriceHelpers = farmsToFetch.concat(priceHelperLpsConfig)
-
-//     const farms = await fetchFarms(farmsWithPriceHelpers)
-//     const farmsWithPrices = await fetchFarmsPrices(farms)
-
-//     // Filter out price helper LP config farms
-//     const farmsWithoutHelperLps = farmsWithPrices.filter((farm: Farm) => {
-//       return farm.pid || farm.pid === 0
-//     })
-
-//     return farmsWithoutHelperLps
-//   },
-// )
-
-export const fetchFarmsPublicDataAsync = async (pids : number[]) => {
-  console.log(`fetchFarmsPublicDataAsync`)
-    const farmsToFetch = farmsConfig.filter((farmConfig) => pids.includes(farmConfig.pid))
-
-    // Add price helper farms
-    // const farmsWithPriceHelpers = farmsToFetch.concat(priceHelperLpsConfig)
-
-    const farms = await fetchFarms(farmsToFetch)
-    const farmsWithPrices = await fetchFarmsPrices(farms)
-
-    // Filter out price helper LP config farms
-    const farmsWithoutHelperLps = farmsWithPrices.filter((farm: Farm) => {
-      return farm.pid || farm.pid === 0
-    })
-
-    return farmsWithoutHelperLps
-}
-
+import useRefresh from 'hooks/useRefresh'
 
 
 export const usePollFarmsPublicData = (includeArchive = true) => {
-  console.log(`usePollFarmsPublicData`)
-  const farmsToFetch = includeArchive ? farmsConfig : null
-  const pids = farmsToFetch?.map((farmToFetch) => farmToFetch.pid)
+  const dispatch = useAppDispatch()
+  const { slowRefresh } = useRefresh()
 
-  console.log(pids)
-  return fetchFarmsPublicDataAsync(pids!)  
+  useEffect(() => {
+    const farmsToFetch = includeArchive ? farmsConfig : null
+    const pids = farmsToFetch?.map((farmToFetch) => farmToFetch.pid)
+
+    dispatch(fetchFarmsPublicDataAsync(pids!))
+  }, [includeArchive, dispatch, slowRefresh])
 }
 
-// export const usePollFarmsWithUserData = (includeArchive = false) => {
-//   const dispatch = useAppDispatch()
-//   const { slowRefresh } = useRefresh()
-//   const { account } = useWeb3React()
+export const usePollFarmsWithUserData = (includeArchive = true) => {
+  const dispatch = useAppDispatch()
+  const { slowRefresh } = useRefresh()
+  const { account } = useWeb3React()
 
-//   useEffect(() => {
-//     const farmsToFetch = includeArchive ? farmsConfig : nonArchivedFarms
-//     const pids = farmsToFetch.map((farmToFetch) => farmToFetch.pid)
+  useEffect(() => {
+    const farmsToFetch = includeArchive ? farmsConfig : null
+    const pids = farmsToFetch?.map((farmToFetch) => farmToFetch.pid)
 
-//     dispatch(fetchFarmsPublicDataAsync(pids))
+    dispatch(fetchFarmsPublicDataAsync(pids!))
 
-//     if (account) {
-//       dispatch(fetchFarmUserDataAsync({ account, pids }))
-//     }
-//   }, [includeArchive, dispatch, slowRefresh, account])
-// }
+    if (account) {
+      dispatch(fetchFarmUserDataAsync({account,pids}))
+    }
+  }, [includeArchive, dispatch, slowRefresh, account])
+}
 
-/**
- * Fetches the "core" farm data used globally
- * 251 = CAKE-BNB LP
- * 252 = BUSD-BNB LP
- */
-// export const usePollCoreFarmData = () => {
-//   const dispatch = useAppDispatch()
-//   const { fastRefresh } = useRefresh()
-
-//   useEffect(() => {
-//     dispatch(fetchFarmsPublicDataAsync([251, 252]))
-//   }, [dispatch, fastRefresh])
-// }
 
 export const useFarms = (): FarmsState => {
-  console.log(`useFarms call`)
   const farms = useSelector((state: State) => state.farms)
   return farms
 }
@@ -150,7 +95,7 @@ export const useLpTokenPrice = (symbol: string) => {
 // /!\ Deprecated , use the BUSD hook in /hooks
 
 export const usePriceCakeBusd = (): BigNumber => {
-  const cakeBnbFarm = useFarmFromPid(251)
+  const cakeBnbFarm = useFarmFromPid(0)
 
   const cakePriceBusdAsString = cakeBnbFarm.token.ethPrice
 

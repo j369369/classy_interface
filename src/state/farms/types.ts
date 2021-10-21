@@ -1,7 +1,6 @@
 import { ethers } from 'ethers'
 import { FarmConfig } from 'constants/farm/types'
 
-
 export interface BigNumberToJson {
   type: 'BigNumber'
   hex: string
@@ -34,6 +33,8 @@ export interface Farm extends FarmConfig {
     earnings: string
   }
 }
+
+
 
 
 // Slices states

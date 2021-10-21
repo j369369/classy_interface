@@ -83,16 +83,22 @@ const getFarmQuoteTokenPrice = (farm: Farm, quoteTokenFarm: Farm, bnbPriceBusd: 
 }
 
 const fetchFarmsPrices = async (farms : any) => {
-  console.log(farms)
-  const bnbBusdFarm = farms.find((farm: Farm) => farm.pid === 1)
-  const bnbPriceBusd = bnbBusdFarm.tokenPriceVsQuote ? BIG_ONE.div(bnbBusdFarm.tokenPriceVsQuote) : BIG_ZERO
+  // const bnbBusdFarm = farms.find((farm: Farm) => farm.pid === 1)
+  // const bnbPriceBusd = bnbBusdFarm.tokenPriceVsQuote ? BIG_ONE.div(bnbBusdFarm.tokenPriceVsQuote) : BIG_ZERO
 
   const farmsWithPrices = farms.map((farm : any) => {
-    const quoteTokenFarm = getFarmFromTokenSymbol(farms, farm.quoteToken.symbol)
-    const baseTokenPrice = getFarmBaseTokenPrice(farm, quoteTokenFarm, bnbPriceBusd)
-    const quoteTokenPrice = getFarmQuoteTokenPrice(farm, quoteTokenFarm, bnbPriceBusd)
-    const token = { ...farm.token, busdPrice: baseTokenPrice.toJSON() }
-    const quoteToken = { ...farm.quoteToken, busdPrice: quoteTokenPrice.toJSON() }
+    // const quoteTokenFarm = getFarmFromTokenSymbol(farms, farm.quoteToken.symbol)
+    // const baseTokenPrice = getFarmBaseTokenPrice(farm, quoteTokenFarm, bnbPriceBusd)
+    // const quoteTokenPrice = getFarmQuoteTokenPrice(farm, quoteTokenFarm, bnbPriceBusd)
+    // const token = { ...farm.token, ethPrice: baseTokenPrice.toJSON() }
+    // const quoteToken = { ...farm.quoteToken, ethPrice: quoteTokenPrice.toJSON() }
+
+
+    // testnet bulkd price 
+    const token = { ...farm.token, ethPrice: "1" }
+    const quoteToken = { ...farm.quoteToken, ethPrice: "22" }
+
+
     return { ...farm, token, quoteToken }
   })
 

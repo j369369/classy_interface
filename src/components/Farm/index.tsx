@@ -1,34 +1,46 @@
-import { JSBI, Percent, Pair, TokenAmount } from '@uniswap/sdk'
+import { Pair, TokenAmount } from '@uniswap/sdk'
 import { darken } from 'polished'
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { ChevronDown, ChevronUp } from 'react-feather'
-import { Link } from 'react-router-dom'
 import { Text } from 'rebass'
 import styled from 'styled-components'
-import { useTotalSupply } from '../../data/TotalSupply'
 
 import { useActiveWeb3React } from '../../hooks'
-import { useTokenBalance } from '../../state/wallet/hooks'
-import { /*ExternalLink,*/ TYPE } from '../../theme'
-import { currencyId } from '../../utils/currencyId'
-import { unwrappedToken } from '../../utils/wrappedCurrency'
-import { ButtonPrimary, /*, ButtonSecondary,*/ ButtonEmpty } from '../Button'
-//import { transparentize } from 'polished'
+import { ExternalLink, TYPE } from '../../theme'
+import { ButtonPrimary,  ButtonSecondary, ButtonEmpty, ButtonOutlined,ButtonLight } from '../Button'
 import { CardNoise } from '../earn/styled'
 
-import { useColor,useDefaultBg } from '../../hooks/useColor'
+import { useDefaultBg } from '../../hooks/useColor'
 
-import Card, { GreyCard, LightCard } from '../Card'
+import Card, {  LightCard } from '../Card'
 import { AutoColumn } from '../Column'
-import CurrencyLogo from '../CurrencyLogo'
-import DoubleCurrencyLogo from '../DoubleLogo'
 import FarmsLogo from '../FarmsLogo'
 import { RowBetween, RowFixed, AutoRow } from '../Row'
 import { Dots } from '../swap/styleds'
-import { BIG_INT_ZERO } from '../../constants'
 import { FarmConfig } from '../../constants/farm/types'
 
 import RenderReward from './reward'
+import RowProps from './types'
+import { getBalanceNumber,getFullDisplayBalance } from 'utils/formatBalance'
+import { getAddress } from 'utils/addressHelpers'
+import BigNumber from 'bignumber.js'
+
+import { usePriceCakeBusd,useFarmUser } from 'state/farms/hooks'
+
+
+import useApproveFarm from './hooks/useApproveFarm'
+import useHarvestFarm from './hooks/useHarvestFarm'
+import useStakeFarms from './hooks/useStakeFarms'
+import useUnstakeFarms from './hooks/useUnstakeFarms'
+import {useTokenContract} from 'hooks/useContract'
+
+import { useAppDispatch } from 'state'
+import { fetchFarmUserDataAsync } from 'state/farms'
+
+import { useTranslation } from 'react-i18next'
+
+import { Input as NumericalInput } from '../../components/NumericalInput'
+import { useWalletModalToggle } from 'state/application/hooks'
 
 
 export const FixedHeightRow = styled(RowBetween)`
@@ -119,63 +131,130 @@ interface FarmProp {
   showUnwrapped?: boolean
   border?: string
   stakedBalance?: TokenAmount // optional balance to indicate that liquidity is deposited in mining pool
+  price:BigNumber
 }
 
-export const FarmRow = ({ farm, ...rest } : FarmProp) => {
+const getDisplayApr = (cakeRewardsApr?: number, lpRewardsApr?: number) => {
+  if (cakeRewardsApr && lpRewardsApr) {
+    return (cakeRewardsApr + lpRewardsApr).toLocaleString('en-US', { maximumFractionDigits: 2 })
+  }
+  if (cakeRewardsApr) {
+    return cakeRewardsApr.toLocaleString('en-US', { maximumFractionDigits: 2 })
+  }
+  return null
+}
 
-  const { account } = useActiveWeb3React()
+
+const parseRowData = (farm:any, price:any) => {
+  const { token, quoteToken } = farm
+    const tokenAddress = token.address
+    const quoteTokenAddress = quoteToken.address
+    const lpLabel = farm.lpSymbol && farm.lpSymbol.split(' ')[0].toUpperCase().replace('PANCAKE', '')
+
+    const row: RowProps = {
+      apr: {
+        value: getDisplayApr(farm.apr, farm.lpRewardsApr)!,
+        pid: farm.pid,
+        multiplier: farm.multiplier,
+        lpLabel,
+        lpSymbol: farm.lpSymbol,
+        tokenAddress,
+        quoteTokenAddress,
+        cakePrice: price,
+        originalValue: farm.apr,
+      },
+      farm: {
+        label: lpLabel,
+        pid: farm.pid,
+        token: farm.token,
+        quoteToken: farm.quoteToken,
+      },
+      earned: {
+        earnings: getBalanceNumber(new BigNumber(farm.userData.earnings)),
+        pid: farm.pid,
+      },
+      liquidity: {
+        liquidity: farm.liquidity,
+      },
+      multiplier: {
+        multiplier: farm.multiplier,
+      },
+      details: farm,
+    }
+
+    return row
+}
+const getLiquidityUrl  = (chainId : any , farm : any) => {
+  return `/#/add/${farm.token.address[chainId]}/${farm.quoteToken.address[chainId]}`
+}
+
+export const FarmRow = ({ farm, price, ...rest } : FarmProp) => {
+
+  const { account, chainId } = useActiveWeb3React()
   const [showMore, setShowMore] = useState(false)
 
+  const { t } = useTranslation()
 
-  // console.log(farms)
+  // const price = usePriceCakeBusd();
+  const rowData = parseRowData(farm, price)
 
-  // const currency0 = showUnwrapped ? pair.token0 : unwrappedToken(pair.token0)
-  // const currency1 = showUnwrapped ? pair.token1 : unwrappedToken(pair.token1)
+  // console.log(rowData.details.lpAddresses[chainId!])
 
-  // const [showMore, setShowMore] = useState(false)
+  // const lpBalance: TokenAmount | undefined = useTokenBalance(account ?? undefined, createToken(chainId,rowData.details.lpAddresses))
+  const userData = useFarmUser(rowData.details.pid);
+  const hasStakedAmount = getFullDisplayBalance(userData.stakedBalance,18)
+  const tokenBalance = getFullDisplayBalance(userData.tokenBalance)
+  const earnings = getBalanceNumber(userData.earnings)
+  const addLiquidityUrl = getLiquidityUrl(chainId,farm)
+  const isApproved = account && userData.allowance && userData.allowance.isGreaterThan(0)
 
-  // const userPoolBalance = useTokenBalance(account ?? undefined, pair.liquidityToken)
-  // const totalPoolTokens = useTotalSupply(pair.liquidityToken)
+  // connect wallet 
+  const toggleWalletModal = useWalletModalToggle()
+ 
+  // approve 
+  const dispatch = useAppDispatch()
+  const [requestedApproval, setRequestedApproval] = useState(false)
+  const {pid, lpAddresses} = farm
+  const lpAddress = getAddress(lpAddresses)
+  const lpContract = useTokenContract(lpAddress)
+  const { onApprove } = useApproveFarm(lpContract!)
+  const handleApprove = useCallback(async () => {
+    try {
+      setRequestedApproval(true)
+      await onApprove()
+      if(account) dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
 
-  // const poolTokenPercentage =
-  //   !!userPoolBalance && !!totalPoolTokens && JSBI.greaterThanOrEqual(totalPoolTokens.raw, userPoolBalance.raw)
-  //     ? new Percent(userPoolBalance.raw, totalPoolTokens.raw)
-  //     : undefined
+      setRequestedApproval(false)
+    } catch (e) {
+      console.error(e)
+    }
+  }, [onApprove, dispatch, account, pid])
 
-  // const [token0Deposited, token1Deposited] =
-  //   !!pair &&
-  //   !!totalPoolTokens &&
-  //   !!userPoolBalance &&
-  //   // this condition is a short-circuit in the case where useTokenBalance updates sooner than useTotalSupply
-  //   JSBI.greaterThanOrEqual(totalPoolTokens.raw, userPoolBalance.raw)
-  //     ? [
-  //         pair.getLiquidityValue(pair.token0, totalPoolTokens, userPoolBalance, false),
-  //         pair.getLiquidityValue(pair.token1, totalPoolTokens, userPoolBalance, false)
-  //       ]
-  //     : [undefined, undefined]
+
+  // harvest
+  const [harvestPendingTx, setHarvestPendingTx] = useState(false)
+  const { onReward } = useHarvestFarm(pid)
+  
+  // stake 
+  const [pendingTx, setPendingTx] = useState(false)
+  const [depositValue, setDepositValue] = useState('')
+  const { onStake } = useStakeFarms(pid)
+  const handleStake = async () => {
+    await onStake(depositValue)
+    if(account) dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
+  }
+
+  // unstake
+  const { onUnstake } = useUnstakeFarms(pid)
+
+  const [withdrawValue, setWithdrawValue] = useState('')
+  const handleUnstake = async () => {
+    await onUnstake(withdrawValue)
+    if(account) dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
+  }
 
   return (
-
     <>
-    {/* <StyledPositionHead>
-      <StyleRow>Pair</StyleRow>
-      <StyleRow>APR</StyleRow>
-      <StyleRow>TVL</StyleRow>
-      <StyleRow>Volume 24H</StyleRow>
-    </StyledPositionHead>
-    
-    <StyledPositionBody>
-      <StyleRow>
-        <DoubleCurrencyLogo currency0={currency0} currency1={currency1} size={20} />
-        <Text fontWeight={500} fontSize={20}>
-          {!currency0 || !currency1 ? <Dots>Loading</Dots> : `${currency0.symbol}/${currency1.symbol}`}
-        </Text>
-      </StyleRow>
-      <StyleRow>APR</StyleRow>
-      <StyleRow>TVL</StyleRow>
-      <StyleRow>Volume 24H</StyleRow>
-    </StyledPositionBody> */}
-
     <StyledPositionCard bgColor={useDefaultBg()}>
       <CardNoise />
       <AutoColumn gap="12px">
@@ -186,7 +265,7 @@ export const FarmRow = ({ farm, ...rest } : FarmProp) => {
               {!farm.lpSymbol ? <Dots>Loading</Dots> : `${farm.lpSymbol}`}
             </Pooltext>
 
-            <RenderReward farm={farm}/>
+            <RenderReward data={rowData} userDataReady={true}/>
 
           </AutoRow>
           <RowFixed gap="8px">
@@ -218,367 +297,151 @@ export const FarmRow = ({ farm, ...rest } : FarmProp) => {
             <Pdnbap />
             <FixedHeightRow >
               <Text fontSize={14} fontWeight={400}>
-                Your total pool tokens:
+                Your this farm lp tokens:
               </Text>
-              <Text fontSize={14} fontWeight={400}>
-              userPoolBalance
+              <Text fontSize={14} fontWeight={500}>
+              {tokenBalance ?? `your haven't this lp tokens`}
               </Text>
             </FixedHeightRow>
               <FixedHeightRow>
                 <Text fontSize={14} fontWeight={400}>
-                  Pool tokens in rewards pool:
+                  has staked amount :
                 </Text>
                 <Text fontSize={14} fontWeight={400}>
-                  stakedBalance
+                  {hasStakedAmount}
                 </Text>
               </FixedHeightRow>
             <FixedHeightRow>
               <RowFixed>
                 <Text fontSize={14} fontWeight={400}>
-                  Pooled currency0.symbol :
+                  your earnings :
                 </Text>
               </RowFixed>
                 <RowFixed>
                   <Text fontSize={14} fontWeight={400} marginLeft={'6px'}>
-                    token0Deposited
+                    {earnings}
                   </Text>
                   {/* <CurrencyLogo size="16px" style={{ marginLeft: '8px', width: '18px', height: '18px' }} currency={currency0} /> */}
                 </RowFixed>
             </FixedHeightRow>
 
+
+ 
             <FixedHeightRow>
               <RowFixed>
-                <Text fontSize={14} fontWeight={400}>
-                  currency1.symbol
-                </Text>
+                <ButtonSecondary>
+                  <RowBetween>
+                    <ExternalLink href={addLiquidityUrl}>
+                      Get {farm.lpSymbol} LP
+                    </ExternalLink>
+                    <span> ↗</span>
+                  </RowBetween>
+                </ButtonSecondary> 
               </RowFixed>
-                <RowFixed>
-                  <Text fontSize={14} fontWeight={500} marginLeft={'6px'}>
-                  token1Deposited
-                  </Text>
-                  {/* <CurrencyLogo size="16px" style={{ marginLeft: '8px', width: '18px', height: '18px' }} currency={currency1} /> */}
-                </RowFixed>
-            </FixedHeightRow>
-
-            <FixedHeightRow>
-              <Text fontSize={14} fontWeight={400}>
-                Your pool share:
-              </Text>
-              <Text fontSize={14} fontWeight={400}>
-                poolTokenPercentage
-              </Text>
             </FixedHeightRow>
             <Pdnbap />
-            {/* <ButtonSecondary padding="8px" borderRadius="8px">
-              <ExternalLink
-                style={{ width: '100%', textAlign: 'center', fontSize: '12px' }}
-                href={`https://uniswap.info/account/${account}`}
-              >
-                View accrued fees and analytics<span style={{ fontSize: '11px' }}>↗</span>
-              </ExternalLink>
-            </ButtonSecondary> */}
+
+            {
+            account ? 
+            isApproved ?
+              <>
               <RowBetween marginTop="10px">
-                <ButtonPrimary
-                  padding="8px"
-                  borderRadius="8px"
-                  as={Link}
-                  to={`/add/farm`}
-                  width="48%"
+              <NumericalInput
+                className="w-full p-3 pr-20 rounded bg-dark-700 focus:ring focus:ring-blue"
+                value={depositValue}
+                onUserInput={setDepositValue}
+              />
+              <ButtonOutlined
+                  variant="outlined"
+                  color="blue"
+                  width="7%"
+                  onClick={() => {
+                    if (!new BigNumber(tokenBalance).eq(0)) {
+                      setDepositValue(`${tokenBalance}`)
+                    }
+                  }}
                 >
-                  Stake
+                  MAX
+                </ButtonOutlined>
+                <ButtonPrimary
+                  disabled={pendingTx || !depositValue || new BigNumber(depositValue).gt(tokenBalance) || new BigNumber(depositValue).eq(0)}
+                  padding="8px 8px"
+                  width="48%"
+                  borderRadius="8px"
+                  mt="1rem"
+                  onClick={handleStake}
+                >
+                  Deposit
                 </ButtonPrimary>
-                <ButtonPrimary
-                  padding="8px"
-                  borderRadius="8px"
-                  as={Link}
-                  width="48%"
-                  to={`/remove/farm`}
+              </RowBetween>
+
+              <RowBetween marginTop="10px">
+              <NumericalInput
+                className="w-full p-3 pr-20 rounded bg-dark-700 focus:ring focus:ring-blue"
+                value={withdrawValue}
+                onUserInput={setWithdrawValue}
+              />
+              <ButtonOutlined
+                  variant="outlined"
+                  color="blue"
+                  width="7%"
+                  onClick={() => {
+                    if (!new BigNumber(hasStakedAmount).eq(0)) {
+                      setWithdrawValue(`${hasStakedAmount}`)
+                    }
+                  }}
                 >
-                  Unstake
+                  MAX
+                </ButtonOutlined>
+                <ButtonPrimary
+                  // disabled={requestedApproval}
+                  disabled={pendingTx || !withdrawValue || new BigNumber(withdrawValue).gt(hasStakedAmount) || new BigNumber(withdrawValue).eq(0)}
+                  padding="8px 8px"
+                  width="48%"
+                  borderRadius="8px"
+                  mt="1rem"
+                  onClick={handleUnstake}
+                >
+                  Withdraw
                 </ButtonPrimary>
               </RowBetween>
               <ButtonPrimary
-                padding="8px"
-                borderRadius="8px"
-                as={Link}
-                to={`/un/`}
-                width="100%"
-              >
-                Manage Liquidity in Rewards Pool
-              </ButtonPrimary>
-          </AutoColumn>
-        )}
-      </AutoColumn>
-    </StyledPositionCard>
-    </>
-
-
-    // <>
-        
-    //     <GreyCard>
-    //       <AutoColumn gap="12px">
-    //         <FixedHeightRow>
-    //           <RowFixed>
-    //             <Text fontWeight={500} fontSize={14}>
-    //             {farm.token.symbol}
-                  
-    //             </Text>
-    //           </RowFixed>
-    //         </FixedHeightRow>
-    //         <FixedHeightRow >
-    //           <RowFixed>
-    //             {/* <DoubleCurrencyLogo currency0={2} currency1={currency1} margin={true} size={18} /> */}
-    //             <Text fontWeight={500} fontSize={18} style={{ marginLeft: "0.5rem" }}> 
-    //              {farm.lpSymbol}
-    //             </Text>
-    //           </RowFixed>
-    //           <RowFixed>
-    //             <Text fontWeight={500} fontSize={18}>
-    //             {farm.lpAddresses[3]}
-    //             </Text>
-    //           </RowFixed>
-    //         </FixedHeightRow>
-    //         <AutoColumn gap="4px">
-    //           <FixedHeightRow>
-    //             <Text fontSize={14} fontWeight={400}>
-    //               Your pool share:
-    //             </Text>
-    //             <Text fontSize={14} fontWeight={400}>
-    //               {/* {poolTokenPercentage ? poolTokenPercentage.toFixed(6) + '%' : '-'} */}
-    //             </Text>
-    //           </FixedHeightRow>
-    //           {/* <FixedHeightRow>
-    //             <Text fontSize={14} fontWeight={400}>
-    //               {currency0.symbol}:
-    //             </Text>
-    //             {token0Deposited ? (
-    //               <RowFixed>
-    //                 <Text fontSize={14} fontWeight={400} marginLeft={'6px'}>
-    //                   {token0Deposited?.toSignificant(6)}
-    //                 </Text>
-    //               </RowFixed>
-    //             ) : (
-    //               '-'
-    //             )}
-    //           </FixedHeightRow>
-    //           <FixedHeightRow>
-    //             <Text fontSize={14} fontWeight={400}>
-    //               {currency1.symbol}:
-    //             </Text>
-    //             {token1Deposited ? (
-    //               <RowFixed>
-    //                 <Text fontSize={14} fontWeight={400} marginLeft={'6px'}>
-    //                   {token1Deposited?.toSignificant(6)}
-    //                 </Text>
-    //               </RowFixed>
-    //             ) : (
-    //               '-'
-    //             )}
-    //           </FixedHeightRow> */}
-    //         </AutoColumn>
-    //       </AutoColumn>
-    //     </GreyCard>
-    // </>
-  )
-}
-
-export default function FullPositionCard({ pair, border, stakedBalance }: PositionCardProps) {
-  const { account } = useActiveWeb3React()
-
-  const currency0 = unwrappedToken(pair.token0)
-  const currency1 = unwrappedToken(pair.token1)
-
-  const [showMore, setShowMore] = useState(false)
-
-  const userDefaultPoolBalance = useTokenBalance(account ?? undefined, pair.liquidityToken)
-  const totalPoolTokens = useTotalSupply(pair.liquidityToken)
-
-  // if staked balance balance provided, add to standard liquidity amount
-  const userPoolBalance = stakedBalance ? userDefaultPoolBalance?.add(stakedBalance) : userDefaultPoolBalance
-
-  const poolTokenPercentage =
-    !!userPoolBalance && !!totalPoolTokens && JSBI.greaterThanOrEqual(totalPoolTokens.raw, userPoolBalance.raw)
-      ? new Percent(userPoolBalance.raw, totalPoolTokens.raw)
-      : undefined
-
-  const [token0Deposited, token1Deposited] =
-    !!pair &&
-    !!totalPoolTokens &&
-    !!userPoolBalance &&
-    // this condition is a short-circuit in the case where useTokenBalance updates sooner than useTotalSupply
-    JSBI.greaterThanOrEqual(totalPoolTokens.raw, userPoolBalance.raw)
-      ? [
-          pair.getLiquidityValue(pair.token0, totalPoolTokens, userPoolBalance, false),
-          pair.getLiquidityValue(pair.token1, totalPoolTokens, userPoolBalance, false)
-        ]
-      : [undefined, undefined]
-
-  const backgroundColor = useColor(pair?.token0)
-
-  return (
-    <>
-    {/* <StyledPositionHead>
-      <StyleRow>Pair</StyleRow>
-      <StyleRow>APR</StyleRow>
-      <StyleRow>TVL</StyleRow>
-      <StyleRow>Volume 24H</StyleRow>
-    </StyledPositionHead>
-    
-    <StyledPositionBody>
-      <StyleRow>
-        <DoubleCurrencyLogo currency0={currency0} currency1={currency1} size={20} />
-        <Text fontWeight={500} fontSize={20}>
-          {!currency0 || !currency1 ? <Dots>Loading</Dots> : `${currency0.symbol}/${currency1.symbol}`}
-        </Text>
-      </StyleRow>
-      <StyleRow>APR</StyleRow>
-      <StyleRow>TVL</StyleRow>
-      <StyleRow>Volume 24H</StyleRow>
-    </StyledPositionBody> */}
-
-    <StyledPositionCard border={border} bgColor={backgroundColor}>
-      <CardNoise />
-      <AutoColumn gap="12px">
-        <FixedHeightRow>
-          <AutoRow gap="8px">
-            <DoubleCurrencyLogo currency0={currency0} currency1={currency1} size={18} />
-            <Pooltext>
-              {!currency0 || !currency1 ? <Dots>Loading</Dots> : `${currency0.symbol}/${currency1.symbol}`}
-            </Pooltext>
-          </AutoRow>
-          <RowFixed gap="8px">
-            <ButtonEmpty
-              padding="6px 8px"
-              borderRadius="12px"
-              width="130px"
-              fontSize={14}
-              style={{ textAlign: 'right' }}
-              onClick={() => setShowMore(!showMore)}
+              disabled={earnings==0 || harvestPendingTx }
+              onClick={async () => {
+                setHarvestPendingTx(true)
+                try {
+                  await onReward()
+                  alert(
+                    t('Your CLSY earnings have been sent to your wallet!')
+                  )
+                } catch (e) {
+                  alert(
+                    t('Please try again. Confirm the transaction and make sure you are paying enough gas!')
+                  )
+                  console.error(e)
+                } finally {
+                  setHarvestPendingTx(false)
+                }
+                if (account) dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
+              }}
             >
-              {showMore ? (
-                <>
-                  Manage
-                  <ChevronUp size="16" style={{ marginLeft: '0.25rem' }} />
-                </>
-              ) : (
-                <>
-                  Manage
-                  <ChevronDown size="16" style={{ marginLeft: '0.25rem' }} />
-                </>
-              )}
-            </ButtonEmpty>
-          </RowFixed>
-        </FixedHeightRow>
-
-        {showMore && (
-          <AutoColumn gap="8px">
-            <Pdnbap />
-            <FixedHeightRow >
-              <Text fontSize={14} fontWeight={400}>
-                Your total pool tokens:
-              </Text>
-              <Text fontSize={14} fontWeight={400}>
-                {userPoolBalance ? userPoolBalance.toSignificant(4) : '-'}
-              </Text>
-            </FixedHeightRow>
-            {stakedBalance && (
-              <FixedHeightRow>
-                <Text fontSize={14} fontWeight={400}>
-                  Pool tokens in rewards pool:
-                </Text>
-                <Text fontSize={14} fontWeight={400}>
-                  {stakedBalance.toSignificant(4)}
-                </Text>
-              </FixedHeightRow>
-            )}
-            <FixedHeightRow>
-              <RowFixed>
-                <Text fontSize={14} fontWeight={400}>
-                  Pooled {currency0.symbol}:
-                </Text>
-              </RowFixed>
-              {token0Deposited ? (
-                <RowFixed>
-                  <Text fontSize={14} fontWeight={400} marginLeft={'6px'}>
-                    {token0Deposited?.toSignificant(6)}
-                  </Text>
-                  <CurrencyLogo size="16px" style={{ marginLeft: '8px', width: '18px', height: '18px' }} currency={currency0} />
-                </RowFixed>
-              ) : (
-                '-'
-              )}
-            </FixedHeightRow>
-
-            <FixedHeightRow>
-              <RowFixed>
-                <Text fontSize={14} fontWeight={400}>
-                  Pooled {currency1.symbol}:
-                </Text>
-              </RowFixed>
-              {token1Deposited ? (
-                <RowFixed>
-                  <Text fontSize={14} fontWeight={500} marginLeft={'6px'}>
-                    {token1Deposited?.toSignificant(6)}
-                  </Text>
-                  <CurrencyLogo size="16px" style={{ marginLeft: '8px', width: '18px', height: '18px' }} currency={currency1} />
-                </RowFixed>
-              ) : (
-                '-'
-              )}
-            </FixedHeightRow>
-
-            <FixedHeightRow>
-              <Text fontSize={14} fontWeight={400}>
-                Your pool share:
-              </Text>
-              <Text fontSize={14} fontWeight={400}>
-                {poolTokenPercentage
-                  ? (poolTokenPercentage.toFixed(2) === '0.00' ? '<0.01' : poolTokenPercentage.toFixed(2)) + '%'
-                  : '-'}
-              </Text>
-            </FixedHeightRow>
-            <Pdnbap />
-            {/* <ButtonSecondary padding="8px" borderRadius="8px">
-              <ExternalLink
-                style={{ width: '100%', textAlign: 'center', fontSize: '12px' }}
-                href={`https://uniswap.info/account/${account}`}
+              {t('Harvest')}
+            </ButtonPrimary>
+              </>
+            :
+            <ButtonPrimary
+              disabled={requestedApproval}
+              padding="16px 16px"
+              width="100%"
+              borderRadius="12px"
+              mt="1rem"
+              onClick={handleApprove}
               >
-                View accrued fees and analytics<span style={{ fontSize: '11px' }}>↗</span>
-              </ExternalLink>
-            </ButtonSecondary> */}
-            {userDefaultPoolBalance && JSBI.greaterThan(userDefaultPoolBalance.raw, BIG_INT_ZERO) && (
-              <RowBetween marginTop="10px">
-                <ButtonPrimary
-                  padding="8px"
-                  borderRadius="8px"
-                  as={Link}
-                  to={`/add/${currencyId(currency0)}/${currencyId(currency1)}`}
-                  width="48%"
-                >
-                  Add
-                </ButtonPrimary>
-                <ButtonPrimary
-                  padding="8px"
-                  borderRadius="8px"
-                  as={Link}
-                  width="48%"
-                  to={`/remove/${currencyId(currency0)}/${currencyId(currency1)}`}
-                >
-                  Remove
-                </ButtonPrimary>
-              </RowBetween>
-            )}
-            {stakedBalance && JSBI.greaterThan(stakedBalance.raw, BIG_INT_ZERO) && (
-              <ButtonPrimary
-                padding="8px"
-                borderRadius="8px"
-                as={Link}
-                to={`/uni/${currencyId(currency0)}/${currencyId(currency1)}`}
-                width="100%"
-              >
-                Manage Liquidity in Rewards Pool
-              </ButtonPrimary>
-            )}
+              ENABLE FARM
+            </ButtonPrimary>
+            :
+            <ButtonLight onClick={toggleWalletModal}>Connect Wallet</ButtonLight>
+            }
           </AutoColumn>
         )}
       </AutoColumn>

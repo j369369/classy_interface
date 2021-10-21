@@ -225,13 +225,13 @@ export default function Pool() {
                     <span> ↗</span>
                   </RowBetween>
                 </ButtonSecondary> */}
+                  <TYPE.largeHeader>
+                    <PoolTitle>
+                      My Pool
+                    </PoolTitle>
+                  </TYPE.largeHeader>
                 {v2PairsWithoutStakedAmount.map(v2Pair => (
                   <>
-                    <TYPE.largeHeader>
-                      <PoolTitle>
-                        My Pool
-                      </PoolTitle>
-                    </TYPE.largeHeader>
                     <FullPositionCard key={v2Pair.liquidityToken.address} pair={v2Pair} />
                   </>
                 ))}
