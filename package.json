@@ -106,7 +106,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "postinstall": "rm -rf ./node_modules/@uniswap/sdk/dist; cp -r ./fork/@uniswap/sdk/dist ./node_modules/@uniswap/sdk/dist; rm -rf ./node_modules/@uniswap/default-token-list; cp -r ./fork/@uniswap/default-token-list ./node_modules/@uniswap/default-token-list;",
+    "winsetting": "powershell rm -r .\\node_modules\\@uniswap\\sdk\\dist; cp -r .\\fork\\classy-sdk\\dist .\\node_modules\\@uniswap\\sdk\\; rm -r .\\node_modules\\@uniswap\\default-token-list; cp -r .\\fork\\@uniswap\\default-token-list .\\node_modules\\@uniswap\\;",
+    "postinstall": "rm -rf ./node_modules/@uniswap/sdk/dist; cp -r ./fork/classy-sdk/dist ./node_modules/@uniswap/sdk/; rm -rf ./node_modules/@uniswap/default-token-list; cp -r ./fork/@uniswap/default-token-list ./node_modules/@uniswap/;",
     "integration-test": "start-server-and-test 'serve build -l 3000' http://localhost:3000 'cypress run'"
   },
   "eslintConfig": {

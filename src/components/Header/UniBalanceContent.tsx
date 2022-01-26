@@ -63,7 +63,7 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
   const unclaimedUni = useTokenBalance(useMerkleDistributorContract()?.address, uni)
   const circulation: TokenAmount | undefined = useMemo(
     () =>
-      blockTimestamp && uni && chainId === ChainId.MAINNET
+      blockTimestamp && uni && chainId === ChainId.MATIC
         ? computeUniCirculation(uni, blockTimestamp, unclaimedUni)
         : totalSupply,
     [blockTimestamp, chainId, totalSupply, unclaimedUni, uni]
@@ -99,7 +99,7 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
                   <TYPE.title_L>Balance:</TYPE.title_L>
                   <TYPE.main>{uniBalance?.toFixed(2, { groupSeparator: ',' })}</TYPE.main>
                 </RowBetween>
-                <RowBetween>
+                {/* <RowBetween>
                   <TYPE.title_L>Unclaimed:</TYPE.title_L>
                   <TYPE.main>
                     {uniToClaim?.toFixed(4, { groupSeparator: ',' })}{' '}
@@ -109,7 +109,7 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
                       </StyledInternalLink>
                     )}
                   </TYPE.main>
-                </RowBetween>
+                </RowBetween> */}
               </AutoColumn>
             </CardSection>
             <Break />
@@ -129,7 +129,7 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
               <TYPE.title_L>Total Supply</TYPE.title_L>
               <TYPE.main>{totalSupply?.toFixed(0, { groupSeparator: ',' })}</TYPE.main>
             </RowBetween>
-            {uni && uni.chainId === ChainId.MAINNET ? (
+            {uni && uni.chainId === ChainId.MATIC ? (
               <ExternalLink href={`https://uniswap.info/token/${uni.address}`}>View CLSY Analytics</ExternalLink>
             ) : null}
           </AutoColumn>

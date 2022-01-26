@@ -28,7 +28,7 @@ const CoveredLogo = styled(TokenLogo)<{ sizeraw: number }>`
 `
 
 const getAddress = (address: Address): string => {
-  return address[ChainId.MAINNET]!
+  return address[ChainId.MATIC]!
 }
 
 export default function FarmsLogo({

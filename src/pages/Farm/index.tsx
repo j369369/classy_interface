@@ -132,7 +132,7 @@ export default function Farm() {
   // TODO: cakeprice 구해야함
   const classyPrice = BIG_ONE;
         
-  const chainid = ChainId.MAINNET;
+  const chainid = ChainId.MATIC;
 
   const farmsList = useCallback(
     (farmsToDisplay: FarmConfig[]): FarmWithStakedValue[] => {
@@ -144,7 +144,7 @@ export default function Farm() {
 
         const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken!).times(farm.quoteToken.ethPrice!)
         const { cakeRewardsApr, lpRewardsApr } = isActive
-          ? getFarmApr(new BigNumber(farm.poolWeight!), classyPrice, totalLiquidity, farm.lpAddresses[1]!)
+          ? getFarmApr(new BigNumber(farm.poolWeight!), classyPrice, totalLiquidity, farm.lpAddresses[137]!)
           : { cakeRewardsApr: 0, lpRewardsApr: 0 }
 
         return { ...farm, apr: cakeRewardsApr, lpRewardsApr, liquidity: totalLiquidity }

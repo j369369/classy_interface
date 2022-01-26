@@ -54,10 +54,13 @@ export const StyledMenuButton = styled.button``
 
 
 const NETWORK_LABELS: { [chainId in ChainId]?: string } = {
-  [ChainId.RINKEBY]: 'Rinkeby',
-  [ChainId.ROPSTEN]: 'Ropsten',
-  [ChainId.GÖRLI]: 'Görli',
-  [ChainId.KOVAN]: 'Kovan'
+  // [ChainId.RINKEBY]: 'Rinkeby',
+  // [ChainId.ROPSTEN]: 'Ropsten',
+  // [ChainId.GÖRLI]: 'Görli',
+  // [ChainId.KOVAN]: 'Kovan'
+  [ChainId.MATIC]: 'Matic',
+  [ChainId.MUMBAI]: 'Mumbai'
+
 }
 
 
@@ -166,7 +169,7 @@ export default function Header() {
                               <BalanceText className={`w_num`}>
                                 {userEthBalance?.toSignificant(4)}
                               </BalanceText>
-                              <span className="w_unit">ETH</span>
+                              <span className="w_unit">MATIC</span>
                           </li>
                         ) : null}
                         {!availableClaim && aggregateBalance && (

@@ -46,7 +46,7 @@ export const fetcher = async (query :any, variables :any) => {
 
 // Grabs the last 1000 (a sample statistical) blocks and averages
 // the time difference between them
-export const getAverageBlockTime = async (chainId = ChainId.MAINNET) => {
+export const getAverageBlockTime = async (chainId = ChainId.MATIC) => {
     // console.log('getAverageBlockTime')
     const now = startOfHour(Date.now())
     const start = Number(subHours(now, 6)) / 1000

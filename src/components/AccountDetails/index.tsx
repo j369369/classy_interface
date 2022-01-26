@@ -12,7 +12,8 @@ import Transaction from './Transaction'
 import { SUPPORTED_WALLETS } from '../../constants'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
 import { getEtherscanLink } from '../../utils'
-import { injected, walletconnect, walletlink, fortmatic, portis } from '../../connectors'
+import { injected, walletconnect, walletlink, //fortmatic, portis 
+} from '../../connectors'
 import CoinbaseWalletIcon from '../../assets/images/coinbaseWalletIcon.svg'
 import WalletConnectIcon from '../../assets/images/walletConnectIcon.svg'
 import FortmaticIcon from '../../assets/images/fortmaticIcon.png'
@@ -275,28 +276,30 @@ export default function AccountDetails({
           <img src={CoinbaseWalletIcon} alt={'coinbase wallet logo'} />
         </IconWrapper>
       )
-    } else if (connector === fortmatic) {
-      return (
-        <IconWrapper size={16}>
-          <img src={FortmaticIcon} alt={'fortmatic logo'} />
-        </IconWrapper>
-      )
-    } else if (connector === portis) {
-      return (
-        <>
-          <IconWrapper size={16}>
-            <img src={PortisIcon} alt={'portis logo'} />
-            <MainWalletAction
-              onClick={() => {
-                portis.portis.showPortis()
-              }}
-            >
-              Show Portis
-            </MainWalletAction>
-          </IconWrapper>
-        </>
-      )
-    }
+    } 
+    // else if (connector === fortmatic) {
+    //   return (
+    //     <IconWrapper size={16}>
+    //       <img src={FortmaticIcon} alt={'fortmatic logo'} />
+    //     </IconWrapper>
+    //   )
+    // } 
+    // else if (connector === portis) {
+    //   return (
+    //     <>
+    //       <IconWrapper size={16}>
+    //         <img src={PortisIcon} alt={'portis logo'} />
+    //         <MainWalletAction
+    //           onClick={() => {
+    //             portis.portis.showPortis()
+    //           }}
+    //         >
+    //           Show Portis
+    //         </MainWalletAction>
+    //       </IconWrapper>
+    //     </>
+    //   )
+    // }
     return null
   }
 

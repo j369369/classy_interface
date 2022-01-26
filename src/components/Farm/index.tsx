@@ -185,7 +185,8 @@ const parseRowData = (farm:any, price:any) => {
     return row
 }
 const getLiquidityUrl  = (chainId : any , farm : any) => {
-  return `/#/add/${farm.token.address[chainId]}/${farm.quoteToken.address[chainId]}`
+  if(farm.token.symbol === 'MATIC') return `/#/add/MATIC/${farm.quoteToken.address[chainId]}`
+  else return `/#/add/${farm.token.address[chainId]}/${farm.quoteToken.address[chainId]}`
 }
 
 export const FarmRow = ({ farm, price, ...rest } : FarmProp) => {

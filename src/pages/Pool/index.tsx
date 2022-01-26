@@ -187,7 +187,7 @@ export default function Pool() {
                 <></>
               ) : (
                 <ButtonRow id="poolButtonRow">
-                  <ResponsiveButtonSecondary className="button aqua" as={Link} padding="6px 8px" to="/create/ETH">
+                  <ResponsiveButtonSecondary className="button aqua" as={Link} padding="6px 8px" to="/create/MATIC">
                     Create New Pool
                   </ResponsiveButtonSecondary>
                   {<ResponsiveButtonSecondary
@@ -195,7 +195,7 @@ export default function Pool() {
                     className="button blue04"
                     as={Link}
                     padding="6px 8px"
-                    to="/add/ETH"
+                    to="/add/MATIC"
                   >
                     Add Liquidity
                   </ResponsiveButtonSecondary> }

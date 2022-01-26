@@ -7,14 +7,15 @@ const farms: FarmConfig[] = [
    */
 
    {
-    pid: 0,
-    lpSymbol: 'CLSY-ETH',
+    pid: 1,
+    lpSymbol: 'MATIC-CLSY',
     lpAddresses: {
-      1: '0x9b164fb2c8ed9c412d48439476350f8a9f867404',
-      3: '0x9b164fb2c8ed9c412d48439476350f8a9f867404',
+      137: '0xff6875f7662a9fd52c26600e8bb1fd0b9e6e11f2',
+      80001: '0xff6875f7662a9fd52c26600e8bb1fd0b9e6e11f2',
+      // 80001: '0xEEc740fBe5DBf035b7F98d055191A6754E2Be186',
     },
-    token: tokens.clsy,
-    quoteToken: tokens.eth
+    token: tokens.matic,
+    quoteToken: tokens.clsy
   },
   // {
   //   pid: 0,
