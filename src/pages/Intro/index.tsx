@@ -1,7 +1,7 @@
 import React, { useEffect }  from 'react'
 import { NavLink } from 'react-router-dom'
 import VanillaTilt from 'vanilla-tilt'
-import '../../assets/css/intro.css'
+import '../../assets/style/intro.css'
 import styled from 'styled-components'
 
 const TiltIntro = styled.section``

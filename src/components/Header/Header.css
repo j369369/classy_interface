@@ -1,0 +1,43 @@
+/* header */
+#header { position: relative; display: flex; justify-content: center; align-items: center; padding: 0 30px; width: 100%; height: 60px; background: var(--dark-0); color: var(--white); font-family: 'CookieRun'; font-weight: 400; z-index: 50; text-align: center; }
+#header .header_logo { display: block; position: absolute; top: 0; bottom: 0; left: 10px; margin: auto; width: 120px; height: 31px; }
+#header .header_logo img { width: 100%; }
+#header .header_connect { display: inline-block; width: 30%; max-width: 300px; text-align: center; }
+#header .header_connect .button { width: 100%; }
+
+#header .header_info { display: flex; align-items: center; position: absolute; top: 0; right: 10px; bottom: 0; margin: auto; font-size: 14px; text-align: right; }
+#header .header_info .wallet_list { display: flex; align-items: center; font-size: 12px; text-align: center; }
+#header .header_info .wallet_list li { margin-left: 8px; padding: 3px 8px; border: 1px solid var(--white); border-radius: 4px; }
+#header .header_info .wallet_list li:first-child { margin-left: 0; }
+#header .header_info .network { margin-left: 16px; }
+
+#btnConnectWallet:hover { text-shadow:0px 0px 8px var(--aqua); }
+#btnConnected { padding-left: 28px; }
+#btnConnected .ic { position: absolute; top: 0; bottom: 0; left: 6px; margin: auto 0; width: 1rem; height: 1rem; }
+#btnConnected .pending { animation: pending 1.25s ease-in-out infinite alternate; }
+
+@keyframes pending{
+  from{ opacity: 1; }
+  to{ opacity: 0; }
+}
+
+
+/* laptop ----------------------------------------------------- */
+@media (min-width: 1024px) {
+	
+}
+
+/* Tablet ----------------------------------------------------- */
+@media(max-width: 1023px) {
+	
+}
+
+/* Mobile ----------------------------------------------------- */
+@media(max-width: 768px) {
+  #header { justify-content: flex-end; padding: 10px; height: 48px; }
+  #header .header_logo { width: 90px; }
+  #header .header_connect { right: 10px; left: auto; width: auto; text-align: right; }
+
+  #header .header_info .wallet_list { display: none; }
+	#header .header_info .network { display: none; }
+}

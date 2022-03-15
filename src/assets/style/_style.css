@@ -1,0 +1,71 @@
+@charset "UTF-8";
+@import url(./_font.css);
+
+
+:root {  
+  /* gradient */
+  --gradient-sunset: linear-gradient( to bottom, #FF6341, #5FB9AE );
+  --gradient-tropical: linear-gradient( to bottom, var(--aqua), var(--yellow) );
+  --gradient-samba: linear-gradient( to bottom, var(--pink), var(--purple) );
+  --gradient-ocean: linear-gradient( to bottom, var(--blue), var(--mint) );
+
+  /* color */
+  --white: #fff;
+  --black: #000;
+  --gray: #BDC1CC;
+  --red: #FF453A;
+  --pink: #FF385F;
+  --orange: #FF9F0A;
+  --yellow: #FFD707;
+  --lightGreen: #32D158;
+  --green: #5CC559;
+  --aqua: #2FFFF7;
+  --mint: #67D4CF;
+  --teal: #3FC8E0;
+  --cyan: #65D2FF;
+  --blue: #0D84FF;
+  --indigo: #5E5CE6;
+  --purple: #BF5AF2;
+  --brown: #AC8E68;
+
+  /* dark */
+  --dark-0: #16171E;
+  --dark-1: #1E222B;
+  --dark-2: #23272F;
+  --dark-3: #292C37;
+  --dark-4: #3E434D;
+  --dark-5: #585D67;
+  --dark-6: #767983;
+
+
+
+/************************/
+
+  /* bg */
+  --bg-gradient-white-01: linear-gradient(0deg, rgba(255, 255, 255, .2), rgba(255, 255, 255, .4));
+  --bg-gradient-white-02: linear-gradient(0deg, rgba(255, 255, 255, .4), rgba(255, 255, 255, .7));
+  --bg-gradient-white-03: linear-gradient(0deg, rgba(255, 255, 255, .6), rgba(255, 255, 255, .9));
+  --bg-filter-blur: blur(0.625rem);
+  --bg-box-shadow: 0.0625rem 0.0625rem 0.5rem rgba(45, 46, 51, .08);
+
+
+
+  --blue-01: #DFE8F2;
+  --blue-02: #C3D0DE;
+  --blue-03: #8CA5BF;
+  --blue-04: #597EA5;
+  --blue-05: #43678E;
+  --blue-06: #3A5B7E;
+
+  --lightBlue-01: #C1DBF7;
+  --lightBlue-02: #87C3EA;
+  --lightBlue-03: #6CAED9;
+  --lightBlue-04: #4994C4;
+  --lightBlue-05: #2B7BAF;
+  --lightBlue-06: #166191;
+
+
+
+  /* font */
+  --fontGlobal: -apple-system, BlinkMacSystemFont, 'Pretendard', 'Roboto', "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}

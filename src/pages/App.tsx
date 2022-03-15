@@ -1,12 +1,16 @@
 import React, { Suspense } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
+// import gsap from 'gsap'
+import '../assets/vendors/fontawesome-free-5.15.3-web 2/css/all.min.css'
+import '../assets/style/common.css'
+import '../assets/style/css.css'
+
 import GoogleAnalyticsReporter from '../components/analytics/GoogleAnalyticsReporter'
 import AddressClaimModal from '../components/claim/AddressClaimModal'
 import Header from '../components/Header'
-import HeaderIn from '../components/HeaderIn'
 import Polling from '../components/Header/Polling'
-import URLWarning from '../components/Header/URLWarning'
+
 import Popups from '../components/Popups'
 import Web3ReactManager from '../components/Web3ReactManager'
 import { ApplicationModal } from '../state/application/actions'
@@ -32,21 +36,6 @@ import { OpenClaimAddressModalAndRedirectToSwap, RedirectPathToSwapOnly, Redirec
 import Vote from './Vote'
 import VotePage from './Vote/VotePage'
 import Intro from './Intro'
-
-import bgContentsTopLeft from '../assets/images/fo/bg_contents_top_left.png'
-import bgContentsBottomRight from '../assets/images/fo/bg_contents_bottom_right.png'
-import bgBlueCircle01 from '../assets/images/fo/bg_blue_circle_01.png'
-import bgPinkCircle01 from '../assets/images/fo/bg_pink_circle_01.png'
-import bgPinkCircle02 from '../assets/images/fo/bg_pink_circle_02.png'
-import bgWhiteCircle01 from '../assets/images/fo/bg_white_circle_01.png'
-import bgWhiteRing01 from '../assets/images/fo/bg_white_ring_01.png'
-
-import gsap from 'gsap'
-
-import '../assets/vendors/fontawesome-free-5.15.3-web 2/css/all.min.css'
-import '../assets/css/common.css'
-import '../assets/css/css.css'
-
 
 
 import Farm from './Farm'
@@ -87,42 +76,6 @@ const Marginer = styled.div`
   margin-top: 5rem;
 `
 
-/* ------- */
-const BgImgsBox = () => {
-	return(
-		<section id="bgImgsBox">
-			<img className="bg_contents_top_left" src={bgContentsTopLeft} alt="bg_contents_top_left" />
-      <img className="bg_contents_bottom_right" src={bgContentsBottomRight} alt="bg_contents_bottom_right" />
-      <img className="bg_blue_circle_01" src={bgBlueCircle01} alt="bg_blue_circle_01" />
-      <img className="bg_pink_circle_01" src={bgPinkCircle01} alt="bg_pink_circle_01" />
-      <img className="bg_pink_circle_02" src={bgPinkCircle02} alt="bg_pink_circle_02" />
-      <img className="bg_white_circle_01" src={bgWhiteCircle01} alt="bg_white_circle_01" />
-      <img className="bg_white_ring_01" src={bgWhiteRing01} alt="bg_white_ring_01" />
-		</section>
-	)
-}
-
-const fn_btnHeaderClose = () => {
-  const gsapHeader = gsap.timeline();
-    gsapHeader
-    .to("#header", { className: "", ease: "power4" })
-    .to("#headerBg", { display:"none" , ease: "power4"}, '-=1');
-}
-
-const fn_mouseParallax = (e: any) => {
-  let mouseX = e.pageX / 2
-  let mouseY = e.pageY / 2
-
-  const mouseParallax = gsap.timeline();
-  mouseParallax
-    .to(".bg_blue_circle_01", { marginTop: (mouseY / 40), marginLeft: (mouseX / -40), duration: 0.5, ease: "expo"})
-    .to(".bg_pink_circle_01", { marginTop: (mouseY / -60), marginRight: (mouseX / -60), duration: 0.5, ease: "expo"}, '-=1')
-    .to(".bg_pink_circle_02", { marginTop: (mouseY / 90), marginRight: (mouseX / 90), duration: 0.5, ease: "expo"}, '-=1')
-    .to(".bg_white_circle_01", { marginBottom: (mouseY / 90), marginLeft: (mouseX / 90), duration: 0.5, ease: "expo"}, '-=1')
-    .to(".bg_white_ring_01", { marginBottom: (mouseY / -30), marginLeft: (mouseX / -30), duration: 0.5, ease: "expo"}, '-=1')
-}
-
-/* ------- */
 
 function TopLevelModals() {
   const open = useModalOpen(ApplicationModal.ADDRESS_CLAIM)
@@ -135,14 +88,11 @@ export default function App() {
     <Suspense fallback={null}>
       <Route component={GoogleAnalyticsReporter} />
       <Route component={DarkModeQueryParamReader} />
-      <BgImgsBox />
-      <div id="wrap" onMouseMove={fn_mouseParallax}>
-        <HeaderIn />
-        <header id="headerBg" className="close_btn" onClick={fn_btnHeaderClose}></header>
+      <div id="wrap">
         <Header />
 
         <AppWrapper id={`container`}>
-        <URLWarning />
+        
         <BodyWrapper>
           <Popups />
           <Polling />

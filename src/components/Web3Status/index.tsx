@@ -26,39 +26,17 @@ import Loader from '../Loader'
 import { RowBetween } from '../Row'
 import WalletModal from '../WalletModal'
 
-const IconWrapper = styled.div<{ size?: number }>`
-  ${({ theme }) => theme.flexColumnNoWrap};
-  align-items: center;
-  justify-content: center;
-  & > * {
-    height: ${({ size }) => (size ? size + 'px' : '32px')};
-    width: ${({ size }) => (size ? size + 'px' : '32px')};
-  }
-`
 
 const Web3StatusGeneric = styled.button``
 const Web3StatusError = styled(Web3StatusGeneric)``
 
-const Web3StatusConnect = styled.button``
-
-const Web3StatusConnected = styled.button<{ pending?: boolean }>``
-
-const Text = styled.p``
-/*
-const NetworkIcon = styled(Activity)`
-  margin-left: 0.25rem;
-  margin-right: 0.5rem;
-  width: 16px;
-  height: 16px;
-`
-*/
 // we want the latest one to come first, so return negative if a is after b
 function newTransactionsFirst(a: TransactionDetails, b: TransactionDetails) {
   return b.addedTime - a.addedTime
 }
 
 const SOCK = (
-  <span role="img" aria-label="has socks emoji" style={{ marginTop: -4, marginBottom: -4 }}>
+  <span role="img" aria-label="has socks emoji">
     🧦
   </span>
 )
@@ -66,18 +44,16 @@ const SOCK = (
 // eslint-disable-next-line react/prop-types
 function StatusIcon({ connector }: { connector: AbstractConnector }) {
   if (connector === injected) {
-    return <Identicon />
+    return (
+      <Identicon />
+    )
   } else if (connector === walletconnect) {
     return (
-      <IconWrapper size={12}>
-        <img src={WalletConnectIcon} alt={''} />
-      </IconWrapper>
+      <img src={WalletConnectIcon} alt={''} />
     )
   } else if (connector === walletlink) {
     return (
-      <IconWrapper size={12}>
-        <img src={CoinbaseWalletIcon} alt={''} />
-      </IconWrapper>
+      <img src={CoinbaseWalletIcon} alt={''} />
     )
   } 
   // else if (connector === fortmatic) {
@@ -118,36 +94,34 @@ function Web3StatusInner() {
 
   if (account) {
     return (
-      <Web3StatusConnected className={`button gr_white wallet_code`} onClick={toggleWalletModal} pending={hasPendingTransactions}>
+      <>
+      <button id="btnConnected" className="button md dark4" onClick={toggleWalletModal}>
         <span className="col ic">
           {!hasPendingTransactions && connector && <StatusIcon connector={connector} />}
         </span>
         <span className="col">
           {hasPendingTransactions ? (
-            <RowBetween>
-              <Text>{pending?.length} Pending</Text> <Loader stroke="white" />
-            </RowBetween>
+            <span className='pending'>{pending?.length} Pending...</span>
           ) : (
             <>
-              {hasSocks ? SOCK : null}
-              <Text>{ENSName || shortenAddress(account)}</Text>
+              {hasSocks ? SOCK : null} {ENSName || shortenAddress(account)}
             </>
           )}
         </span>
-      </Web3StatusConnected>
+      </button>
+      </>
     )
   } else if (error) {
     return (
       <Web3StatusError onClick={toggleWalletModal}>
-        {/* <NetworkIcon /> */}
-        <Text>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error'}</Text>
+        <span>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error'}</span>
       </Web3StatusError>
     )
   } else {
     return (
-      <Web3StatusConnect id="btnConnectWallet" className="button aqua" onClick={toggleWalletModal}>
-        {t('Connect Wallet')}
-      </Web3StatusConnect>
+      <button id="btnConnectWallet" className="button md blue" onClick={toggleWalletModal}>
+        <i className="fas fa-plug"></i> Connect Wallet
+      </button>
     )
   }
 }
