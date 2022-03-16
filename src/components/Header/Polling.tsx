@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
+import { NavLink } from 'react-router-dom'
 import { TYPE, ExternalLink } from '../../theme'
 
 import { useBlockNumber } from '../../state/application/hooks'
@@ -18,6 +19,7 @@ const StyledPolling = styled.div`
   :hover {
     opacity: 1;
   }
+  z-index: 60;
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
     display: none;
@@ -84,11 +86,14 @@ export default function Polling() {
   )
 
   return (
-    <ExternalLink href={chainId && blockNumber ? getEtherscanLink(chainId, blockNumber.toString(), 'block') : ''}>
-      <StyledPolling>
-        <TYPE.small style={{ opacity: isMounted ? '0.2' : '0.6' }}>{blockNumber}</TYPE.small>
-        <StyledPollingDot>{!isMounted && <Spinner />}</StyledPollingDot>
-      </StyledPolling>
-    </ExternalLink>
+    <a 
+      className='polling'
+      href={chainId && blockNumber ? getEtherscanLink(chainId, blockNumber.toString(), 'block') : ''}
+      target="_blank"
+      rel="noopener noreferrer nofollow"
+    >
+        <span className={'' + isMounted && 'isMounted' }>{blockNumber}</span>
+        <span className='dot'>{!isMounted && <Spinner />}</span>
+    </a>
   )
 }

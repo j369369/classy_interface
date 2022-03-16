@@ -1,25 +1,20 @@
 import React, { useEffect }  from 'react'
 import { NavLink } from 'react-router-dom'
 import VanillaTilt from 'vanilla-tilt'
-import '../../assets/style/intro.css'
-import styled from 'styled-components'
-
-const TiltIntro = styled.section``
-const StyledNavLink = styled(NavLink)``
-
+import './home.css'
 
 const Tilt = () => {
   let intro = document.querySelector('#container #intro') as HTMLParagraphElement
   VanillaTilt.init(intro);
 }
 
-export default function Intro() {
+export default function Home() {
   useEffect(() => {
     Tilt();
   }, []);
 
   return (
-    <TiltIntro id="intro" data-tilt data-tilt-scale="1">
+    <section id="intro" data-tilt data-tilt-scale="1">
       <article className="intro_in">
         <h1 id="introTitle" className="intro_title">
           Decentralized <br/>
@@ -27,9 +22,9 @@ export default function Intro() {
         </h1>
           <ul id="introLink" className="intro_link">
           <li className="li">
-            <StyledNavLink to={'/swap'}>
+            <NavLink to={'/swap'}>
               <i className="fas fa-exchange-alt"></i> Classy App
-            </StyledNavLink>
+            </NavLink>
            </li>
           <li className="li">
             <i className="fas fa-images"></i> Classy NFTs
@@ -39,6 +34,6 @@ export default function Intro() {
           </li>
         </ul>
       </article>
-    </TiltIntro>
+    </section>
   )
 }

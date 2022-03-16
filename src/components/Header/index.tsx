@@ -14,6 +14,7 @@ import { useUserHasSubmittedClaim } from '../../state/transactions/hooks'
 import UniBalanceContent from './UniBalanceContent'
 import usePrevious from '../../hooks/usePrevious'
 
+import Polling from './Polling'
 import URLWarning from './URLWarning'
 import ClaimModal from '../claim/ClaimModal'
 import { CardNoise } from '../earn/styled'
@@ -21,7 +22,7 @@ import { TYPE } from '../../theme'
 
 import Modal from '../Modal'
 
-import { Dots } from '../swap/styleds'
+// import { Dots } from '../swap/styleds'
 import Logo from '../../assets/images/com/logo.svg'
 
 import './Header.css'
@@ -89,6 +90,7 @@ export default function Header() {
         </div>
         {account && (
           <div className="header_info">
+              <Polling />
               <ul className="wallet_list">
                 {account && userEthBalance ? (
                   <li>
@@ -126,43 +128,8 @@ export default function Header() {
               </section>
           </div>
         )}
-        
       </header>
       <URLWarning />
-      
-      <footer>
-        <div>
-          <NavLink to={'/swap'}>
-            <i className="fas fa-exchange-alt"></i>
-            <span className="text">{t('swap')}</span>
-          </NavLink>
-        </div>
-        <div>
-          <NavLink to={'/pool'} isActive={(match, { pathname }) =>
-              Boolean(match) ||
-              pathname.startsWith('/add') ||
-              pathname.startsWith('/remove') ||
-              pathname.startsWith('/create') ||
-              pathname.startsWith('/find')
-            }
-          >
-            <i className="fas fa-disease"></i>
-            <span className="text">{t('pool')}</span>
-          </NavLink>
-        </div>
-        <div>
-          <NavLink to={'/farms'}>
-            <i className="fas fa-egg"></i>
-            <span className="text">{t('farm')}</span>
-          </NavLink>
-        </div>
-        <div>
-          <NavLink to={'/intro'}>
-            <span className="text">{t('intro')}</span>
-          </NavLink>
-        </div>
-      </footer>
-
       <ClaimModal />
       <Modal isOpen={showUniBalanceModal} onDismiss={() => setShowUniBalanceModal(false)}>
         <UniBalanceContent setShowUniBalanceModal={setShowUniBalanceModal} />

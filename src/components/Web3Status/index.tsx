@@ -21,14 +21,11 @@ import { shortenAddress } from '../../utils'
 //import { ButtonSecondary } from '../Button'
 
 import Identicon from '../Identicon'
-import Loader from '../Loader'
+// import Loader from '../Loader'
 
-import { RowBetween } from '../Row'
+// import { RowBetween } from '../Row'
 import WalletModal from '../WalletModal'
 
-
-const Web3StatusGeneric = styled.button``
-const Web3StatusError = styled(Web3StatusGeneric)``
 
 // we want the latest one to come first, so return negative if a is after b
 function newTransactionsFirst(a: TransactionDetails, b: TransactionDetails) {
@@ -92,6 +89,8 @@ function Web3StatusInner() {
   const hasSocks = useHasSocks()
   const toggleWalletModal = useWalletModalToggle()
 
+  console.log('account',account)
+
   if (account) {
     return (
       <>
@@ -101,7 +100,7 @@ function Web3StatusInner() {
         </span>
         <span className="col">
           {hasPendingTransactions ? (
-            <span className='pending'>{pending?.length} Pending...</span>
+            <span className="blink">{pending?.length} Pending...</span>
           ) : (
             <>
               {hasSocks ? SOCK : null} {ENSName || shortenAddress(account)}
@@ -113,14 +112,14 @@ function Web3StatusInner() {
     )
   } else if (error) {
     return (
-      <Web3StatusError onClick={toggleWalletModal}>
-        <span>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error'}</span>
-      </Web3StatusError>
+      <button className="button md red" onClick={toggleWalletModal}>
+        <span className="blink">{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error'}</span>
+      </button>
     )
   } else {
     return (
       <button id="btnConnectWallet" className="button md blue" onClick={toggleWalletModal}>
-        <i className="fas fa-plug"></i> Connect Wallet
+        <i className="fas fa-plug"></i> {t('Connect Wallet')}
       </button>
     )
   }
