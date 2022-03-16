@@ -14,14 +14,13 @@
 
 #header .header_info .polling { display: flex; align-items: center; gap: 6px; margin-right: 8px; color: var(--gray); font-family: var(--fontGlobal); font-size: 12px; font-weight: 400; }
 #header .header_info .polling .dot { display: inline-block; width: 8px; height: 8px; min-height: 8px; min-width: 8px; background: var(--lightGreen); border-radius: 50%;  }
+#header .header_info .polling .spinner { position: relative; left: -3px; top: -3px; width: 14px; height: 14px; background: transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; border-left: 2px solid var(--lightGreen); border-radius: 50%; animation: rotate360 1s cubic-bezier(0.83, 0, 0.17, 1) infinite; transform: translateZ(0); }
 
 #btnConnectWallet {  }
 #btnConnectWallet:hover { text-shadow:0px 0px 8px var(--aqua); animation: rubberBand 1s 1; }
 
 #btnConnected { padding-left: 28px; }
 #btnConnected .ic { position: absolute; top: 0; bottom: 0; left: 6px; margin: auto 0; width: 1rem; height: 1rem; }
-
-
 
 
 /* laptop ----------------------------------------------------- */
@@ -39,6 +38,11 @@
   #header { justify-content: flex-end; padding: 10px; height: 48px; }
   #header .header_logo { width: 90px; }
   #header .header_connect { right: 10px; left: auto; width: auto; text-align: right; }
-
   #header .header_info > * { display: none !important; }
 }
+
+/* keyframes ----------------- */
+@keyframes rotate360 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+} 

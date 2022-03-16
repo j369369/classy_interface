@@ -10,6 +10,7 @@ import '../assets/style/css.css'
 import GoogleAnalyticsReporter from '../components/analytics/GoogleAnalyticsReporter'
 import AddressClaimModal from '../components/claim/AddressClaimModal'
 import Header from '../components/Header'
+import Container from '../components/Container'
 import Footer from '../components/Footer'
 
 import Popups from '../components/Popups'
@@ -42,30 +43,6 @@ import Home from './Home'
 import Farm from './Farm'
 
 
-const BodyWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding-top: 100px;
-  align-items: center;
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  z-index: 10;
-
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    padding: 16px;
-    padding-top: 2rem;
-  `};
-
-  z-index: 1;
-`
-
-const Marginer = styled.div`
-  margin-top: 5rem;
-`
-
-
 function TopLevelModals() {
   const open = useModalOpen(ApplicationModal.ADDRESS_CLAIM)
   const toggle = useToggleModal(ApplicationModal.ADDRESS_CLAIM)
@@ -74,53 +51,46 @@ function TopLevelModals() {
 
 export default function App() {
   return (
-    <Suspense fallback={null}>
-      <Route component={GoogleAnalyticsReporter} />
-      <Route component={DarkModeQueryParamReader} />
-      <div id="wrap">
-        <Header />
-        <section id="container">
-        <div className="cloud"></div>
-          <div className="bg_shadow"></div>
-          <article className="contents">
-            <div className="">
-              <Popups />
-              <TopLevelModals />
-              <Web3ReactManager>
-                <Switch>
-                  <Route exact strict path="/swap" component={Swap} />
-                  <Route exact strict path="/claim" component={OpenClaimAddressModalAndRedirectToSwap} />
-                  <Route exact strict path="/swap/:outputCurrency" component={RedirectToSwap} />
-                  <Route exact strict path="/send" component={RedirectPathToSwapOnly} />
-                  <Route exact strict path="/find" component={PoolFinder} />
-                  <Route exact strict path="/pool" component={Pool} />
-                  <Route exact strict path="/farms" component={Farm} />
-                  <Route exact strict path="/Home" component={Home} />
-                  <Route exact strict path="/uni" component={Earn} />
-                  <Route exact strict path="/vote" component={Vote} />
-                  <Route exact strict path="/create" component={RedirectToAddLiquidity} />
-                  <Route exact path="/add" component={AddLiquidity} />
-                  <Route exact path="/add/:currencyIdA" component={RedirectOldAddLiquidityPathStructure} />
-                  <Route exact path="/add/:currencyIdA/:currencyIdB" component={RedirectDuplicateTokenIds} />
-                  <Route exact path="/create" component={AddLiquidity} />
-                  <Route exact path="/create/:currencyIdA" component={RedirectOldAddLiquidityPathStructure} />
-                  <Route exact path="/create/:currencyIdA/:currencyIdB" component={RedirectDuplicateTokenIds} />
-                  <Route exact strict path="/remove/v1/:address" component={RemoveV1Exchange} />
-                  <Route exact strict path="/remove/:tokens" component={RedirectOldRemoveLiquidityPathStructure} />
-                  <Route exact strict path="/remove/:currencyIdA/:currencyIdB" component={RemoveLiquidity} />
-                  <Route exact strict path="/migrate/v1" component={MigrateV1} />
-                  <Route exact strict path="/migrate/v1/:address" component={MigrateV1Exchange} />
-                  <Route exact strict path="/uni/:currencyIdA/:currencyIdB" component={Manage} />
-                  <Route exact strict path="/vote/:id" component={VotePage} />
-                  <Route component={RedirectPathToSwapOnly} />
-                </Switch>
-              </Web3ReactManager>
-              <Marginer />
-            </div>
-          </article>
-        </section>
-        <Footer />
-      </div>
-    </Suspense>
+    <div id="wrap">
+      <Suspense fallback={null}>
+        <Route component={GoogleAnalyticsReporter} />
+        <Route component={DarkModeQueryParamReader} />
+          <Header />
+          <Container>
+            <Popups />
+            <TopLevelModals />
+            <Web3ReactManager>
+              <Switch>
+                <Route exact strict path="/swap" component={Swap} />
+                <Route exact strict path="/claim" component={OpenClaimAddressModalAndRedirectToSwap} />
+                <Route exact strict path="/swap/:outputCurrency" component={RedirectToSwap} />
+                <Route exact strict path="/send" component={RedirectPathToSwapOnly} />
+                <Route exact strict path="/find" component={PoolFinder} />
+                <Route exact strict path="/pool" component={Pool} />
+                <Route exact strict path="/farms" component={Farm} />
+                <Route exact strict path="/Home" component={Home} />
+                <Route exact strict path="/uni" component={Earn} />
+                <Route exact strict path="/vote" component={Vote} />
+                <Route exact strict path="/create" component={RedirectToAddLiquidity} />
+                <Route exact path="/add" component={AddLiquidity} />
+                <Route exact path="/add/:currencyIdA" component={RedirectOldAddLiquidityPathStructure} />
+                <Route exact path="/add/:currencyIdA/:currencyIdB" component={RedirectDuplicateTokenIds} />
+                <Route exact path="/create" component={AddLiquidity} />
+                <Route exact path="/create/:currencyIdA" component={RedirectOldAddLiquidityPathStructure} />
+                <Route exact path="/create/:currencyIdA/:currencyIdB" component={RedirectDuplicateTokenIds} />
+                <Route exact strict path="/remove/v1/:address" component={RemoveV1Exchange} />
+                <Route exact strict path="/remove/:tokens" component={RedirectOldRemoveLiquidityPathStructure} />
+                <Route exact strict path="/remove/:currencyIdA/:currencyIdB" component={RemoveLiquidity} />
+                <Route exact strict path="/migrate/v1" component={MigrateV1} />
+                <Route exact strict path="/migrate/v1/:address" component={MigrateV1Exchange} />
+                <Route exact strict path="/uni/:currencyIdA/:currencyIdB" component={Manage} />
+                <Route exact strict path="/vote/:id" component={VotePage} />
+                <Route component={RedirectPathToSwapOnly} />
+              </Switch>
+            </Web3ReactManager>
+          </Container>
+          <Footer />
+      </Suspense>
+    </div>
   )
 }
