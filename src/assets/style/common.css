@@ -50,22 +50,10 @@ a.a { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
 /* hr { border: none; border-top: #EAEDF4; } */
 
-/* animation ----------------- */
-.blink { animation: blink 1s ease-in-out infinite alternate; }
-
-/* keyframes ----------------- */
-@keyframes blink {
-  from{ opacity: 1; }
-  to{ opacity: 0; }
-}
-
 /* ================================== */
-html, body { width: 100%; height: 100%; }
-html { position: relative; background: var(--gradient-sunset) no-repeat; background-size: cover; background-attachment: fixed; z-index: -1;}
-html::before { position: fixed; display: block; width: 100%; height: 100%; background: url(../images/body_bg_sky.svg) center top no-repeat;  background-size: cover; background-attachment: fixed; content: ""; z-index: -1; }
-body::before { position: fixed; display: block; width: 100%; height: 100%; background: url(../images/body_bg_bottom.svg) center bottom no-repeat;  background-size: contain; background-attachment: fixed; content: ""; z-index: -1; }
-body::after { position: fixed; top: 0; left: 0; display: block; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); content: ""; z-index: -1; }
-body { position: relative; z-index: 0; }
+html, body { position: relative; width: 100%; height: 100%; background: var(--dark-0); z-index: -100; }
+/* html::before { position: fixed; display: block; width: 100%; height: 100%; background: url(../images/body_bg_sky.svg) center top no-repeat;  background-size: cover; background-attachment: fixed; content: ""; z-index: -1; }
+body::before { position: fixed; display: block; width: 100%; height: 100%; background: url(../images/body_bg_bottom.svg) center bottom no-repeat;  background-size: contain; background-attachment: fixed; content: ""; z-index: -1; } */
 
 .dis_none { display: none; }
 .col { display: inline-block; vertical-align: middle; }
@@ -145,15 +133,33 @@ h6, .h6 { font-size: 14px; }
 .button.line.purple { color: var(--purple); }
 .button.line.brown { color: var(--brown); }
 
-
 .button.md { height: 36px; font-size: 16px; border-radius: 6px; }
 .button.lg { height: 70px; font-size: 28px; border-radius: 12px; }
 
 .button.round { border-radius: 1000px !important; }
 
-#wrap, #root { width: 100%; height: 100%; }
-#wrap { display: flex; flex-direction: column; justify-content: space-between; align-items: center; }
-#container { overflow: auto; padding: 4%; width: 100%; height: 100%; transition: all 0.25s; }
+/****/
+#wrap, #root { position: relative; width: 100%; height: 100%; }
+#wrap { display: flex; flex-direction: column; justify-content: space-between; align-items: center; margin: auto; max-width: calc(100% - 32px); }
+#wrap::before { position: absolute; top: 0; left: 0; display: block; width: 100%; height: 100%; background: var(--gradient-sunset) no-repeat; background-size: cover; background-attachment: fixed; content: ""; z-index: -50; }
+#wrap::after { position: absolute; top: 0; left: 0; display: block; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.36); content: ""; z-index: -9; }
+
+@keyframes cloud {
+  from { background: var(--gradient-sunset) no-repeat; }
+  to { background: var(--gradient-tropical) no-repeat; }
+}
+
+#container { overflow: hidden; position: relative; width: 100%; height: 100%; }
+#container::before { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url(../images/body_bg_sky.svg) 100% calc(100% - 60px) repeat;  background-size: cover; background-attachment: fixed; content: ""; z-index: -10; }
+#container::after { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url(../images/body_bg_bottom.svg) 100% calc(100% - 60px) no-repeat;  background-size: contain; background-attachment: fixed; content: ""; z-index: -10; }
+#container .cloud { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url(../images/body_bg_cloud.svg) center 30% no-repeat;  background-size: 140%; background-position-x: -100%; background-attachment: fixed; content: ""; z-index: -10; animation: cloud 300s linear infinite; }
+#container .cloud::before { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url(../images/body_bg_cloud2.svg) center 30% no-repeat;  background-size: 180%; background-position-x: -100%; background-attachment: fixed; content: ""; z-index: -10; animation: cloud 200s linear infinite; }
+
+#container .bg_shadow { overflow: hidden; position: absolute; width: 100.3%; height: 100%; transition: all 0.25s; z-index: -1; }
+#container .bg_shadow::before { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url(../images/bg_shadow_top_left.svg) top no-repeat; background-size: contain; content: ""; }
+#container .bg_shadow::after { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; background: url(../images/bg_shadow_bottom_left.svg) bottom no-repeat; background-size: contain; content: ""; }
+
+#container .contents { overflow: auto; display: grid; align-items: center; position: relative; padding: 4%; width: 100%; height: 100%; }
 
 /* laptop ----------------------------------------------------- */
 @media (min-width: 1024px) {
@@ -176,8 +182,22 @@ h6, .h6 { font-size: 14px; }
   h4, .h4 { font-size: 16px; }
   h5, .h5 { font-size: 14px; }
   h6, .h6 { font-size: 12px; }
-
-
+  
   .button.md { height: 32px; font-size: 13px; border-radius: 4px; }
   .button.lg { height: 50px; font-size: 20px; border-radius: 8px; }
+}
+
+
+/* animation ----------------- */
+.blink { animation: blink 1s ease-in-out infinite alternate; }
+
+/* keyframes ----------------- */
+@keyframes blink {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes cloud {
+  from { background-position-x: 100% }
+  to { background-position-x: -100%; }
 }
