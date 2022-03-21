@@ -133,6 +133,7 @@ h6, .h6 { font-size: 14px; }
 .button.line.purple { color: var(--purple); }
 .button.line.brown { color: var(--brown); }
 
+
 .button.md { height: 36px; font-size: 16px; border-radius: 6px; }
 .button.lg { height: 70px; font-size: 28px; border-radius: 12px; }
 
@@ -143,6 +144,30 @@ h6, .h6 { font-size: 14px; }
 #wrap { display: flex; flex-direction: column; justify-content: space-between; align-items: center; margin: auto; max-width: calc(100% - 32px); }
 #wrap::before { position: absolute; top: 0; left: 0; display: block; width: 100%; height: 100%; background: var(--gradient-sunset) no-repeat; background-size: cover; background-attachment: fixed; content: ""; z-index: -50; }
 #wrap::after { position: absolute; top: 0; left: 0; display: block; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.36); content: ""; z-index: -9; }
+
+#wrap::before {
+  background: linear-gradient(-25deg, 
+      var(--dark-2), 
+      var(--dark-2), 
+      var(--indigo), 
+      var(--indigo), 
+      #FF6341, 
+      #FF6341, 
+      #5FB9AE,
+      #5FB9AE, 
+      var(--blue), 
+      var(--blue),
+      var(--cyan), 
+      var(--cyan)
+    );
+  background-size: 1200% 100%; animation: sky 800s ease infinite;
+}
+@keyframes sky { 
+  0%{background-position:0% 50%} 
+  50%{background-position:100% 50%} 
+  100%{background-position:0% 50%} 
+}
+
 
 @keyframes cloud {
   from { background: var(--gradient-sunset) no-repeat; }
@@ -158,6 +183,12 @@ h6, .h6 { font-size: 14px; }
 @media(max-width: 1023px) {
 	.t_dis_none { display: none; }
 
+  h1, .h1 { font-size: 36px; }
+  h2, .h2 { font-size: 30px; }
+  h3, .h3 { font-size: 26px; }
+  h4, .h4 { font-size: 20px; }
+  h5, .h5 { font-size: 15px; }
+  h6, .h6 { font-size: 13px; }
 }
 
 /* Mobile ----------------------------------------------------- */
@@ -171,6 +202,7 @@ h6, .h6 { font-size: 14px; }
   h5, .h5 { font-size: 14px; }
   h6, .h6 { font-size: 12px; }
   
+  .button.sm { padding: 0; min-width: 40px; height: 20px; font-size: 12px; border-radius: 3px; line-height: 14px; }
   .button.md { height: 32px; font-size: 13px; border-radius: 4px; }
   .button.lg { height: 50px; font-size: 20px; border-radius: 8px; }
 }

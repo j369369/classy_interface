@@ -4,7 +4,7 @@
 
 :root {  
   /* gradient */
-  --gradient-sunset: linear-gradient( to bottom, #FF6341, #5FB9AE );
+  --gradient-sunset: linear-gradient( to bottom, #5FB9AE, #FF6341 );
   --gradient-tropical: linear-gradient( to bottom, var(--aqua), var(--yellow) );
   --gradient-samba: linear-gradient( to bottom, var(--pink), var(--purple) );
   --gradient-ocean: linear-gradient( to bottom, var(--blue), var(--mint) );

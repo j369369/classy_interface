@@ -1,5 +1,6 @@
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { AddressZero } from '@ethersproject/constants'
+import styled from 'styled-components'
 import { Currency, CurrencyAmount, Fraction, JSBI, Percent, Token, TokenAmount, WETH } from '@uniswap/sdk'
 import React, { useCallback, useMemo, useState } from 'react'
 import ReactGA from 'react-ga'
@@ -26,8 +27,18 @@ import { useIsTransactionPending, useTransactionAdder } from '../../state/transa
 import { useETHBalances, useTokenBalance } from '../../state/wallet/hooks'
 import { BackArrow, ExternalLink, TYPE } from '../../theme'
 import { getEtherscanLink, isAddress } from '../../utils'
-import { BodyWrapper } from '../AppBody'
+// import { BodyWrapper } from '../AppBody'
 import { EmptyState } from './EmptyState'
+
+const BodyWrapper = styled.div`
+  position: relative;
+  max-width: 26.25rem;
+  width: 100%;
+  background: var(--bg-gradient-white-02);
+  backdrop-filter: var(--bg-filter-blur);
+  box-shadow: var(--bg-box-shadow);
+  border-radius: 1rem;
+`
 
 const WEI_DENOM = JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(18))
 const ZERO = JSBI.BigInt(0)

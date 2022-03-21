@@ -8,7 +8,7 @@ import '../assets/style/common.css'
 import '../assets/style/css.css'
 
 import GoogleAnalyticsReporter from '../components/analytics/GoogleAnalyticsReporter'
-import AddressClaimModal from '../components/claim/AddressClaimModal'
+// import AddressClaimModal from '../components/claim/AddressClaimModal'
 import Header from '../components/Header'
 import Container from '../components/Container'
 import Footer from '../components/Footer'
@@ -42,12 +42,13 @@ import Home from './Home'
 
 import Farm from './Farm'
 
-
+/*
 function TopLevelModals() {
   const open = useModalOpen(ApplicationModal.ADDRESS_CLAIM)
   const toggle = useToggleModal(ApplicationModal.ADDRESS_CLAIM)
   return <AddressClaimModal isOpen={open} onDismiss={toggle} />
 }
+*/
 
 export default function App() {
   return (
@@ -58,7 +59,6 @@ export default function App() {
           <Header />
           <Container>
             <Popups />
-            <TopLevelModals />
             <Web3ReactManager>
               <Switch>
                 <Route exact strict path="/swap" component={Swap} />

@@ -58,7 +58,7 @@ export const Input = React.memo(function InnerInput({
   }
 
   return (
-    <StyledInput
+    <input
       {...rest}
       value={value}
       onChange={event => {

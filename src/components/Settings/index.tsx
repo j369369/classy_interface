@@ -20,18 +20,18 @@ import { RowBetween, RowFixed } from '../Row'
 import Toggle from '../Toggle'
 import TransactionSettings from '../TransactionSettings'
 
-const StyledMenuIcon = styled(Settings)`
-  height: 20px;
-  width: 20px;
+// const StyledMenuIcon = styled(Settings)`
+//   height: 20px;
+//   width: 20px;
 
-  > * {
-    stroke: ${({ theme }) => theme.text2};
-  }
+//   > * {
+//     stroke: ${({ theme }) => theme.text2};
+//   }
 
-  :hover {
-    opacity: 0.7;
-  }
-`
+//   :hover {
+//     opacity: 0.7;
+//   }
+// `
 
 const StyledCloseIcon = styled(X)`
   height: 20px;
@@ -45,29 +45,29 @@ const StyledCloseIcon = styled(X)`
   }
 `
 
-const StyledMenuButton = styled.button`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border: none;
-  background-color: transparent;
-  margin: 0;
-  padding: 0;
-  height: 35px;
+// const StyledMenuButton = styled.button`
+//   position: relative;
+//   width: 100%;
+//   height: 100%;
+//   border: none;
+//   background-color: transparent;
+//   margin: 0;
+//   padding: 0;
+//   height: 35px;
 
-  padding: 0.15rem 0.5rem;
-  border-radius: 0.5rem;
+//   padding: 0.15rem 0.5rem;
+//   border-radius: 0.5rem;
 
-  :hover,
-  :focus {
-    cursor: pointer;
-    outline: none;
-  }
+//   :hover,
+//   :focus {
+//     cursor: pointer;
+//     outline: none;
+//   }
 
-  svg {
-    margin-top: 2px;
-  }
-`
+//   svg {
+//     margin-top: 2px;
+//   }
+// `
 const EmojiWrapper = styled.div`
   position: absolute;
   bottom: -6px;
@@ -132,6 +132,22 @@ const ExpertModeIcon = styled.strong`
   font-size: 17px;
 `
 
+const SettingIcon = () => {
+  return(
+    <div className="setting">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26.363 23.068">
+        <defs>
+          <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#2ffff7"/>
+            <stop offset="1" stop-color="#f9d74a"/>
+          </linearGradient>
+        </defs>
+        <path d="M25.539,50.125H8.239V49.3a.826.826,0,0,0-.824-.824H5.767a.826.826,0,0,0-.824.824v.824H.824A.826.826,0,0,0,0,50.949V52.6a.826.826,0,0,0,.824.824H4.943v.824a.826.826,0,0,0,.824.824H7.415a.826.826,0,0,0,.824-.824V53.42h17.3a.826.826,0,0,0,.824-.824V50.949A.826.826,0,0,0,25.539,50.125Zm0-8.239H21.42v-.824a.826.826,0,0,0-.824-.824H18.949a.826.826,0,0,0-.824.824v.824H.824A.826.826,0,0,0,0,42.71v1.648a.826.826,0,0,0,.824.824h17.3v.824a.826.826,0,0,0,.824.824H20.6a.826.826,0,0,0,.824-.824v-.824h4.119a.826.826,0,0,0,.824-.824V42.71A.826.826,0,0,0,25.539,41.886Zm0-8.239H14.829v-.824A.826.826,0,0,0,14.005,32H12.358a.826.826,0,0,0-.824.824v.824H.824A.826.826,0,0,0,0,34.472v1.648a.826.826,0,0,0,.824.824h10.71v.824a.826.826,0,0,0,.824.824h1.648a.826.826,0,0,0,.824-.824v-.824h10.71a.826.826,0,0,0,.824-.824V34.472A.826.826,0,0,0,25.539,33.648Z" transform="translate(0 -32)" fill="url(#linear-gradient)"/>
+      </svg>
+    </div>
+  )
+}
+
 
 
 export default function SettingsTab() {
@@ -194,8 +210,8 @@ export default function SettingsTab() {
           </AutoColumn>
         </ModalContentWrapper>
       </Modal>
-      <StyledMenuButton onClick={toggle} id="open -settings-dialog-button">
-        <StyledMenuIcon />
+      <div onClick={toggle}>
+        <SettingIcon />
         {expertMode ? (
           <EmojiWrapper>
             <span role="img" aria-label="wizard-icon">
@@ -206,7 +222,7 @@ export default function SettingsTab() {
             </ExpertModeIcon>
           </EmojiWrapper>
         ) : null}
-      </StyledMenuButton>
+      </div>
       {open && (
         <MenuFlyout>
           <AutoColumn gap="md" style={{ padding: '1rem' }}>

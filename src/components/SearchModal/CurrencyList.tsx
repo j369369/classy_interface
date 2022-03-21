@@ -126,7 +126,7 @@ function CurrencyRow({
       disabled={isSelected}
       selected={otherSelected}
     >
-      <CurrencyLogo currency={currency} size={'24px'} />
+      <div className="token_logo" style={{ width: "32px", height: "32px" }}><CurrencyLogo currency={currency} /></div>
       <Column>
         <Text title={currency.name} fontWeight={500}>
           {currency.symbol}

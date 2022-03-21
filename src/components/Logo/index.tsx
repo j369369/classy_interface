@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { HelpCircle } from 'react-feather'
 import { ImageProps } from 'rebass'
+import './Logo.css'
+
+import TokenDefaultImg from '../../assets/images/palmtree_gray.gif'
 
 const BAD_SRCS: { [tokenAddress: string]: true } = {}
 
@@ -18,17 +21,19 @@ export default function Logo({ srcs, alt, ...rest }: LogoProps) {
 
   if (src) {
     return (
-      <img
-        {...rest}
-        alt={alt}
-        src={src}
-        onError={() => {
-          if (src) BAD_SRCS[src] = true
-          refresh(i => i + 1)
-        }}
-      />
+      <div  className="token_logo">
+        <img
+          {...rest}
+          alt={alt}
+          src={src}
+          onError={() => {
+            if (src) BAD_SRCS[src] = true
+            refresh(i => i + 1)
+          }}
+        />
+      </div>
     )
   }
 
-  return <HelpCircle {...rest} />
+  return <HelpCircle className="token_logo" {...rest} />
 }

@@ -1,5 +1,6 @@
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { JSBI, Token, TokenAmount, WETH, Fraction, Percent, CurrencyAmount } from '@uniswap/sdk'
+import styled from 'styled-components'
 import React, { useCallback, useMemo, useState } from 'react'
 import ReactGA from 'react-ga'
 import { Redirect, RouteComponentProps } from 'react-router'
@@ -17,13 +18,23 @@ import { useIsTransactionPending, useTransactionAdder } from '../../state/transa
 import { useTokenBalance, useETHBalances } from '../../state/wallet/hooks'
 import { BackArrow, TYPE } from '../../theme'
 import { isAddress } from '../../utils'
-import { BodyWrapper } from '../AppBody'
+// import { BodyWrapper } from '../AppBody'
 import { EmptyState } from './EmptyState'
 import { V1LiquidityInfo } from './MigrateV1Exchange'
 import { AddressZero } from '@ethersproject/constants'
 import { Dots } from '../../components/swap/styleds'
 import { Contract } from '@ethersproject/contracts'
 import { useTotalSupply } from '../../data/TotalSupply'
+
+const BodyWrapper = styled.div`
+  position: relative;
+  max-width: 26.25rem;
+  width: 100%;
+  background: var(--bg-gradient-white-02);
+  backdrop-filter: var(--bg-filter-blur);
+  box-shadow: var(--bg-box-shadow);
+  border-radius: 1rem;
+`
 
 const WEI_DENOM = JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(18))
 const ZERO = JSBI.BigInt(0)

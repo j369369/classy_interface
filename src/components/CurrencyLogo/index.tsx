@@ -23,23 +23,6 @@ const StyledEthereumLogo = styled.img<{ size: string }>`
     height: 24px;
   }
 `
-
-const StyledLogo = styled(Logo)<{ size: string }>`
-  // width: ${({ size }) => size};
-  // height: ${({ size }) => size};
-  width: 32px;
-  height: 32px;
-  border-radius: ${({ size }) => size};
-  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.075);
-  background-color: ${({ theme }) => theme.white};
-
-  @media(max-width: 768px) {
-    min-widtdh: 24px;
-    width: 24px;
-    height: 24px;
-  }
-`
-
 export default function CurrencyLogo({
   currency,
   size = '24px',
@@ -69,7 +52,7 @@ export default function CurrencyLogo({
     return <StyledEthereumLogo src={EthereumLogo} size={size} style={style} />
   }
 
-  return <StyledLogo size={size} srcs={srcs} alt={`${currency?.symbol ?? 'token'} logo`} style={style} />
+  return <Logo srcs={srcs} alt={`${currency?.symbol ?? 'token'} logo`} style={style} />
 }
 
 
@@ -96,5 +79,5 @@ export function TokenLogo({
   }, [address])
 
 
-  return <StyledLogo size={size} srcs={srcs} alt={`token logo`} style={style} />
+  return <Logo srcs={srcs} alt={`token logo`} style={style} />
 }

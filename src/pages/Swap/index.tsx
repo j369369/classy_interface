@@ -356,7 +356,7 @@ export default function Swap() {
       <SwapPoolTabs active={'swap'} />
       <AppBody>
         <SwapHeader />
-        <Wrapper id="swap-page">
+        <article id="swap-page">
           <ConfirmSwapModal
             isOpen={showConfirm}
             trade={trade}
@@ -371,7 +371,7 @@ export default function Swap() {
             onDismiss={handleConfirmDismiss}
           />
 
-          <AutoColumn gap={'md'}>
+          <div>
             <CurrencyInputPanel
               label={independentField === Field.OUTPUT && !showWrap && trade ? 'From (estimated)' : 'From'}
               value={formattedAmounts[Field.INPUT]}
@@ -445,7 +445,7 @@ export default function Swap() {
                 </AutoColumn>
               </Card>
             )}
-          </AutoColumn>
+          </div>
           <div id="swapInfoTextBox">
             {allowedSlippage !== INITIAL_ALLOWED_SLIPPAGE && (
               <RowBetween align="center" className={`swap_info_list`}>
@@ -567,7 +567,7 @@ export default function Swap() {
               <DefaultVersionLink />
             ) : null}
           </BottomGrouping>
-        </Wrapper>
+        </article>
       </AppBody>
     </>
   )

@@ -10,7 +10,7 @@ const Background = () => {
   )
 }
 
-export default function Container({ children }: any) {
+export default function Container({ children }: { children: React.ReactNode }) {
   return (
     <section id="container">
       <Background/>

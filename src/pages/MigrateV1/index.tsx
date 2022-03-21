@@ -1,6 +1,6 @@
 import { JSBI, Token } from '@uniswap/sdk'
 import React, { useCallback, useContext, useMemo, useState, useEffect } from 'react'
-import { ThemeContext } from 'styled-components'
+import styled, { ThemeContext } from 'styled-components'
 import { AutoColumn } from '../../components/Column'
 import { AutoRow } from '../../components/Row'
 import { SearchInput } from '../../components/SearchModal/styleds'
@@ -10,7 +10,7 @@ import { useAllTokens, useToken } from '../../hooks/Tokens'
 import { useTokenBalancesWithLoadingIndicator } from '../../state/wallet/hooks'
 import { BackArrow, TYPE } from '../../theme'
 import { LightCard } from '../../components/Card'
-import { BodyWrapper } from '../AppBody'
+// import { BodyWrapper } from '../AppBody'
 import { EmptyState } from './EmptyState'
 import V1PositionCard from '../../components/PositionCard/V1'
 import QuestionHelper from '../../components/QuestionHelper'
@@ -18,6 +18,16 @@ import { Dots } from '../../components/swap/styleds'
 import { useAddUserToken } from '../../state/user/hooks'
 import { isTokenOnList } from '../../utils'
 import { useCombinedActiveList } from '../../state/lists/hooks'
+
+const BodyWrapper = styled.div`
+  position: relative;
+  max-width: 26.25rem;
+  width: 100%;
+  background: var(--bg-gradient-white-02);
+  backdrop-filter: var(--bg-filter-blur);
+  box-shadow: var(--bg-box-shadow);
+  border-radius: 1rem;
+`
 
 export default function MigrateV1() {
   const theme = useContext(ThemeContext)
