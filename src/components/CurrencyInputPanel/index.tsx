@@ -1,6 +1,6 @@
 import { Currency, Pair } from '@uniswap/sdk'
 import React, { useState, useCallback } from 'react'
-import styled from 'styled-components'
+// import styled from 'styled-components'
 //import { darken } from 'polished'
 import { useCurrencyBalance } from '../../state/wallet/hooks'
 import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
@@ -9,7 +9,7 @@ import DoubleCurrencyLogo from '../DoubleLogo'
 import { RowBetween } from '../Row'
 import { TYPE } from '../../theme'
 import { Input as NumericalInput } from '../NumericalInput'
-import { ReactComponent as DropDown } from '../../assets/images/dropdown.svg'
+// import { ReactComponent as DropDown } from '../../assets/images/dropdown.svg'
 
 import { useActiveWeb3React } from '../../hooks'
 import { useTranslation } from 'react-i18next'
@@ -17,91 +17,6 @@ import { useTranslation } from 'react-i18next'
 import TokenDefaultLogo from '../TokenDefaultLogo'
 //import useTheme from '../../hooks/useTheme'
 
-// const InputRow = styled.div<{ selected: boolean }>`
-//   display: flex;
-//   align-items: center;
-//   padding: ${({ selected }) => (selected ? '0.75rem 0.75rem 0.75rem 0.75rem' : '0.75rem 0.75rem 0.75rem 0.75rem')};
-//   background: transparent;
-//   color: var(--white);
-//   `
-
-// const CurrencySelect = styled.button<{ selected: boolean }>`
-//   align-items: center;
-//   height: 2.2rem;
-//   font-size: 20px;
-//   font-weight: 500;
-//   background-color: transparent;
-//   border-radius: 12px;
-//   outline: none;
-//   cursor: pointer;
-//   user-select: none;
-//   border: none;
-//   padding: 0;
-
-//   &.open-currency-select-button {
-//     span.token-symbol-container {
-//       color: var(--white)
-//     }
-
-//     span.token-symbol-container ~ svg path {
-//       stroke: var(--white)
-//     }
-//   }
-// `
-
-// const LabelRow = styled.div`
-//   ${({ theme }) => theme.flexRowNoWrap}
-//   align-items: center;
-//   color: ${({ theme }) => theme.text1};
-//   font-size: 0.75rem;
-//   line-height: 1rem;
-//   padding: 0.75rem 1rem 0 1rem;
-// `
-
-// const Aligner = styled.span`
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-// `
-
-// const StyledDropDown = styled(DropDown)<{ selected: boolean }>`
-//   margin: 0 0.25rem 0 0.5rem;
-//   height: 35%;
-
-//   path {
-//     stroke: ${({ selected, theme }) => (selected ? theme.text1 : theme.white)};
-//     stroke-width: 1.5px;
-//   }
-// `
-
-// const InputPanel = styled.div<{ hideInput?: boolean }>``
-
-// const Container = styled.div<{ hideInput: boolean }>`
-//   border-radius: 0.5rem;
-// `
-
-const StyledTokenName = styled.span<{ active?: boolean }>`
-  ${({ active }) => (active ? '  margin: 0 0.25rem 0 0.5rem;' : '  margin: 0 0.25rem 0 0.5rem;')}
-  //font-size:  ${({ active }) => (active ? '20px' : '16px')};
-  font-size:  16px;
-`
-
-// const StyledBalanceMax = styled.button`
-//   margin-top: 0.25rem;
-//   margin-left: 0.25rem;
-//   height: 1.6rem;
-//   background-color: var(--yellow);
-//   border: 1px solid transparent;
-//   border-radius: 0.5rem;
-//   font-size: 0.75rem;
-//   font-weight: 700;
-//   cursor: pointer;
-//   color: #f5700f;
-
-//   @media(max-width: 768px) {
-    
-//   }
-// `
 
 interface CurrencyInputPanelProps {
   value: string
@@ -152,16 +67,22 @@ export default function CurrencyInputPanel({
   return (
     <>
       <section id={id}>
-        {!hideInput && account && (
-              <div>
-                { !hideBalance && !!currency && selectedCurrencyBalance && (
-                  <div className="text gray" onClick={onMax} >
-                    { (customBalanceText ?? 'Balance: ') + selectedCurrencyBalance?.toSignificant(6) }
-                  </div>
-                )}
-              </div>
-        )}
         <article className="app_form">
+          {!hideInput && account && (
+                <div className={`balance ${label}`}>
+                  { !hideBalance && !!currency && selectedCurrencyBalance ? (
+                    <div className="text mint" onClick={onMax} >
+                      {customBalanceText ?? 'Balance: '}
+                      <strong>{selectedCurrencyBalance?.toSignificant(6)}</strong>
+                    </div>
+                  ): (
+                    <div className="text gray" onClick={onMax} >
+                       {customBalanceText ?? 'Balance: '}
+                       <strong>0</strong>
+                    </div>
+                  )}
+                </div>
+          )}
           {/* <InputRow selected={disableCurrencySelect}> */}
           <div
             // selected={!!currency}
@@ -200,7 +121,7 @@ export default function CurrencyInputPanel({
                     currency.symbol.slice(currency.symbol.length - 5, currency.symbol.length)
                   : 
                     currency?.symbol
-                  ) || <h6 className='none'>{t('selectToken')}</h6>
+                  ) || <h5 className='none'>{t('Token')}</h5>
                 }
               </h5>
             )}
@@ -214,7 +135,7 @@ export default function CurrencyInputPanel({
           {!hideInput && (
             <>
             {account && currency && showMaxButton && label !== 'To' && (
-                <button type="button" className="button sm yellow" onClick={onMax}>MAX</button>
+                <button type="button" className="button sm yellow max" onClick={onMax}>MAX</button>
               )}
               <NumericalInput
                 className="amount_input"
@@ -226,7 +147,7 @@ export default function CurrencyInputPanel({
             </>
           )}
 
-          <div className={`app_form_footer ${label}`}>
+          <div className={`app_form_footer f_cookie ${label}`}>
             {label}
           </div>
         </article>

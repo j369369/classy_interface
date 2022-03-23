@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @import url(./common.css);
 
-#swapFrom .swap_input_box { background: #6D9FBF; }
+/* #swapFrom .swap_input_box { background: #6D9FBF; }
 #swapTo .swap_input_box { margin-top: -1.5rem; background: var(--blue-04); }
 #swapSend .swap_input_box  { background: var(--lightBlue-04); }
 #swapSend .swap_input_box  .pair-name-container { color: var(--white); }
@@ -24,7 +24,7 @@
 #optionCustom .txt_min { position: absolute; top: 0.5rem; right: 0.875rem; }
 
 #infoBreakdown { padding: 1.25rem; border-radius: 1rem; }
-#poolButtonRow { width: 33%; }
+#poolButtonRow { width: 33%; } */
 
 
 /* Laptop ----------------------------------------------------- */

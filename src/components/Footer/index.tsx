@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
+import Polling from '../Header/Polling'
 import './Footer.css'
 
 export default function Footer() {
@@ -42,6 +43,7 @@ export default function Footer() {
           </NavLink>
         </li>
       </ul>
+      <Polling />
     </footer>
   )
 }

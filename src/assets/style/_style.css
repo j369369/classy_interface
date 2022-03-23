@@ -9,6 +9,11 @@
   --gradient-samba: linear-gradient( to bottom, var(--pink), var(--purple) );
   --gradient-ocean: linear-gradient( to bottom, var(--blue), var(--mint) );
 
+  --gradient-sunset-h: linear-gradient( to right, #5FB9AE, #FF6341 );
+  --gradient-tropical-h: linear-gradient( to right, var(--aqua), var(--yellow) );
+  --gradient-samba-h: linear-gradient( to right, var(--pink), var(--purple) );
+  --gradient-ocean-h: linear-gradient( to right, var(--blue), var(--mint) );
+
   /* color */
   --white: #fff;
   --black: #000;

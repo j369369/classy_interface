@@ -3,23 +3,9 @@
 #appBody { position: relative; margin: 0 auto; padding: 28px; max-width: 600px; width: 100%; background: var(--dark-0); box-shadow: var(--bg-box-shadow); border-radius: 60px; color: var(--white); transition: all 0.25s; }
 #appBody * { transition: all 0.25s; }
 
-#appBody .app_contents { display: flex; flex-direction: column; gap: 20px; padding: 30px; background: var(--dark-2); border-radius: 40px; }
-#appBody .app_contents .app_head { display: flex; justify-content: space-between; align-items: center; }
-#appBody .app_contents .app_head .title { padding: 0 10px; font-family: 'CookieRun'; }
-#appBody .app_contents .app_head .setting { display: flex; align-items: center; padding: 12px; width: 52px; height: 52px; background: var(--dark-0); border-radius: 20px; cursor: pointer; }
-#appBody .app_contents .app_head .setting svg { width: 100%; }
+#appBody .app_contents { padding: 30px; background: var(--dark-2); border-radius: 40px; }
 
-#appBody .app_contents .app_form { position: relative; display: flex; align-items: center; padding: 16px 20px; background: var(--dark-0); border-radius: 100px; z-index: 1;}
-#appBody .app_contents .app_form .select_box { display: flex; align-items: center; width: 50%; }
-#appBody .app_contents .app_form .select_box .token_logo { width: 32px; height: 32px; }
-#appBody .app_contents .app_form .select_box .token_name { margin: 0 8px; color: var(--white); text-align: right; cursor: pointer; }
-#appBody .app_contents .app_form .select_box .token_name .none { color: var(--dark-6); font-size: 12px; font-weight: 500; }
-#appBody .app_contents .app_form .select_box .ic_down { margin-right: 8px; color: var(--white); }
-#appBody .app_contents .app_form .amount_input { width: 100%; background: transparent; border: 1px solid transparent; color: var(--white); font-family: 'CookieRun'; font-size: 24px; font-weight: 700; text-align: right; }
 
-#appBody .app_contents .app_form .app_form_footer { position: absolute; right: 0; left: 0; margin: auto; text-align: center; }
-#appBody .app_contents .app_form .app_form_footer.From { bottom: 0; }
-#appBody .app_contents .app_form .app_form_footer.To { top: 0; }
 
 /* laptop ----------------------------------------------------- */
 @media (min-width: 1024px) {
@@ -30,17 +16,14 @@
 @media(max-width: 1023px) {
 	#appBody  { padding: 24px; max-width: 540px; border-radius: 50px; }
   #appBody .app_contents { gap: 16px; padding: 24px; border-radius: 30px; }
-  #appBody .app_contents .app_head .setting { padding: 10px; width: 48px; height: 48px; border-radius: 18px; }
- 
-  #appBody .app_contents .app_form .amount_input { font-size: 20px; }
+
+
+
 }
 
 /* Mobile ----------------------------------------------------- */
 @media(max-width: 768px) {
   #appBody  { padding: 16px; max-width: 460px; border-radius: 40px; }
-  #appBody .app_contents { gap: 12px; padding: 20px; border-radius: 30px; }
-  #appBody .app_contents .app_head .setting { width: 40px; height: 40px; border-radius: 14px; }
+  #appBody .app_contents { gap: 12px; padding: 16px; border-radius: 30px; }
 
-  #appBody .app_contents .app_form { padding: 12px 16px; }
-  #appBody .app_contents .app_form .amount_input { font-size: 18px; }
 }

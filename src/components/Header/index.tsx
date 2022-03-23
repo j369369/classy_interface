@@ -14,7 +14,7 @@ import { useUserHasSubmittedClaim } from '../../state/transactions/hooks'
 import UniBalanceContent from './UniBalanceContent'
 import usePrevious from '../../hooks/usePrevious'
 
-import Polling from './Polling'
+
 import URLWarning from './URLWarning'
 import ClaimModal from '../claim/ClaimModal'
 import { CardNoise } from '../earn/styled'
@@ -90,7 +90,6 @@ export default function Header() {
         </div>
         {account && (
           <div className="header_info">
-              <Polling />
               <ul className="wallet_list">
                 {account && userEthBalance ? (
                   <li>

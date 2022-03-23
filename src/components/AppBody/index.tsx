@@ -1,14 +1,12 @@
 import React from 'react'
 import './AppBody.css'
 
-export default function AppBody({ children }: { children: React.ReactNode }) {
+export default function AppBody({ children,id }: { children: React.ReactNode, id?: string }) {
 return (
   <>
-    <div id="appBody">
-      <section className="app_contents">
-        {children}
-      </section>
-    </div>
+    <section id={id}>
+      {children}
+    </section>
   </>
 )
 }

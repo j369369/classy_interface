@@ -56,10 +56,24 @@ html, body { position: relative; width: 100%; height: 100%; background: var(--da
 body::before { position: fixed; display: block; width: 100%; height: 100%; background: url(../images/body_bg_bottom.svg) center bottom no-repeat;  background-size: contain; background-attachment: fixed; content: ""; z-index: -1; } */
 
 .dis_none { display: none; }
+.dis_flex { display: flex; align-items: center; }
+.dis_flex.between { justify-content: space-between; }
+
 .col { display: inline-block; vertical-align: middle; }
 
 .f_cookie { font-family: 'CookieRun' !important; }
 .f_default { font-family: var(--fontGlobal) !important; }
+
+.fw_100 { font-weight: 100 !important; }
+.fw_200 { font-weight: 200 !important; }
+.fw_300 { font-weight: 300 !important; }
+.fw_400 { font-weight: 400 !important; }
+.fw_500 { font-weight: 500 !important; }
+.fw_600 { font-weight: 600 !important; }
+.fw_700 { font-weight: 700 !important; }
+.fw_800 { font-weight: 800 !important; }
+.fw_900 { font-weight: 900 !important; }
+
 
 h1, .h1 { font-size: 40px; }
 h2, .h2 { font-size: 32px; }
@@ -88,6 +102,7 @@ h6, .h6 { font-size: 14px; }
 .text.brown { color: var(--brown) !important; }
 
 .button { display: inline-block; position: relative; min-width: 50px; height: 24px; border: 1px solid transparent; border-radius: 3px; font-family: 'CookieRun'; font-size: 14px; font-weight: 700; }
+
 .button.white { background: var(--white) !important; border: 1px solid var(--white); color: var(--black); }
 .button.black { background: var(--black) !important; border: 1px solid var(--black); color: var(--white); }
 .button.gray { background: var(--gray) !important; border: 1px solid var(--gray); color: var(--black); }
@@ -114,6 +129,11 @@ h6, .h6 { font-size: 14px; }
 .button.dark5 { background: var(--dark-5) !important; border: 1px solid var(--dark-5); color: var(--white); }
 .button.dark6 { background: var(--dark-6) !important; border: 1px solid var(--dark-6); color: var(--white); }
 
+.button.sunset { background: var(--gradient-sunset-h) !important; border: 1px solid var(--gradient-sunset-h); color: var(--white); }
+.button.tropical { background: var(--gradient-tropical-h) !important; border: 1px solid var(--gradient-tropical-h); color: var(--black); }
+.button.samba { background: var(--gradient-samba-h) !important; border: 1px solid var(--gradient-samba-h); color: var(--white); }
+.button.ocean { background: var(--gradient-ocean-h) !important; border: 1px solid var(--gradient-ocean-h); color: var(--white); }
+
 .button.line { background: transparent !important; }
 .button.line.white { color: var(--white); }
 .button.line.black { color: var(--black); }
@@ -133,11 +153,14 @@ h6, .h6 { font-size: 14px; }
 .button.line.purple { color: var(--purple); }
 .button.line.brown { color: var(--brown); }
 
+.button.error { position: relative; background: transparent !important; border: 1px solid var(--red); color: var(--red); pointer-events: none; }
 
 .button.md { height: 36px; font-size: 16px; border-radius: 6px; }
-.button.lg { height: 70px; font-size: 28px; border-radius: 12px; }
-
+.button.lg { height: 64px; font-size: 26px; border-radius: 12px; }
 .button.round { border-radius: 1000px !important; }
+
+
+.button.w100 { width: 100%; max-width: 100%; }
 
 /****/
 #wrap, #root { position: relative; width: 100%; height: 100%; }
@@ -202,7 +225,7 @@ h6, .h6 { font-size: 14px; }
   h5, .h5 { font-size: 14px; }
   h6, .h6 { font-size: 12px; }
   
-  .button.sm { padding: 0; min-width: 40px; height: 20px; font-size: 12px; border-radius: 3px; line-height: 14px; }
+  .button.sm { padding: 0 8px; min-width: 40px; height: 20px; font-size: 12px; border-radius: 3px; line-height: 14px; }
   .button.md { height: 32px; font-size: 13px; border-radius: 4px; }
   .button.lg { height: 50px; font-size: 20px; border-radius: 8px; }
 }

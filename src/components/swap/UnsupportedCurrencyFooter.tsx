@@ -58,9 +58,10 @@ export default function UnsupportedCurrencyFooter({
   const unsupportedTokens: { [address: string]: Token } = useUnsupportedTokens()
 
   return (
-    <DetailsFooter show={show}>
+    // <DetailsFooter show={show}>
+    <div>
       <Modal isOpen={showDetails} onDismiss={() => setShowDetails(false)}>
-        <Card padding="2rem">
+        <Card>
           <AutoColumn gap="lg">
             <RowBetween>
               <TYPE.mediumHeader>Unsupported Assets</TYPE.mediumHeader>
@@ -100,6 +101,6 @@ export default function UnsupportedCurrencyFooter({
       <ButtonEmpty padding={'0'} onClick={() => setShowDetails(true)}>
         <TYPE.blue>Read more about unsupported assets</TYPE.blue>
       </ButtonEmpty>
-    </DetailsFooter>
+    </div>
   )
 }
