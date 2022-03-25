@@ -1,0 +1,2 @@
+.ic_tooltip { margin-left: 4px; color: var(--yellow); cursor: pointer; }
+.tooltip_container { padding: 10px; width: 100%; max-width: 240px; color: var(--black); font-size: 12px; line-height: 150%; }

@@ -29,46 +29,55 @@ function TradeSummary({ trade, allowedSlippage }: { trade: Trade; allowedSlippag
 
   return (
     <>
-      <AutoColumn className="swap_info_list">
-        <RowBetween className={`li`}>
-          <RowFixed>
-            <TYPE.black>
-              {isExactIn ? 'Minimum received' : 'Maximum sold'}
-            </TYPE.black>
+      <ul className="swap_info">
+        <li>
+          <div className="info_title">
+            {isExactIn ? 'Minimum received' : 'Maximum sold'}
             <QuestionHelper text="Your transaction will revert if there is a large, unfavorable price movement before it is confirmed." />
-          </RowFixed>
-          <RowFixed>
-            <TYPE.black fontSize={14} style={{textAlign: "right"}}>
-              {isExactIn
-                ? `${slippageAdjustedAmounts[Field.OUTPUT]?.toSignificant(4)} ${trade.outputAmount.currency.symbol}` ??
-                  '-'
-                : `${slippageAdjustedAmounts[Field.INPUT]?.toSignificant(4)} ${trade.inputAmount.currency.symbol}` ??
-                  '-'}
-            </TYPE.black>
-          </RowFixed>
-        </RowBetween>
-        <RowBetween className={`li`}>
-          <RowFixed>
-            <TYPE.black>
-              Price Impact
-            </TYPE.black>
+          </div>
+          
+          <div className="info_contents">
+            {isExactIn ? (
+                <>
+                  <span className="num">{slippageAdjustedAmounts[Field.OUTPUT]?.toSignificant(4)}</span>
+                  <span className="symbol">{trade.outputAmount.currency.symbol}</span>
+                </>
+            ) ?? '-'
+            : (
+                <>
+                  <span className="num">{slippageAdjustedAmounts[Field.INPUT]?.toSignificant(4)}</span>
+                  <span className="symbol">{trade.inputAmount.currency.symbol}</span>
+                </>
+            ) ?? '-' }
+            </div>
+        </li>
+        <li>
+          <div className="info_title">
+            Price Impact
             <QuestionHelper text="The difference between the market price and estimated price due to trade size." />
-          </RowFixed>
-          <FormattedPriceImpact priceImpact={priceImpactWithoutFee} />
-        </RowBetween>
-
-        <RowBetween className={`li`}>
-          <RowFixed>
-            <TYPE.black>
-              Liquidity Provider Fee
-            </TYPE.black>
+          </div>
+          <div className="info_contents">
+            <span className="num">
+              <FormattedPriceImpact priceImpact={priceImpactWithoutFee} />
+            </span>
+          </div>
+        </li>
+        <li>
+          <div className="info_title">
+            Liquidity Provider Fee
             <QuestionHelper text="A portion of each trade (0.30%) goes to liquidity providers as a protocol incentive." />
-          </RowFixed>
-          <TYPE.black style={{textAlign: "right"}}>
-            {realizedLPFee ? `${realizedLPFee.toSignificant(4)} ${trade.inputAmount.currency.symbol}` : '-'}
-          </TYPE.black>
-        </RowBetween>
-      </AutoColumn>
+          </div>
+          <div className="info_contents">
+           
+            {realizedLPFee ? (
+              <>
+                <span className="num">{realizedLPFee.toSignificant(4)}</span>
+                <span className="symbol">{trade.inputAmount.currency.symbol}</span>
+              </>
+            ) : '-'}
+          </div>
+        </li>
+      </ul>
     </>
   )
 }
@@ -85,7 +94,7 @@ export function AdvancedSwapDetails({ trade }: AdvancedSwapDetailsProps) {
   const showRoute = Boolean(trade && trade.route.path.length > 2)
 
   return (
-    <AutoColumn gap="0px">
+    <div>
       {trade && (
         <>
           <TradeSummary trade={trade} allowedSlippage={allowedSlippage} />
@@ -114,6 +123,6 @@ export function AdvancedSwapDetails({ trade }: AdvancedSwapDetailsProps) {
           )} */}
         </>
       )}
-    </AutoColumn>
+    </div>
   )
 }

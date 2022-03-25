@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { HelpCircle as Question } from 'react-feather'
+// import { HelpCircle as Question } from 'react-feather'
 import styled from 'styled-components'
 import Tooltip from '../Tooltip'
 
@@ -53,14 +53,12 @@ export default function QuestionHelper({ text }: { text: string }) {
   const close = useCallback(() => setShow(false), [setShow])
 
   return (
-    <span style={{ marginLeft: 4 }}>
-      <Tooltip text={text} show={show}>
-        <QuestionWrapper onClick={open} onMouseEnter={open} onMouseLeave={close}>
-          <Question size={16} />
-        </QuestionWrapper>
-      </Tooltip>
-    </span>
-  )
+    <Tooltip text={text} show={show}>
+      <span className="ic_tooltip" onClick={open} onMouseEnter={open} onMouseLeave={close}>
+        <i className="fas fa-question-circle"></i>
+      </span>
+    </Tooltip>
+)
 }
 
 export function LightQuestionHelper({ text }: { text: string }) {
@@ -70,12 +68,10 @@ export function LightQuestionHelper({ text }: { text: string }) {
   const close = useCallback(() => setShow(false), [setShow])
 
   return (
-    <span style={{ marginLeft: 4 }}>
-      <Tooltip text={text} show={show}>
-        <LightQuestionWrapper onClick={open} onMouseEnter={open} onMouseLeave={close}>
-          <QuestionMark>?</QuestionMark>
-        </LightQuestionWrapper>
-      </Tooltip>
-    </span>
+    <Tooltip text={text} show={show}>
+      <span className="ic_tooltip" onClick={open} onMouseEnter={open} onMouseLeave={close}>
+        <QuestionMark>?</QuestionMark>
+      </span>
+    </Tooltip>
   )
 }

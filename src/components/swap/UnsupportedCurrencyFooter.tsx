@@ -59,7 +59,7 @@ export default function UnsupportedCurrencyFooter({
 
   return (
     // <DetailsFooter show={show}>
-    <div>
+    <div className="unsupported">
       <Modal isOpen={showDetails} onDismiss={() => setShowDetails(false)}>
         <Card>
           <AutoColumn gap="lg">
@@ -98,9 +98,9 @@ export default function UnsupportedCurrencyFooter({
           </AutoColumn>
         </Card>
       </Modal>
-      <ButtonEmpty padding={'0'} onClick={() => setShowDetails(true)}>
-        <TYPE.blue>Read more about unsupported assets</TYPE.blue>
-      </ButtonEmpty>
+      <button type="button" className="button sm gray fw_400" onClick={() => setShowDetails(true)}>
+        Read more about unsupported assets
+      </button>
     </div>
   )
 }

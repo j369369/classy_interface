@@ -101,6 +101,8 @@ h6, .h6 { font-size: 14px; }
 .text.purple { color: var(--purple) !important; }
 .text.brown { color: var(--brown) !important; }
 
+.yellow_title { color: var(--yellow) !important; font-family: 'CookieRun' !important; font-size: 18px; font-weight: 700; }
+
 .button { display: inline-block; position: relative; min-width: 50px; height: 24px; border: 1px solid transparent; border-radius: 3px; font-family: 'CookieRun'; font-size: 14px; font-weight: 700; }
 
 .button.white { background: var(--white) !important; border: 1px solid var(--white); color: var(--black); }
@@ -224,6 +226,8 @@ h6, .h6 { font-size: 14px; }
   h4, .h4 { font-size: 16px; }
   h5, .h5 { font-size: 14px; }
   h6, .h6 { font-size: 12px; }
+
+  .yellow_title { color: var(--yellow) !important; font-family: 'CookieRun' !important; font-size: 15px; font-weight: 700; }
   
   .button.sm { padding: 0 8px; min-width: 40px; height: 20px; font-size: 12px; border-radius: 3px; line-height: 14px; }
   .button.md { height: 32px; font-size: 13px; border-radius: 4px; }

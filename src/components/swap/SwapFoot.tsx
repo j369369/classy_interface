@@ -196,39 +196,40 @@ export default function SwapFoot({
 
   return (
     <article className="swap_foot">
-      <div className="swap_info">
+      <ul className="swap_info">
         {showWrap ? null : (
-          <section className="dis_flex between">
+          <li>
               {Boolean(trade) && (
                 <>
-                  <div>
-                    Rate
+                  <div className="info_title">
+                    <span className="yellow_title">Rate</span>
                   </div>
-                  <div>
-                  <TradePrice price={trade?.executionPrice} showInverted={showInverted} setShowInverted={setShowInverted} />
+                  <div className="info_contents">
+                    <TradePrice price={trade?.executionPrice} showInverted={showInverted} setShowInverted={setShowInverted} />
                   </div>
                 </>
               )}
-          </section>
+          </li>
         )}
-        <section>
-          {allowedSlippage !== INITIAL_ALLOWED_SLIPPAGE && (
-            <>
-              <strong onClick={toggleSettings}>
-                Slippage Tolerance
-              </strong>
-              <span onClick={toggleSettings}>
-                {allowedSlippage / 100}%
-              </span>
-            </>
-          )}
-          {!swapIsUnsupported ? (
-            <AdvancedSwapDetailsDropdown trade={trade} />
-          ) : (
-            <UnsupportedCurrencyFooter show={swapIsUnsupported} currencies={[currencies.INPUT, currencies.OUTPUT]} />
-          )}
-        </section>
-      </div>
+      </ul>
+      <ul className="swap_info">
+        {allowedSlippage !== INITIAL_ALLOWED_SLIPPAGE && (
+          <li>
+            <div className="info_title">
+              Slippage Tolerance
+            </div>
+            <div className="info_contents">
+              <span className="num">{allowedSlippage / 100}%</span>
+            </div>
+          </li>
+        )} 
+      </ul>
+        {!swapIsUnsupported ? (
+          <AdvancedSwapDetailsDropdown trade={trade} />
+        ) : (
+          <UnsupportedCurrencyFooter show={swapIsUnsupported} currencies={[currencies.INPUT, currencies.OUTPUT]} />
+        )} 
+      
       <div className="swap_button_box">
         {swapIsUnsupported ? (
           <button type="button" className="button round line lg error" disabled>Unsupported Asset</button>
@@ -318,7 +319,7 @@ export default function SwapFoot({
         )}
       </div>
       {showApproveFlow && (
-        <div style={{ marginTop: '1rem' }}>
+        <div>
           <ProgressSteps steps={[approval === ApprovalState.APPROVED]} />
         </div>
       )}

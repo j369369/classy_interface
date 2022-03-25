@@ -18,19 +18,28 @@ export default function TradePrice({ price, showInverted, setShowInverted }: Tra
   const formattedPrice = showInverted ? price?.toSignificant(6) : price?.invert()?.toSignificant(6)
 
   const show = Boolean(price?.baseCurrency && price?.quoteCurrency)
-  const label = showInverted
-    ? `${price?.quoteCurrency?.symbol} per ${price?.baseCurrency?.symbol}`
-    : `${price?.baseCurrency?.symbol} per ${price?.quoteCurrency?.symbol}`
+  // const label = showInverted
+  //   ? `${price?.quoteCurrency?.symbol} per ${price?.baseCurrency?.symbol}`
+  //   : `${price?.baseCurrency?.symbol} per ${price?.quoteCurrency?.symbol}`
 
   return (
-    <Text
-      fontWeight={700}
-      fontSize={14}
-      style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', padding: '0.4rem', textAlign: 'right' }}
-    >
+    <>
       {show ? (
         <>
-          {formattedPrice ?? '-'} {label}
+          <span className="num">{formattedPrice ?? '-'} </span>
+          {showInverted  ? (
+            <>
+              <strong>{price?.quoteCurrency?.symbol}</strong>
+              <span className="text gray"> per </span>
+              <strong>{price?.baseCurrency?.symbol}</strong>
+            </>
+          ) : (
+            <>
+              <strong>{price?.baseCurrency?.symbol}</strong>
+              <span className="text gray"> per </span>
+              <strong>{price?.quoteCurrency?.symbol}</strong>
+            </>
+          )}
           <StyledBalanceMaxMini onClick={() => setShowInverted(!showInverted)}>
             <Repeat size={14} />
           </StyledBalanceMaxMini>
@@ -38,6 +47,6 @@ export default function TradePrice({ price, showInverted, setShowInverted }: Tra
       ) : (
         '-'
       )}
-    </Text>
+    </>
   )
 }

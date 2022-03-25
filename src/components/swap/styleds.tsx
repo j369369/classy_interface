@@ -37,12 +37,12 @@ export const BottomGrouping = styled.div`
 export const ErrorText = styled(Text)<{ severity?: 0 | 1 | 2 | 3 | 4 }>`
   color: ${({ theme, severity }) =>
     severity === 3 || severity === 4
-      ? theme.red1
+      ? 'var(--red)'
       : severity === 2
-      ? theme.yellow2
+      ? 'var(--yellow)'
       : severity === 1
-      ? theme.text1
-      : theme.green1};
+      ? 'var(--white)'
+      : 'var(--aqua)'};
 `
 
 export const StyledBalanceMaxMini = styled.button`
