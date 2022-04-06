@@ -19,18 +19,19 @@ import { ExternalLink } from '../../theme'
 import AccountDetails from '../AccountDetails'
 
 import Modal from '../Modal'
+import CloseIcon from '../Modal/CloseIcon'
 import Option from './Option'
 import PendingView from './PendingView'
 
-const CloseIcon = styled.div`
-  position: absolute;
-  right: 1rem;
-  top: 14px;
-  &:hover {
-    cursor: pointer;
-    opacity: 0.6;
-  }
-`
+// const CloseIcon = styled.div`
+//   position: absolute;
+//   right: 1rem;
+//   top: 14px;
+//   &:hover {
+//     cursor: pointer;
+//     opacity: 0.6;
+//   }
+// `
 
 const CloseColor = styled(Close)`
   path {
@@ -56,7 +57,7 @@ const HeaderRow = styled.div`
 `
 
 const ContentWrapper = styled.div`
-  background-color: ${({ theme }) => theme.bg2};
+  // background-color: ${({ theme }) => theme.bg2};
   padding: 2rem;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
@@ -214,7 +215,7 @@ export default function WalletModal({
     return Object.keys(SUPPORTED_WALLETS).map(key => {
       const option = SUPPORTED_WALLETS[key]
       // check for mobile options
-      if (isMobile) {
+      // if (isMobile) {
         //disable portis on mobile for now
         // if (option.connector === portis) {
         //   return null
@@ -237,8 +238,8 @@ export default function WalletModal({
             />
           )
         }
-        return null
-      }
+        // return null
+      // }
 
       // overwrite injected when needed
       if (option.connector === injected) {
@@ -272,7 +273,7 @@ export default function WalletModal({
 
       // return rest of options
       return (
-        !isMobile &&
+        // !isMobile &&
         !option.mobileOnly && (
           <Option
             id={`connect-${key}`}
@@ -297,19 +298,19 @@ export default function WalletModal({
   function getModalContent() {
     if (error) {
       return (
-        <UpperSection>
-          <CloseIcon onClick={toggleWalletModal}>
-            <CloseColor />
-          </CloseIcon>
-          <HeaderRow>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error connecting'}</HeaderRow>
-          <ContentWrapper>
+        <div className='modal_container'>
+          <section className="modal_head">
+            <h4>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error connecting'}</h4>
+            <CloseIcon toggleWalletModal={toggleWalletModal} />
+          </section>
+          <section className="modal_body">
             {error instanceof UnsupportedChainIdError ? (
-              <h5>Please connect to the appropriate Ethereum network.</h5>
+              'Please connect to the appropriate Ethereum network.'
             ) : (
               'Error connecting. Try refreshing the page.'
             )}
-          </ContentWrapper>
-        </UpperSection>
+          </section>
+        </div>
       )
     }
     if (account && walletView === WALLET_VIEWS.ACCOUNT) {
@@ -324,30 +325,27 @@ export default function WalletModal({
       )
     }
     return (
-      <UpperSection>
-        <CloseIcon onClick={toggleWalletModal}>
-          <CloseColor />
-        </CloseIcon>
-        {walletView !== WALLET_VIEWS.ACCOUNT ? (
-          <HeaderRow color="blue">
-            <HoverText
-              onClick={() => {
-                setPendingError(false)
-                setWalletView(WALLET_VIEWS.ACCOUNT)
-              }}
-            >
-              <LeftArrowIcon>
-                <i className="fas fa-angle-left"></i> 
-              </LeftArrowIcon>
-              <span>Back</span>
-            </HoverText>
-          </HeaderRow>
-        ) : (
-          <HeaderRow>
-            <HoverText>Connect to a wallet</HoverText>
-          </HeaderRow>
-        )}
-        <ContentWrapper>
+      <div className='modal_container'>
+         <section className="modal_head">
+          {walletView !== WALLET_VIEWS.ACCOUNT ? (
+              <HoverText
+                onClick={() => {
+                  setPendingError(false)
+                  setWalletView(WALLET_VIEWS.ACCOUNT)
+                }}
+              >
+                <LeftArrowIcon>
+                  <i className="fas fa-angle-left"></i> 
+                </LeftArrowIcon>
+                <span>Back</span>
+              </HoverText>
+            
+          ) : (
+            <h4>Connect to a wallet</h4>
+          )}
+           <CloseIcon toggleWalletModal={toggleWalletModal} />
+        </section>
+        <section className="modal_body">
           {walletView === WALLET_VIEWS.PENDING ? (
             <PendingView
               connector={pendingWallet}
@@ -358,14 +356,14 @@ export default function WalletModal({
           ) : (
             <OptionGrid>{getOptions()}</OptionGrid>
           )}
-          {walletView !== WALLET_VIEWS.PENDING && (
-            <Blurb>
+          {/* {walletView !== WALLET_VIEWS.PENDING && (
+            <p>
               <span>New to Ethereum? &nbsp;</span>{' '}
-              <ExternalLink href="https://ethereum.org/wallets/">Learn more about wallets</ExternalLink>
-            </Blurb>
-          )}
-        </ContentWrapper>
-      </UpperSection>
+              <a href="https://ethereum.org/wallets/">Learn more about wallets</a>
+            </p>
+          )} */}
+        </section>
+      </div>
     )
   }
 

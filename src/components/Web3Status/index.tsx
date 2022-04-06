@@ -89,7 +89,7 @@ function Web3StatusInner() {
   const hasSocks = useHasSocks()
   const toggleWalletModal = useWalletModalToggle()
 
-  console.log('account',account)
+
 
   if (account) {
     return (

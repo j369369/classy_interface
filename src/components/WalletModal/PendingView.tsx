@@ -18,20 +18,19 @@ const PendingSection = styled.div`
 `
 
 const StyledLoader = styled(Loader)`
-  margin-right: 1rem;
+  margin-right: 8px;
 `
 
 const LoadingMessage = styled.div<{ error?: boolean }>`
   ${({ theme }) => theme.flexRowNoWrap};
   align-items: center;
   justify-content: flex-start;
-  border-radius: 12px;
+  // border-radius: 12px;
   margin-bottom: 20px;
-  color: ${({ theme, error }) => (error ? theme.red1 : 'inherit')};
-  border: 1px solid ${({ theme, error }) => (error ? theme.red1 : theme.text4)};
-
+  // color: ${({ theme, error }) => (error ? theme.red1 : 'inherit')};
+  // border: 1px solid ${({ theme, error }) => (error ? theme.red1 : theme.text4)};
   & > * {
-    padding: 1rem;
+    padding: 0 8px;
   }
 `
 
@@ -46,7 +45,7 @@ const ErrorGroup = styled.div`
 const ErrorButton = styled.div`
   border-radius: 8px;
   font-size: 12px;
-  color: ${({ theme }) => theme.text1};
+  // color: ${({ theme }) => theme.text1};
   background-color: ${({ theme }) => theme.bg4};
   margin-left: 1rem;
   padding: 0.5rem;
@@ -81,26 +80,30 @@ export default function PendingView({
   return (
     <PendingSection>
       <LoadingMessage error={error}>
-        <LoadingWrapper>
+        <div className="w100p dis_flex between">
           {error ? (
-            <ErrorGroup>
-              <div>Error connecting.</div>
-              <ErrorButton
+            <>
+              <h5 className="text red f_cookie">Error connecting.</h5>
+              <button
+                type="button"
+                className="button round line sm yellow"
                 onClick={() => {
                   setPendingError(false)
                   connector && tryActivation(connector)
                 }}
               >
                 Try Again
-              </ErrorButton>
-            </ErrorGroup>
+              </button>
+            </>
           ) : (
             <>
-              <StyledLoader />
-              Initializing...
+              <div className="w100p dis_flex">
+                <StyledLoader />
+                <h5 className="text yellow f_cookie">Initializing...</h5>
+              </div>
             </>
           )}
-        </LoadingWrapper>
+        </div>
       </LoadingMessage>
       {Object.keys(SUPPORTED_WALLETS).map(key => {
         const option = SUPPORTED_WALLETS[key]

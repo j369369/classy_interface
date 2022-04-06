@@ -61,6 +61,8 @@ body::before { position: fixed; display: block; width: 100%; height: 100%; backg
 
 .col { display: inline-block; vertical-align: middle; }
 
+.w100p { width: 100%; max-width: 100%; }
+
 .f_cookie { font-family: 'CookieRun' !important; }
 .f_default { font-family: var(--fontGlobal) !important; }
 
@@ -83,6 +85,17 @@ h5, .h5 { font-size: 16px; }
 h6, .h6 { font-size: 14px; }
 
 .text {  }
+.text.xs { font-size: 12px; }
+.text.sm { font-size: 14px; }
+.text.md { font-size: 16px; }
+.text.ml { font-size: 18px; }
+.text.lg { font-size: 20px; }
+.text.xl { font-size: 22px; }
+
+.text_left { text-align: left; }
+.text_right { text-align: right; }
+.text_center { text-align: center; }
+
 .text.white { color: var(--white) !important; }
 .text.black { color: var(--black) !important; }
 .text.gray { color: var(--gray) !important; }
@@ -162,11 +175,11 @@ h6, .h6 { font-size: 14px; }
 .button.round { border-radius: 1000px !important; }
 
 
-.button.w100 { width: 100%; max-width: 100%; }
+
 
 /****/
 #wrap, #root { position: relative; width: 100%; height: 100%; }
-#wrap { display: flex; flex-direction: column; justify-content: space-between; align-items: center; margin: auto; max-width: calc(100% - 32px); }
+#wrap { display: flex; flex-direction: column; justify-content: space-between; align-items: center; margin: auto; max-width: calc(100% - 16px); }
 #wrap::before { position: absolute; top: 0; left: 0; display: block; width: 100%; height: 100%; background: var(--gradient-sunset) no-repeat; background-size: cover; background-attachment: fixed; content: ""; z-index: -50; }
 #wrap::after { position: absolute; top: 0; left: 0; display: block; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.36); content: ""; z-index: -9; }
 
@@ -226,6 +239,13 @@ h6, .h6 { font-size: 14px; }
   h4, .h4 { font-size: 16px; }
   h5, .h5 { font-size: 14px; }
   h6, .h6 { font-size: 12px; }
+
+  .text.xs { font-size: 11px; }
+  .text.sm { font-size: 12px; }
+  .text.md { font-size: 14px; }
+  .text.ml { font-size: 16px; }
+  .text.lg { font-size: 18px; }
+  .text.xl { font-size: 20px; }
 
   .yellow_title { color: var(--yellow) !important; font-family: 'CookieRun' !important; font-size: 15px; font-weight: 700; }
   

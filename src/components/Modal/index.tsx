@@ -19,7 +19,7 @@ const StyledDialogOverlay = styled(AnimatedDialogOverlay)`
     align-items: center;
     justify-content: center;
 
-    background-color: ${({ theme }) => theme.modalBG};
+    background-color: rgba(22, 23, 30, 0.2);
   }
 `
 
@@ -34,16 +34,16 @@ const StyledDialogContent = styled(({ minHeight, maxHeight, mobile, isOpen, ...r
   overflow-y: ${({ mobile }) => (mobile ? 'scroll' : 'hidden')};
 
   &[data-reach-dialog-content] {
-    //margin: 0 0 2rem 0;
-    background: var(--bg-gradient-white-03);
+    background: rgba(41, 44, 55, 0.7);
     backdrop-filter: var(--bg-filter-blur);
     box-shadow: var(--bg-box-shadow);
     padding: 0px;
     width: 50vw;
+    color: var(--white);
     overflow-y: ${({ mobile }) => (mobile ? 'scroll' : 'hidden')};
     overflow-x: hidden;
 
-    align-self: ${({ mobile }) => (mobile ? 'flex-end' : 'center')};
+    // align-self: ${({ mobile }) => (mobile ? 'flex-end' : 'center')};
 
     max-width: 420px;
     ${({ maxHeight }) =>
@@ -62,13 +62,11 @@ const StyledDialogContent = styled(({ minHeight, maxHeight, mobile, isOpen, ...r
       width: 65vw;
     `}
     ${({ theme, mobile }) => theme.mediaWidth.upToSmall`
-      width:  85vw;
+      width:  90vw;
       ${mobile &&
         css`
-          width: 100vw;
+          // width: 100vw;
           border-radius: 20px;
-          border-bottom-left-radius: 0;
-          border-bottom-right-radius: 0;
         `}
     `}
   }
@@ -121,12 +119,13 @@ export default function Modal({
               onDismiss={onDismiss}
               initialFocusRef={initialFocusRef}
               unstable_lockFocusAcrossFrames={false}
+              className="modal"
             >
               <StyledDialogContent
                 {...(isMobile
                   ? {
                       ...bind(),
-                      style: { transform: y.interpolate(y => `translateY(${y > 0 ? y : 0}px)`) }
+                      // style: { transform: y.interpolate(y => `translateY(${y > 0 ? y : 0}px)`) }
                     }
                   : {})}
                 aria-label="dialog content"

@@ -17,7 +17,7 @@ const StyledSVG = styled.svg<{ size: string; stroke?: string }>`
   width: ${({ size }) => size};
   path {
     //stroke: ${({ stroke, theme }) => stroke ?? theme.primary1};
-    stroke: ${({ stroke, theme }) => stroke ?? "var(--lightBlue-03)"};
+    stroke: ${({ stroke, theme }) => stroke ?? "var(--yellow)"};
   }
 `
 

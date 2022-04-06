@@ -1,13 +1,7 @@
-@charset "UTF-8";
-
-.modal {
-    z-index: 100;
-    background-color: transparent;
-    overflow: hidden;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background-color: pink
-  }
+.modal {  }
+.modal .modal_container { position: relative; }
+.modal .modal_container .modal_head { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; background: rgba(118, 121, 131, 0.5); font-family: 'CookieRun'; font-weight: 700; }
+.modal .modal_container .modal_head .ic_close { cursor: pointer; }
+.modal .modal_container .modal_body { display: flex; flex-direction: column; gap: 16px; padding: 20px; }
+.modal .modal_container .modal_body .m_card { position: relative; padding: 1rem; background: var(--dark-4);  border-radius: 0.5rem; }
+.modal .modal_container .modal_body .m_cont { }
