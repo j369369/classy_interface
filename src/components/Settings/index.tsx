@@ -20,6 +20,8 @@ import { RowBetween, RowFixed } from '../Row'
 import Toggle from '../Toggle'
 import TransactionSettings from '../TransactionSettings'
 
+import './Settings.css'
+
 // const StyledMenuIcon = styled(Settings)`
 //   height: 20px;
 //   width: 20px;
@@ -224,58 +226,54 @@ export default function SettingsTab() {
         ) : null}
       </div>
       {open && (
-        <MenuFlyout>
-          <AutoColumn gap="md" style={{ padding: '1rem' }}>
-            <Text fontWeight={600} fontSize={14}>
-              Transaction Settings
-            </Text>
+        <div className="setting_wrap">
+          <section className="setting_head">
+            <h6>Transaction Settings</h6>
+          </section>
+          <section className="setting_body">
             <TransactionSettings
               rawSlippage={userSlippageTolerance}
               setRawSlippage={setUserslippageTolerance}
               deadline={ttl}
               setDeadline={setTtl}
             />
-            <Text fontWeight={600} fontSize={14}>
-              Interface Settings
-            </Text>
-            <RowBetween>
-              <RowFixed>
-                <TYPE.black fontWeight={400} fontSize={14}>
-                  Toggle Expert Mode
-                </TYPE.black>
-                <QuestionHelper text="Bypasses confirmation modals and allows high slippage trades. Use at your own risk." />
-              </RowFixed>
-              <Toggle
-                id="toggle-expert-mode-button"
-                isActive={expertMode}
-                toggle={
-                  expertMode
-                    ? () => {
-                        toggleExpertMode()
-                        setShowConfirmation(false)
-                      }
-                    : () => {
-                        toggle()
-                        setShowConfirmation(true)
-                      }
-                }
-              />
-            </RowBetween>
-            <RowBetween>
-              <RowFixed>
-                <TYPE.black fontWeight={400} fontSize={14}>
-                  Disable Multihops
-                </TYPE.black>
-                <QuestionHelper text="Restricts swaps to direct pairs only." />
-              </RowFixed>
-              <Toggle
-                id="toggle-disable-multihop-button"
-                isActive={singleHopOnly}
-                toggle={() => (singleHopOnly ? setSingleHopOnly(false) : setSingleHopOnly(true))}
-              />
-            </RowBetween>
-          </AutoColumn>
-        </MenuFlyout>
+            <article className="setting_interface">
+              <h6 className="text yellow">Interface Settings</h6>
+              <RowBetween>
+                <RowFixed>
+                  <p className="set_title">Toggle Expert Mode</p>
+                  <QuestionHelper text="Bypasses confirmation modals and allows high slippage trades. Use at your own risk." />
+                </RowFixed>
+                <Toggle
+                  id="toggle-expert-mode-button"
+                  isActive={expertMode}
+                  toggle={
+                    expertMode
+                      ? () => {
+                          toggleExpertMode()
+                          setShowConfirmation(false)
+                        }
+                      : () => {
+                          toggle()
+                          setShowConfirmation(true)
+                        }
+                  }
+                />
+              </RowBetween>
+              <RowBetween>
+                <RowFixed>
+                  <p className="set_title">Disable Multihops</p>
+                  <QuestionHelper text="Restricts swaps to direct pairs only." />
+                </RowFixed>
+                <Toggle
+                  id="toggle-disable-multihop-button"
+                  isActive={singleHopOnly}
+                  toggle={() => (singleHopOnly ? setSingleHopOnly(false) : setSingleHopOnly(true))}
+                />
+              </RowBetween>
+            </article>
+          </section>
+        </div>
       )}
     </StyledMenu>
   )

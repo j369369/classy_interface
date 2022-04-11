@@ -50,11 +50,12 @@ const Option = styled(FancyButton)<{ active: boolean }>`
 const Option = styled(FancyButton)<{ active: boolean }>`
   margin-right: 8px;
   :hover {
-    border: 1px solid var(--blue-04);
+    border: 1px solid var(--yellow);
     cursor: pointer;
   }
-  background-color: ${({ active}) => active && `var(--blue-04)`};
-  color: ${({ active, theme }) => (active ? theme.white : theme.text1)};
+  border:  1px solid var(--yellow);
+  background-color:  ${({ active, theme }) => (active ? 'var(--yellow)' : 'transparent')};
+  color: ${({ active, theme }) => (active ? 'var(--black)' : 'var(--yellow)')};
 `
 
 const Input = styled.input`
@@ -156,54 +157,58 @@ export default function SlippageTabs({ rawSlippage, setRawSlippage, deadline, se
   }
 
   return (
-    <AutoColumn gap="md">
+    <AutoColumn gap="sm">
       <AutoColumn gap="sm">
         <RowFixed>
-          <TYPE.black fontWeight={400} fontSize={14}>
-            Slippage tolerance
-          </TYPE.black>
+          <p className="set_title">Slippage tolerance</p>
           <QuestionHelper text="Your transaction will revert if the price changes unfavorably by more than this percentage." />
         </RowFixed>
-        <RowBetween>
-          <Option
-            onClick={() => {
-              setSlippageInput('')
-              setRawSlippage(10)
-            }}
-            active={rawSlippage === 10}
-          >
-            0.1%
-          </Option>
-          <Option
-            onClick={() => {
-              setSlippageInput('')
-              setRawSlippage(50)
-            }}
-            active={rawSlippage === 50}
-          >
-            0.5%
-          </Option>
-          <Option
-            onClick={() => {
-              setSlippageInput('')
-              setRawSlippage(100)
-            }}
-            active={rawSlippage === 100}
-          >
-            1%
-          </Option>
-          <OptionCustom active={![10, 50, 100].includes(rawSlippage)} warning={!slippageInputIsValid} tabIndex={-1}>
-            <RowBetween>
+        <div>
+          <article className="set_button_box">
+            <button
+            type="button"
+            className="button md yellow"
+              onClick={() => {
+                setSlippageInput('')
+                setRawSlippage(10)
+              }}
+              // active={rawSlippage === 10}
+            >
+              0.1%
+            </button>
+            <button
+              type="button"
+              className="button md yellow"
+              onClick={() => {
+                setSlippageInput('')
+                setRawSlippage(50)
+              }}
+              //active={rawSlippage === 50}
+            >
+              0.5%
+            </button>
+            <button
+              type="button"
+              className="button md yellow"
+              onClick={() => {
+                setSlippageInput('')
+                setRawSlippage(100)
+              }}
+            // active={rawSlippage === 100}
+            >
+              1%
+            </button>
+            <article className="set_input_box">
               {!!slippageInput &&
-              (slippageError === SlippageError.RiskyLow || slippageError === SlippageError.RiskyHigh) ? (
-                <SlippageEmojiContainer>
-                  <span role="img" aria-label="warning">
-                    ⚠️
-                  </span>
-                </SlippageEmojiContainer>
-              ) : null}
+                (slippageError === SlippageError.RiskyLow || slippageError === SlippageError.RiskyHigh) ? (
+                  <SlippageEmojiContainer>
+                    <span role="img" aria-label="warning">
+                      ⚠️
+                    </span>
+                  </SlippageEmojiContainer>
+                ) : null}
               {/* https://github.com/DefinitelyTyped/DefinitelyTyped/issues/30451 */}
-              <Input
+              <input
                 ref={inputRef as any}
                 placeholder={(rawSlippage / 100).toFixed(2)}
                 value={slippageInput}
@@ -213,10 +218,10 @@ export default function SlippageTabs({ rawSlippage, setRawSlippage, deadline, se
                 onChange={e => parseCustomSlippage(e.target.value)}
                 color={!slippageInputIsValid ? 'red' : ''}
               />
-              %
-            </RowBetween>
-          </OptionCustom>
-        </RowBetween>
+              <span className="unit">%</span>
+            </article>
+          </article>
+        </div>
         {!!slippageError && (
           <RowBetween
             style={{
@@ -236,14 +241,12 @@ export default function SlippageTabs({ rawSlippage, setRawSlippage, deadline, se
 
       <AutoColumn gap="sm">
         <RowFixed>
-          <TYPE.black fontSize={14} fontWeight={400}>
-            Transaction deadline
-          </TYPE.black>
+          <p className="set_title">Transaction deadline</p>
           <QuestionHelper text="Your transaction will revert if it is pending for more than this long." />
         </RowFixed>
-        <RowFixed id={`optionCustom`} >
-          <OptionCustom style={{ width: '100%' }} tabIndex={-1}>
-            <Input  className={`input_min`} 
+        <div>
+          <article className="set_input_box" tabIndex={-1}>
+            <input 
               color={!!deadlineError ? 'red' : undefined}
               onBlur={() => {
                 parseCustomDeadline((deadline / 60).toString())
@@ -252,12 +255,9 @@ export default function SlippageTabs({ rawSlippage, setRawSlippage, deadline, se
               value={deadlineInput}
               onChange={e => parseCustomDeadline(e.target.value)}
             />
-          </OptionCustom>
-          <TYPE.body style={{ paddingLeft: '8px' }} fontSize={14} className={`txt_min`}>
-            {/* minutes */}
-            min
-          </TYPE.body>
-        </RowFixed>
+            <span className="min">min</span>
+          </article>
+        </div>
       </AutoColumn>
     </AutoColumn>
   )

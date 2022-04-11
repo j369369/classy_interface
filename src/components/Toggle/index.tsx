@@ -2,31 +2,19 @@ import React from 'react'
 import styled from 'styled-components'
 
 const ToggleElement = styled.span<{ isActive?: boolean; isOnSwitch?: boolean }>`
-  padding: 0.25rem 0.5rem;
-  border-radius: 14px;
-  background: ${({ theme, isActive, isOnSwitch }) => (isActive ? (isOnSwitch ? "var(--blue-04)" : theme.text4) : 'none')};
-  color: ${({ theme, isActive, isOnSwitch }) => (isActive ? (isOnSwitch ? theme.white : theme.text2) : theme.text3)};
-  font-size: 1rem;
-  font-weight: 400;
-
   padding: 0.35rem 0.6rem;
   border-radius: 12px;
-  background: ${({ theme, isActive, isOnSwitch }) => (isActive ? (isOnSwitch ? "var(--blue-04)" : theme.text4) : 'none')};
-  color: ${({ theme, isActive, isOnSwitch }) => (isActive ? (isOnSwitch ? theme.white : theme.text2) : theme.text2)};
+  background: ${({ theme, isActive, isOnSwitch }) => (isActive ? (isOnSwitch ? "var(--yellow)" : "var(--dark-5)") : 'none')};
+  color: ${({ theme, isActive, isOnSwitch }) => (isActive ? (isOnSwitch ? "var(--black)" : "var(--white)") : "var(--gray)")};
   font-size: 1rem;
-  font-weight: ${({ isOnSwitch }) => (isOnSwitch ? '500' : '400')};
-  :hover {
-    user-select: ${({ isOnSwitch }) => (isOnSwitch ? 'none' : 'initial')};
-    background: ${({ theme, isActive, isOnSwitch }) =>
-      isActive ? (isOnSwitch ? "var(--blue-04)" : theme.text3) : 'none'};
-    color: ${({ theme, isActive, isOnSwitch }) => (isActive ? (isOnSwitch ? theme.white : theme.text2) : theme.text3)};
-  }
+  font-weight: 500;
+
 `
 
 const StyledToggle = styled.button<{ isActive?: boolean; activeElement?: boolean }>`
   border-radius: 12px;
   border: none;
-  background: ${({ theme }) => theme.bg3};
+  background: var(--dark-1);
   display: flex;
   width: fit-content;
   cursor: pointer;

@@ -1,0 +1,28 @@
+.setting_wrap { overflow: hidden; display: flex; flex-direction: column; position: absolute; top: 3rem; right: 0rem;  min-width: 20.125rem; background: rgb(69 71 77 / 80%); backdrop-filter: var(--bg-filter-blur); box-shadow: var(--bg-box-shadow); border-radius: 1rem; color: var(--white); font-size: 1rem; z-index: 100; }
+.setting_wrap .setting_head { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; width: 100%;  background: rgb(107 109 114 / 60%); font-family: 'CookieRun'; font-weight: 700; }
+.setting_wrap .set_title { color: var(--white); font-size: 13px; }
+.setting_wrap .set_input_box { display: flex; align-items: center; gap: 4px; padding: 6px 16px; height: 38px; background: var(--dark-1);  border-radius: 8px; font-family: 'CookieRun'; font-weight: 700; }
+.setting_wrap .set_input_box input { width: 100%; background-color: transparent; border: none; color: var(--white); font-family: 'CookieRun'; font-size: 14px; font-weight: 700; text-align: right; }
+.setting_wrap .set_input_box .unit { font-size: 14px; }
+.setting_wrap .set_input_box .min { width: 28px; font-size: 14px; }
+.setting_wrap .set_button_box { display: grid; grid-gap: 2%; grid-template-columns: 20% 20% 20% 34%; align-items: center; }
+.setting_wrap .set_button_box .button { min-width: auto; width: 100%; }
+
+.setting_wrap .setting_body { display: grid; grid-gap: 16px; padding: 16px; }
+.setting_wrap .setting_body .setting_interface { display: grid; grid-gap: 8px; }
+
+/* laptop ----------------------------------------------------- */
+@media (min-width: 1024px) {
+
+}
+
+/* Tablet ----------------------------------------------------- */
+@media(max-width: 1023px) {
+
+}
+
+/* Mobile ----------------------------------------------------- */
+@media(max-width: 768px) {
+    .setting_wrap { min-width: 18.125rem; }
+    .setting_wrap .set_input_box { height: 34px; }
+}
