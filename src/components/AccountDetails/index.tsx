@@ -275,7 +275,7 @@ export default function AccountDetails({
       <div className="modal_container">
         <section className="modal_head">
           <h4>Account</h4>
-          <CloseIcon toggleWalletModal={toggleWalletModal} />
+          <CloseIcon close={toggleWalletModal} />
         </section>
         <section className="modal_body">
           <div className="m_card">

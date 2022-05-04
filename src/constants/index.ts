@@ -5,6 +5,12 @@ import { //fortmatic,
   injected, //portis, 
   walletconnect, walletlink } from '../connectors'
 
+
+export const CURRENCIES_FULL_NAME = "Classy";
+export const CURRENCIES = "CLSY";
+export const STAKING_TOKEN = "CLSY-LP";
+
+
 export const ROUTER_ADDRESS = '0xDEFF6CF7B38f4F5928231dC8BEEF9Df806b122CC'
 export const FACTORY_ADDRESS = '0x399690c2a8cfc9e2b6ed33E90e468176A187f81E'
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
@@ -33,14 +39,14 @@ export const GOVERNANCE_ADDRESS = '0x5e4be8Bc9637f0EAA1A755019e06A68ce081D58F'
 
 export const TIMELOCK_ADDRESS = '0x1a9C8182C09F50C8318d769245beA52c32BE35BC'
 
-const UNI_ADDRESS = '0xea031C8B6f3c5C7f6c294af6ab6C6F592856319E'
+const CURRENCIES_ADDRESS = '0xea031C8B6f3c5C7f6c294af6ab6C6F592856319E'
 export const UNI: { [chainId in ChainId]: Token } = {
-  [ChainId.MATIC]: new Token(ChainId.MATIC, UNI_ADDRESS, 18, 'CLSY', 'Classy'),
-  [ChainId.MUMBAI]: new Token(ChainId.MUMBAI, UNI_ADDRESS, 18, 'CLSY', 'Classy')
+  [ChainId.MATIC]: new Token(ChainId.MATIC, CURRENCIES_ADDRESS, 18, CURRENCIES, CURRENCIES_FULL_NAME),
+  [ChainId.MUMBAI]: new Token(ChainId.MUMBAI, CURRENCIES_ADDRESS, 18, CURRENCIES, CURRENCIES_FULL_NAME)
 }
 
 export const COMMON_CONTRACT_NAMES: { [address: string]: string } = {
-  [UNI_ADDRESS]: 'CLSY',
+  [CURRENCIES_ADDRESS]: CURRENCIES,
   [GOVERNANCE_ADDRESS]: 'Governance',
   [TIMELOCK_ADDRESS]: 'Timelock'
 }

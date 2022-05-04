@@ -1,5 +1,6 @@
 import tokens from './tokens'
 import { FarmConfig } from './types'
+import { CURRENCIES } from '../../constants';
 
 const farms: FarmConfig[] = [
   /**
@@ -8,7 +9,7 @@ const farms: FarmConfig[] = [
 
    {
     pid: 1,
-    lpSymbol: 'MATIC-CLSY',
+    lpSymbol: `MATIC-${CURRENCIES}`,
     lpAddresses: {
       137: '0xff6875f7662a9fd52c26600e8bb1fd0b9e6e11f2',
       80001: '0xff6875f7662a9fd52c26600e8bb1fd0b9e6e11f2',

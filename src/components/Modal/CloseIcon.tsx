@@ -2,12 +2,12 @@ import React from 'react'
 import './Modal.css'
 
 interface ModalProps {
-    toggleWalletModal: () => void
+  close: () => void
   }
 
 
-export default function CloseModal({ toggleWalletModal } : ModalProps) {
+export default function CloseModal({ close } : ModalProps) {
   return (
-    <h4 className="ic_close" onClick={toggleWalletModal}><i className="fas fa-times"></i></h4>
+    <h4 className="ic_close" onClick={close}><i className="fas fa-times"></i></h4>
   )
 }

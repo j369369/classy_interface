@@ -16,6 +16,7 @@ import useUSDCPrice from '../../utils/useUSDCPrice'
 import { AutoColumn } from '../Column'
 import { RowBetween } from '../Row'
 import { Break, CardNoise, CardSection, DataCard } from '../earn/styled'
+import { CURRENCIES } from '../../constants';
 
 const ContentWrapper = styled(AutoColumn)`
   width: 100%;
@@ -76,7 +77,7 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
         <CardNoise />
         <CardSection gap="md">
           <RowBetween>
-            <TYPE.title>Your CLSY Breakdown</TYPE.title>
+            <TYPE.title>Your {CURRENCIES} Breakdown</TYPE.title>
             <StyledClose onClick={() => setShowUniBalanceModal(false)} />
           </RowBetween>
         </CardSection>
@@ -118,11 +119,11 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
         <CardSection gap="sm">
           <AutoColumn gap="md">
             <RowBetween>
-              <TYPE.title_L>CLSY price:</TYPE.title_L>
+              <TYPE.title_L>{CURRENCIES} price:</TYPE.title_L>
               <TYPE.main>${uniPrice?.toFixed(2) ?? '-'}</TYPE.main>
             </RowBetween>
             <RowBetween>
-              <TYPE.title_L>CLSY in circulation:</TYPE.title_L>
+              <TYPE.title_L>{CURRENCIES} in circulation:</TYPE.title_L>
               <TYPE.main>{circulation?.toFixed(0, { groupSeparator: ',' })}</TYPE.main>
             </RowBetween>
             <RowBetween>
@@ -130,7 +131,7 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
               <TYPE.main>{totalSupply?.toFixed(0, { groupSeparator: ',' })}</TYPE.main>
             </RowBetween>
             {uni && uni.chainId === ChainId.MATIC ? (
-              <ExternalLink href={`https://uniswap.info/token/${uni.address}`}>View CLSY Analytics</ExternalLink>
+              <ExternalLink href={`https://uniswap.info/token/${uni.address}`}>View {CURRENCIES} Analytics</ExternalLink>
             ) : null}
           </AutoColumn>
         </CardSection>

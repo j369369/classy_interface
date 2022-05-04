@@ -6,6 +6,7 @@ import { FarmConfig } from '../../constants/farm/types'
 import RowProps from './types'
 import {useAverageBlockTime} from 'hooks/useBlockPerDay'
 import { Dots } from '../swap/styleds'
+import { CURRENCIES } from '../../constants/index';
 
 
 const Pooltext = styled.span`
@@ -39,7 +40,7 @@ const FarmTable: React.FC<ITableProps> = (props) => {
         </Pooltext>
 
         <Pooltext>
-         {rewardPerDay.toLocaleString(undefined, { maximumFractionDigits: 0 })} CLSY / DAY
+         {rewardPerDay.toLocaleString(undefined, { maximumFractionDigits: 0 })} {CURRENCIES} / DAY
         </Pooltext>
 
         <Pooltext>

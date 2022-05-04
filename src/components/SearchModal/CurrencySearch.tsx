@@ -6,7 +6,7 @@ import { FixedSizeList } from 'react-window'
 import { Text } from 'rebass'
 import { useActiveWeb3React } from '../../hooks'
 import { useAllTokens, useToken, useIsUserAddedToken, useFoundOnInactiveList } from '../../hooks/Tokens'
-import { CloseIcon, TYPE, ButtonText, IconWrapper } from '../../theme'
+import { TYPE, ButtonText, IconWrapper } from '../../theme'
 import { isAddress } from '../../utils'
 import Column from '../Column'
 import Row, { RowBetween, RowFixed } from '../Row'
@@ -23,6 +23,9 @@ import useTheme from 'hooks/useTheme'
 import ImportRow from './ImportRow'
 import { Edit } from 'react-feather'
 import useDebounce from 'hooks/useDebounce'
+
+import CloseIcon from '../Modal/CloseIcon'
+import '../Modal/Modal.css'
 
 const ContentWrapper = styled(Column)`
   width: 100%;
@@ -160,18 +163,15 @@ export function CurrencySearch({
   const filteredInactiveTokens: Token[] = useSortedTokensByQuery(inactiveTokens, debouncedQuery)
 
   return (
-    <ContentWrapper>
-      <PaddedColumn gap="16px">
-        <RowBetween>
-          <Text fontWeight={500} fontSize={16}>
-            Select a token
-          </Text>
-          <CloseIcon onClick={onDismiss} />
-        </RowBetween>
-        <Row>
-          <SearchInput
+    <ContentWrapper className="modal_container">
+      <section className="modal_head">
+          <h4>Select a token</h4>
+        <CloseIcon close={onDismiss} />
+      </section>
+      <section className="modal_head">
+        <div className="input_box">
+          <input
             type="text"
-            id="token-search-input"
             placeholder={t('tokenSearchPlaceholder')}
             autoComplete="off"
             value={searchQuery}
@@ -179,12 +179,15 @@ export function CurrencySearch({
             onChange={handleInput}
             onKeyDown={handleEnter}
           />
-        </Row>
-        {showCommonBases && (
+        </div>
+      </section>
+      
+      {showCommonBases && (
+        <section className="modal_body bg_box">
           <CommonBases chainId={chainId} onSelect={handleCurrencySelect} selectedCurrency={selectedCurrency} />
-        )}
-      </PaddedColumn>
-      <Separator />
+        </section>
+      )}
+      
       {searchToken && !searchTokenIsAdded ? (
         <Column style={{ padding: '20px 0', height: '100%' }}>
           <ImportRow token={searchToken} showImportView={showImportView} setImportToken={setImportToken} />
@@ -211,24 +214,15 @@ export function CurrencySearch({
           </AutoSizer>
         </div>
       ) : (
-        <Column style={{ padding: '20px', height: '100%' }}>
-          <TYPE.main color={theme.text3} textAlign="center" mb="20px">
-            No results found.
-          </TYPE.main>
-        </Column>
+        <section className="modal_body">
+         <h5 className="text gray text_center f_cookie">No results found.</h5>
+        </section>
       )}
-      <Footer>
-        <Row justify="center">
-          <ButtonText onClick={showManageView} color={theme.blue1} className="list-token-manage-button">
-            <RowFixed>
-              <IconWrapper size="16px" marginRight="6px">
-                <Edit />
-              </IconWrapper>
-              <TYPE.main color={theme.blue1}>Manage</TYPE.main>
-            </RowFixed>
-          </ButtonText>
-        </Row>
-      </Footer>
+      <section className="modal_body">
+        <button type="button" className="button round md blue" onClick={showManageView}>
+            Manage
+        </button>
+      </section>
     </ContentWrapper>
   )
 }

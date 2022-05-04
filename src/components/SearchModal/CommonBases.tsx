@@ -10,19 +10,22 @@ import { AutoRow } from '../Row'
 import CurrencyLogo from '../CurrencyLogo'
 
 const BaseWrapper = styled.div<{ disable?: boolean }>`
-  border: 1px solid ${({ theme, disable }) => (disable ? 'transparent' : theme.bg3)};
-  border-radius: 10px;
   display: flex;
-  padding: 6px;
-
   align-items: center;
+  background: var(--dark-3);
+  border-radius: 100px;
+  padding: 4px 8px;
+  height: 34px;
+
   :hover {
     cursor: ${({ disable }) => !disable && 'pointer'};
-    background-color: ${({ theme, disable }) => !disable && theme.bg2};
+    background-color: ${({ theme, disable }) => !disable && 'var(--dark-1)'};
   }
 
-  background-color: ${({ theme, disable }) => disable && theme.bg3};
-  opacity: ${({ disable }) => disable && '0.4'};
+  img {
+    width: 24px;
+    height: 24px;
+  }
 `
 
 export default function CommonBases({
@@ -35,14 +38,12 @@ export default function CommonBases({
   onSelect: (currency: Currency) => void
 }) {
   return (
-    <AutoColumn gap="md">
-      <AutoRow>
-        <Text fontWeight={500} fontSize={14}>
-          Common bases
-        </Text>
+    <div className="common_bases">
+      <article className="head">
+        <h6 className="f_cookie">Common bases</h6>
         <QuestionHelper text="These tokens are commonly paired with other tokens." />
-      </AutoRow>
-      <AutoRow gap="4px">
+      </article>
+      <article className="body">
         <BaseWrapper
           onClick={() => {
             if (!selectedCurrency || !currencyEquals(selectedCurrency, ETHER)) {
@@ -51,23 +52,19 @@ export default function CommonBases({
           }}
           disable={selectedCurrency === ETHER}
         >
-          <CurrencyLogo currency={ETHER} style={{ marginRight: 8 }} />
-          <Text fontWeight={500} fontSize={16}>
-            ETH
-          </Text>
+          <CurrencyLogo currency={ETHER} style={{ marginRight: 4 }} />
+          <h6>ETH</h6>
         </BaseWrapper>
         {(chainId ? SUGGESTED_BASES[chainId] : []).map((token: Token) => {
           const selected = selectedCurrency instanceof Token && selectedCurrency.address === token.address
           return (
             <BaseWrapper onClick={() => !selected && onSelect(token)} disable={selected} key={token.address}>
-              <CurrencyLogo currency={token} style={{ marginRight: 8 }} />
-              <Text fontWeight={500} fontSize={16}>
-                {token.symbol}
-              </Text>
+              <CurrencyLogo currency={token} style={{ marginRight: 4 }} />
+              <h6>{token.symbol}</h6>
             </BaseWrapper>
           )
         })}
-      </AutoRow>
-    </AutoColumn>
+      </article>
+    </div>
   )
 }

@@ -5,3 +5,28 @@
 .modal .modal_container .modal_body { display: flex; flex-direction: column; gap: 16px; padding: 20px; }
 .modal .modal_container .modal_body .m_card { position: relative; padding: 1rem; background: var(--dark-4);  border-radius: 0.5rem; }
 .modal .modal_container .modal_body .m_cont { }
+
+.modal .bg_box { background-color: var(--dark-4); }
+.modal .bg_box .common_bases { display: grid; grid-gap: 8px; }
+.modal .bg_box .common_bases .head { display: flex; }
+.modal .bg_box .common_bases .body { display: flex; gap: 4px; }
+
+.modal .input_box { padding: 6px 16px; width: 100%; height: 38px; background: var(--dark-1);  border-radius: 8px; font-family: 'CookieRun'; font-weight: 700; }
+.modal .input_box input { width: 100%; background-color: transparent; border: none; color: var(--white); font-family: 'CookieRun'; font-size: 14px; font-weight: 700; }
+
+
+/* laptop ----------------------------------------------------- */
+@media (min-width: 1024px) {
+
+}
+
+/* Tablet ----------------------------------------------------- */
+@media(max-width: 1023px) {
+
+}
+
+/* Mobile ----------------------------------------------------- */
+@media(max-width: 768px) {
+    .modal .modal_container .modal_head { padding: 14px 16px; }
+    .modal .modal_container .modal_body { padding: 16px; }
+}

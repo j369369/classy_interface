@@ -41,6 +41,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Input as NumericalInput } from '../../components/NumericalInput'
 import { useWalletModalToggle } from 'state/application/hooks'
+import { CURRENCIES } from '../../constants/index';
 
 
 export const FixedHeightRow = styled(RowBetween)`
@@ -413,7 +414,7 @@ export const FarmRow = ({ farm, price, ...rest } : FarmProp) => {
                 try {
                   await onReward()
                   alert(
-                    t('Your CLSY earnings have been sent to your wallet!')
+                    t(`Your ${CURRENCIES} earnings have been sent to your wallet!`)
                   )
                 } catch (e) {
                   alert(

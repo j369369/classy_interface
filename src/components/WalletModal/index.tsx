@@ -301,7 +301,7 @@ export default function WalletModal({
         <div className='modal_container'>
           <section className="modal_head">
             <h4>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error connecting'}</h4>
-            <CloseIcon toggleWalletModal={toggleWalletModal} />
+            <CloseIcon close={toggleWalletModal} />
           </section>
           <section className="modal_body">
             {error instanceof UnsupportedChainIdError ? (
@@ -343,7 +343,7 @@ export default function WalletModal({
           ) : (
             <h4>Connect to a wallet</h4>
           )}
-           <CloseIcon toggleWalletModal={toggleWalletModal} />
+           <CloseIcon close={toggleWalletModal} />
         </section>
         <section className="modal_body">
           {walletView === WALLET_VIEWS.PENDING ? (

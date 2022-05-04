@@ -10,6 +10,7 @@
 
 .setting_wrap .setting_body { display: grid; grid-gap: 16px; padding: 16px; }
 .setting_wrap .setting_body .setting_interface { display: grid; grid-gap: 8px; }
+.expert_mode { position: absolute; top: 30%; right: 100%; margin-right: 8px; color: var(--yellow); }
 
 /* laptop ----------------------------------------------------- */
 @media (min-width: 1024px) {

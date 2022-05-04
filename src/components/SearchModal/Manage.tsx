@@ -3,7 +3,7 @@ import { PaddedColumn, Separator } from './styleds'
 import { RowBetween } from 'components/Row'
 import { ArrowLeft } from 'react-feather'
 import { Text } from 'rebass'
-import { CloseIcon } from 'theme'
+// import { CloseIcon } from 'theme'
 import styled from 'styled-components'
 import { Token } from '@uniswap/sdk'
 import { ManageLists } from './ManageLists'
@@ -11,16 +11,13 @@ import ManageTokens from './ManageTokens'
 import { TokenList } from '@uniswap/token-lists'
 import { CurrencyModalView } from './CurrencySearchModal'
 
+
+import CloseIcon from '../Modal/CloseIcon'
+
 const Wrapper = styled.div`
   width: 100%;
   position: relative;
   padding-bottom: 80px;
-`
-
-const ToggleWrapper = styled(RowBetween)`
-  background-color: ${({ theme }) => theme.bg3};
-  border-radius: 12px;
-  padding: 6px;
 `
 
 const ToggleOption = styled.div<{ active?: boolean }>`
@@ -29,16 +26,11 @@ const ToggleOption = styled.div<{ active?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
-  font-weight: 600;
-  background-color: ${({ theme, active }) => (active ? theme.bg1 : theme.bg3)};
-  color: ${({ theme, active }) => (active ? theme.text1 : theme.text2)};
-  user-select: none;
-
-  :hover {
-    cursor: pointer;
-    opacity: 0.7;
-  }
+  border-radius: 8px;
+  font-weight: 700;
+  background-color: ${({ theme, active }) => (active ? "var(--yellow)" : "var(--dark-3)")};
+  color: ${({ theme, active }) => (active ? "var(--black)" : "var(--white)")};
+  cursor: pointer;
 `
 
 export default function Manage({
@@ -58,27 +50,29 @@ export default function Manage({
   const [showLists, setShowLists] = useState(true)
 
   return (
-    <Wrapper>
-      <PaddedColumn>
+    <Wrapper className="modal_container">
+       <section className="modal_head">
+       <h4>Manage</h4>
+        <CloseIcon close={onDismiss} />
+      </section>
+      {/* <PaddedColumn>
         <RowBetween>
           <ArrowLeft style={{ cursor: 'pointer' }} onClick={() => setModalView(CurrencyModalView.search)} />
-          <Text fontWeight={500} fontSize={20}>
-            Manage
-          </Text>
+          <h4>Manage</h4>
           <CloseIcon onClick={onDismiss} />
         </RowBetween>
       </PaddedColumn>
-      <Separator />
-      <PaddedColumn style={{ paddingBottom: 0 }}>
-        <ToggleWrapper>
+      <Separator /> */}
+      <section className="modal_body bg_box">
+        <RowBetween className="f_cookie">
           <ToggleOption onClick={() => setShowLists(!showLists)} active={showLists}>
             Lists
           </ToggleOption>
           <ToggleOption onClick={() => setShowLists(!showLists)} active={!showLists}>
             Tokens
           </ToggleOption>
-        </ToggleWrapper>
-      </PaddedColumn>
+        </RowBetween>
+      </section>
       {showLists ? (
         <ManageLists setModalView={setModalView} setImportList={setImportList} setListUrl={setListUrl} />
       ) : (

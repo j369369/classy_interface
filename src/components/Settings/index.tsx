@@ -20,6 +20,7 @@ import { RowBetween, RowFixed } from '../Row'
 import Toggle from '../Toggle'
 import TransactionSettings from '../TransactionSettings'
 
+import CloseIcon from '../Modal/CloseIcon'
 import './Settings.css'
 
 // const StyledMenuIcon = styled(Settings)`
@@ -126,11 +127,11 @@ const ModalContentWrapper = styled.div`
   border-radius: 1rem;
 `
 
-const ExpertModeIcon = styled.strong`
+const ExpertModeIcon = styled.h5`
   display: inline-block;
-  margin: 6px 6px 0 0
-  width: 80px;
-  color: var(--purple);
+  // margin: 6px 6px 0 0
+  width: 70px;
+  color: var(--yellow);
   font-size: 17px;
 `
 
@@ -175,55 +176,41 @@ export default function SettingsTab() {
     // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/30451
     <StyledMenu ref={node as any}>
       <Modal isOpen={showConfirmation} onDismiss={() => setShowConfirmation(false)} maxHeight={100}>
-        <ModalContentWrapper>
-          <AutoColumn gap="md" >
-            <RowBetween style={{ padding: '0 1rem', textAlign: 'center' }}>
-              <div />
-              <Text fontWeight={500} fontSize={16}>
-                {/* Are you sure? */}
-                Confirm expert mode
-              </Text>
-              <StyledCloseIcon onClick={() => setShowConfirmation(false)} />
-            </RowBetween>
-            <Break />
-            <AutoColumn gap="md" style={{ padding: '0 1rem', textAlign: 'center' }}>
-              <Text fontWeight={400} fontSize={14}>
+        <div className="modal_container">
+          <section className="modal_head">
+              <h4>Confirm expert mode</h4>
+              <CloseIcon close={() => setShowConfirmation(false)} />
+          </section>
+          <section className="modal_body">
+              <h6>
                 Expert mode turns off the confirm transaction prompt and allows high slippage trades that often result
                 in bad rates and lost funds.
-              </Text>
-              <Text fontWeight={700} fontSize={14}>
-                ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING.
-              </Text>
-              <ButtonError
-                error={true}
-                padding={'12px'}
-                onClick={() => {
-                  if (window.prompt(`Please type the word "confirm" to enable expert mode.`) === 'confirm') {
-                    toggleExpertMode()
-                    setShowConfirmation(false)
-                  }
-                }}
-              >
-                <Text fontSize={16} fontWeight={500} id="confirm-expert-mode">
+              </h6>
+              <h5 className="text red">ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING.</h5>
+              <article>
+                <button
+                  type="button"
+                  className="button md yellow w100p"
+                  onClick={() => {
+                    if (window.prompt(`Please type the word "confirm" to enable expert mode.`) === 'confirm') {
+                      toggleExpertMode()
+                      setShowConfirmation(false)
+                    }
+                  }}
+                >
                   Turn On Expert Mode
-                </Text>
-              </ButtonError>
-            </AutoColumn>
-          </AutoColumn>
-        </ModalContentWrapper>
+                </button>
+              </article>
+          </section>
+        </div>
       </Modal>
       <div onClick={toggle}>
         <SettingIcon />
-        {expertMode ? (
-          <EmojiWrapper>
-            <span role="img" aria-label="wizard-icon">
-              {/* 🧙 */}
-            </span>
-            <ExpertModeIcon>
-              <i className="fas fa-bong"></i> 
-            </ExpertModeIcon>
-          </EmojiWrapper>
-        ) : null}
+        {expertMode && (
+          <div className="expert_mode">
+            <i className="fas fa-bong"></i> 
+          </div>
+        )}
       </div>
       {open && (
         <div className="setting_wrap">
