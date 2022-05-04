@@ -1,105 +1,21 @@
 import React, { useContext, useMemo } from 'react'
-import styled, { ThemeContext } from 'styled-components'
+import './Pool.css'
 import { Pair, JSBI } from '@uniswap/sdk'
-import { Link } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import { SwapPoolTabs } from '../../components/NavigationTabs'
 
 import FullPositionCard from '../../components/PositionCard'
 import { useUserHasLiquidityInAllTokens } from '../../data/V1'
 import { useTokenBalancesWithLoadingIndicator } from '../../state/wallet/hooks'
-import { StyledInternalLink/*, ExternalLink*/, TYPE, /*HideSmall*/ } from '../../theme'
-import { Text } from 'rebass'
-import Card from '../../components/Card'
-import { RowBetween, RowFixed } from '../../components/Row'
-import { /*ButtonPrimary,*/ ButtonSecondary } from '../../components/Button'
-import { AutoColumn } from '../../components/Column'
 
 import { useActiveWeb3React } from '../../hooks'
 import { usePairs } from '../../data/Reserves'
 import { toV2LiquidityToken, useTrackedTokenPairs } from '../../state/user/hooks'
 import { Dots } from '../../components/swap/styleds'
-//import { DataCard,  CardSection, CardNoise, CardBGImage } from '../../components/earn/styled'
 import { useStakingInfo } from '../../state/stake/hooks'
-import { BIG_INT_ZERO } from '../../constants'
-
-const PageWrapper = styled(AutoColumn)`
-  padding: 1.5rem;
-  max-width: 1200px;
-  width: 100%;
-  background: var(--bg-gradient-white-02);
-  backdrop-filter: var(--bg-filter-blur);
-  box-shadow: var(--bg-box-shadow);
-  border-radius: 1rem;
-
-  @media(max-width: 768px) {
-    padding: 1rem;
-  }
-`
-/*
-const VoteCard = styled(DataCard)`
-  background: radial-gradient(76.02% 75.41% at 1.84% 0%, #27ae60 0%, #000000 100%);
-  overflow: hidden;
-`
-*/
-
-const TitleRow = styled(RowBetween)`
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    flex-wrap: wrap;
-    gap: 12px;
-    width: 100%;
-    //flex-direction: column-reverse;
-    text-align: center;
-  `};
-`
-
-const ButtonRow = styled(RowFixed)`
-  gap: 8px;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    width: 100%;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-  `};
-`
-/*
-const ResponsiveButtonPrimary = styled(ButtonPrimary)`
-  width: fit-content;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    width: 48%;
-  `};
-`
-*/
-
-const ResponsiveButtonSecondary = styled(ButtonSecondary)`
-  width: fit-content;
-  //background: var(--aqua);
-  border: none;
-  //border-radius: 0.25rem;
-  //color: var(--white);
-  font-size: 14px;
-
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    width: 48%;
-  `};
-`
-
-const EmptyProposals = styled.div`
-  border: 1px solid ${({ theme }) => theme.text4};
-  padding: 16px 12px;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`
-
-const PoolTitle = styled.div`
-  @media(max-width: 768px) {
-    font-size: 18px;
-  }
-`
+import { BIG_INT_ZERO, CURRENCIES_FULL_NAME } from '../../constants'
 
 export default function Pool() {
-  const theme = useContext(ThemeContext)
   const { account } = useActiveWeb3React()
 
   // fetch the user's balances of all tracked V2 LP tokens
@@ -149,87 +65,40 @@ export default function Pool() {
 
   return (
     <>
-      <PageWrapper>
-        <SwapPoolTabs active={'pool'} />
-        {/* <VoteCard>
-          <CardBGImage />
-          <CardNoise />
-          <CardSection>
-            <AutoColumn gap="md">
-              <RowBetween>
-                <TYPE.white fontWeight={600}>Liquidity provider rewards</TYPE.white>
-              </RowBetween>
-              <RowBetween>
-                <TYPE.white fontSize={14}>
-                  {`Liquidity providers earn a 0.3% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.`}
-                </TYPE.white>
-              </RowBetween>
-              <ExternalLink
-                style={{ color: 'white', textDecoration: 'underline' }}
-                target="_blank"
-                href="https://uniswap.org/docs/v2/core-concepts/pools/"
-              >
-                <TYPE.white fontSize={14}>Read more about providing liquidity</TYPE.white>
-              </ExternalLink>
-            </AutoColumn>
-          </CardSection>
-          <CardBGImage />
-          <CardNoise />
-        </VoteCard> */}
-
-        <AutoColumn gap="lg" justify="center">
-          <AutoColumn gap="lg" style={{ width: '100%' }}>
-            <TitleRow padding={'0'}>
-              <TYPE.title_B style={{ fontSize: '16px', justifySelf: 'flex-start' }}>
-                Provide liquidity and get LP tokens
-              </TYPE.title_B>
-              {!account ? (
-                <></>
-              ) : (
-                <ButtonRow id="poolButtonRow">
-                  <ResponsiveButtonSecondary className="button aqua" as={Link} padding="6px 8px" to="/create/MATIC">
-                    Create New Pool
-                  </ResponsiveButtonSecondary>
-                  {<ResponsiveButtonSecondary
-                    id="join-pool-button"
-                    className="button blue04"
-                    as={Link}
-                    padding="6px 8px"
-                    to="/add/MATIC"
-                  >
-                    Add Liquidity
-                  </ResponsiveButtonSecondary> }
-                </ButtonRow>
-              )}
-            </TitleRow>
-
-            {!account ? (
-              <Card padding="40px">
-                <TYPE.body color={theme.text3} textAlign="center">
-                  Connect to a wallet to view your liquidity.
-                </TYPE.body>
-              </Card>
-            ) : v2IsLoading ? (
-              <EmptyProposals>
-                <TYPE.body color={theme.text3} textAlign="center">
-                  <Dots>Loading</Dots>
-                </TYPE.body>
-              </EmptyProposals>
-            ) : allV2PairsWithLiquidity?.length > 0 || stakingPairs?.length > 0 ? (
-              <>
-                {/* <ButtonSecondary>
-                  <RowBetween>
-                    <ExternalLink href={'https://uniswap.info/account/' + account}>
-                      Account analytics and accrued fees
-                    </ExternalLink>
-                    <span> ↗</span>
-                  </RowBetween>
-                </ButtonSecondary> */}
-                  <TYPE.largeHeader>
-                    <PoolTitle>
-                      My Pool
-                    </PoolTitle>
-                  </TYPE.largeHeader>
+      <div id="pool">
+        <section className="pool_head">
+          {account &&
+            <div className="pool_head_button_box">
+              <NavLink to="/add/MATIC">
+                <button type="button" className="button md yellow">
+                Add Liquidity
+                </button>
+              </NavLink>
+              <NavLink to="/create/MATIC">
+                <button type="button" className="button md white">
+                  Create New Pool
+                </button>
+              </NavLink>
+            </div>
+          }
+        </section>
+        <section className="pool_body">
+          <h4 className="pool_title">Provide liquidity and get LP tokens</h4>
+          
+          {!account ? (
+            <div className="pool_no_contents">
+              Connect to a wallet to view your liquidity.
+            </div>
+          ) : v2IsLoading ? (
+            <div className="pool_no_contents">
+              <span className="text yellow">
+                <Dots>Loading</Dots>
+              </span>
+            </div>
+          ) : allV2PairsWithLiquidity?.length > 0 || stakingPairs?.length > 0 ? (
+            <div className="pool_card_list">
+              <h5 className="pool_title">My Pool</h5>
+              <section>
                 {v2PairsWithoutStakedAmount.map(v2Pair => (
                   <>
                     <FullPositionCard key={v2Pair.liquidityToken.address} pair={v2Pair} />
@@ -245,29 +114,23 @@ export default function Pool() {
                       />
                     )
                 )}
-              </>
-            ) : (
-              <EmptyProposals>
-                <TYPE.body color={theme.text3} textAlign="center">
-                  No liquidity found.
-                </TYPE.body>
-              </EmptyProposals>
-            )}
-            {!account ? (
-              <></>
-            ) : (
-            <AutoColumn justify={'center'} gap="md">
-              <Text textAlign="center" fontSize={14} style={{ padding: '.5rem 0 .5rem 0' }}>
-                {hasV1Liquidity ? 'Classy liquidity found!' : "Don't see a pool you joined?"}{' '}
-                <StyledInternalLink id="import-pool-link" to={hasV1Liquidity ? '/migrate/v1' : '/find'}>
-                  {hasV1Liquidity ? 'Migrate now.' : 'Import it.'}
-                </StyledInternalLink>
-              </Text>
-            </AutoColumn>
-            )}
-          </AutoColumn>
-        </AutoColumn>
-      </PageWrapper>
+              </section>
+            </div>
+          ) : (
+            <div className="pool_no_contents">
+              No liquidity found.
+            </div>
+          )}
+        </section>
+        {account && 
+          <section className="pool_foot">
+            {hasV1Liquidity ? `${CURRENCIES_FULL_NAME} liquidity found!` : "Don't see a pool you joined?"}
+            <Link className="link" to={hasV1Liquidity ? '/migrate/v1' : '/find'}>
+              {hasV1Liquidity ? 'Migrate now.' : 'Import it.'}
+            </Link>
+          </section>
+        }
+      </div>
     </>
   )
 }

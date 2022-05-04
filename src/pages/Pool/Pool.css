@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+#pool { overflow: auto; display: flex; flex-direction: column; gap: 40px; position: absolute; top: 0; left: 0; padding: 40px; width: 100%; height: 100%; background: var(--dark-2); color: var(--white); }
+#pool .pool_head {  }
+#pool .pool_head .pool_head_button_box { display: flex; justify-content: flex-end; align-items: center; gap: 16px; }
+
+#pool .pool_body { display: flex; flex-direction: column; gap: 20px; }
+#pool .pool_body .pool_title { font-family: 'CookieRun'; }
+#pool .pool_body .pool_no_contents { display: flex; justify-content: center; align-items: center; padding: 20px; width: 100%; height: 140px; background: var(--dark-0); border-radius: 20px; color: var(--dark-4); font-family: 'CookieRun'; font-weight: 700; text-align: center; }
+
+#pool .pool_body .pool_card_list { display: flex; flex-direction: column; gap: 8px; }
+#pool .pool_body .pool_card_list .token_logo { width: 30px; }
+
+
+#pool .pool_foot { font-family: 'CookieRun'; text-align: center; color: var(--gray); font-size: 14px; }
+#pool .pool_foot .link { margin-left: 10px; color: var(--aqua); }
+#pool .pool_foot .link:hover { text-decoration: underline; }
+
+/* laptop ----------------------------------------------------- */
+@media (min-width: 1024px) {
+	
+}
+
+/* Tablet ----------------------------------------------------- */
+@media(max-width: 1023px) {
+  #pool { gap: 30px; padding: 20px 16px; }
+  #pool .pool_body { gap: 10px; }
+
+}
+
+/* Mobile ----------------------------------------------------- */
+@media(max-width: 768px) {
+  #pool .pool_body .pool_no_contents { height: 120px; border-radius: 14px; }
+}
+
+@media(max-width: 379px) {
+ 
+}
