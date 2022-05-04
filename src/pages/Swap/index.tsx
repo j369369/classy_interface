@@ -359,7 +359,13 @@ export default function Swap() {
       <AppBody id="swap">
         <SwapHead />
         <SwapBody setApprovalSubmitted={setApprovalSubmitted} />
-        <SwapFoot approvalSubmitted={approvalSubmitted} />
+        <SwapFoot 
+          approvalSubmitted={approvalSubmitted} 
+          showConfirm={showConfirm}
+          tradeToConfirm={tradeToConfirm}
+          swapErrorMessage={swapErrorMessage}
+          setSwapState={setSwapState}
+        />
 
         <ConfirmSwapModal
           isOpen={showConfirm}

@@ -31,9 +31,17 @@ import TradePrice from '../../components/swap/TradePrice'
 
 
 export default function SwapFoot({
-  approvalSubmitted
+  approvalSubmitted,
+  showConfirm,
+  tradeToConfirm,
+  swapErrorMessage,
+  setSwapState
 }: {
-  approvalSubmitted: boolean
+  approvalSubmitted: boolean,
+  showConfirm: boolean,
+  tradeToConfirm: any,
+  swapErrorMessage: any,
+  setSwapState: any
 }) {
 
   // swap state
@@ -86,21 +94,6 @@ export default function SwapFoot({
   }
 
   const isValid = !swapInputError
-
-  // modal and loading
-  const [{ showConfirm, tradeToConfirm, swapErrorMessage, attemptingTxn, txHash }, setSwapState] = useState<{
-    showConfirm: boolean
-    tradeToConfirm: Trade | undefined
-    attemptingTxn: boolean
-    swapErrorMessage: string | undefined
-    txHash: string | undefined
-  }>({
-    showConfirm: false,
-    tradeToConfirm: undefined,
-    attemptingTxn: false,
-    swapErrorMessage: undefined,
-    txHash: undefined
-  })
 
   const { priceImpactWithoutFee } = computeTradePriceBreakdown(trade)
 
