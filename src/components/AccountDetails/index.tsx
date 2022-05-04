@@ -181,11 +181,11 @@ const MainWalletAction = styled(WalletAction)`
 
 function renderTransactions(transactions: string[]) {
   return (
-    <TransactionListWrapper>
+    <div className="transactions_list">
       {transactions.map((hash, i) => {
         return <Transaction key={i} hash={hash} />
       })}
-    </TransactionListWrapper>
+    </div>
   )
 }
 
@@ -372,14 +372,18 @@ export default function AccountDetails({
             </AccountGroupingRow>
           </div>
           {!!pendingTransactions.length || !!confirmedTransactions.length ? (
-            <div className="m_cont">
-              <div className="dis_flex between">
-                <h5 className="f_cookie">- Recent Transactions</h5>
-                <button type="button" className="button round sm yellow" onClick={clearAllTransactionsCallback}>clear all</button>
+            <>
+              <div className="m_cont">
+                <div className="dis_flex between">
+                  <h5 className="f_cookie">- Recent Transactions</h5>
+                  <button type="button" className="button round sm yellow" onClick={clearAllTransactionsCallback}>clear all</button>
+                </div>
               </div>
-              {renderTransactions(pendingTransactions)}
-              {renderTransactions(confirmedTransactions)}
-            </div>
+              <div className="m_cont">
+                {renderTransactions(pendingTransactions)}
+                {renderTransactions(confirmedTransactions)}
+              </div>
+            </>
           ) : (
             <div className="m_cont text_center">
               <p className="text sm gray">Your transactions will appear here...</p>

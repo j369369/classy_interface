@@ -8,6 +8,7 @@ import { ExternalLink } from '../../theme'
 import { useAllTransactions } from '../../state/transactions/hooks'
 import { RowFixed } from '../Row'
 import Loader from '../Loader'
+import { Link } from 'react-router-dom'
 
 const TransactionWrapper = styled.div``
 
@@ -48,15 +49,13 @@ export default function Transaction({ hash }: { hash: string }) {
   if (!chainId) return null
 
   return (
-    <TransactionWrapper>
-      <TransactionState href={getEtherscanLink(chainId, hash, 'transaction')} pending={pending} success={success}>
-        <RowFixed>
-          <TransactionStatusText>{summary ?? hash} ↗</TransactionStatusText>
-        </RowFixed>
-        <IconWrapper pending={pending} success={success}>
-          {pending ? <Loader /> : success ? <CheckCircle size="16" /> : <Triangle size="16" />}
-        </IconWrapper>
-      </TransactionState>
-    </TransactionWrapper>
+    <a href={getEtherscanLink(chainId, hash, 'transaction')} target="_blank" className="li">
+      <RowFixed>
+        <TransactionStatusText>{summary ?? hash} ↗</TransactionStatusText>
+      </RowFixed>
+      <IconWrapper pending={pending} success={success}>
+        {pending ? <Loader /> : success ? <CheckCircle size="16" /> : <Triangle size="16" />}
+      </IconWrapper>
+    </a>
   )
 }
