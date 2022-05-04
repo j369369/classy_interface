@@ -250,9 +250,9 @@ export default function SwapFoot({
           <div className="any">
             <button
               type="button"
-              className="button round lg green"
+              className={`button round lg ${(approval !== ApprovalState.NOT_APPROVED || approvalSubmitted) ? "disabled" : "green"}`}
               onClick={approveCallback}
-              disabled={approval !== ApprovalState.NOT_APPROVED || approvalSubmitted}
+              // disabled={approval !== ApprovalState.NOT_APPROVED || approvalSubmitted}
             >
               {approval === ApprovalState.PENDING ? (
                 <>
@@ -266,7 +266,7 @@ export default function SwapFoot({
             </button>
             <button
               type="button"
-              className="button round lg error"
+              className={`button round lg ${(isValid || approval == ApprovalState.APPROVED || (priceImpactSeverity > 3 && !isExpertMode)) ? "disabled" : (isValid && priceImpactSeverity > 2) ? "error" : "tropical"}`}
               onClick={() => {
                 if (isExpertMode) {
                   handleSwap()
@@ -280,9 +280,9 @@ export default function SwapFoot({
                   })
                 }
               }}
-              disabled={
-                isValid || approval == ApprovalState.APPROVED || (priceImpactSeverity > 3 && !isExpertMode)
-              }
+              // disabled={
+              //   isValid || approval == ApprovalState.APPROVED || (priceImpactSeverity > 3 && !isExpertMode)
+              // }
               // error={isValid && priceImpactSeverity > 2}
             >
               {priceImpactSeverity > 3 && !isExpertMode
@@ -293,7 +293,7 @@ export default function SwapFoot({
         ) : (
           <button
             type="button"
-            className="button round lg error"
+            className={`button round lg ${(!isValid || (priceImpactSeverity > 3 && !isExpertMode) || !!swapCallbackError) ? "disabled" : (isValid && priceImpactSeverity > 2 && !swapCallbackError) ? "error" : "tropical"}`}
             onClick={() => {
               if (isExpertMode) {
                 handleSwap()
@@ -307,7 +307,7 @@ export default function SwapFoot({
                 })
               }
             }}
-            disabled={!isValid || (priceImpactSeverity > 3 && !isExpertMode) || !!swapCallbackError}
+            // disabled={!isValid || (priceImpactSeverity > 3 && !isExpertMode) || !!swapCallbackError}
             // error={isValid && priceImpactSeverity > 2 && !swapCallbackError}
           >
             {swapInputError

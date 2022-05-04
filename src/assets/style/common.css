@@ -169,6 +169,7 @@ h6, .h6 { font-size: 14px; }
 .button.line.brown { color: var(--brown); }
 
 .button.error { position: relative; background: url(../images/ic_button_error.svg) no-repeat; background-size: 9%; background-position: 3% center; border: 1px solid var(--red); color: var(--red); pointer-events: none; }
+.button.disabled { background: transparent; color: var(--dark-5); }
 
 .button.md { height: 36px; font-size: 16px; border-radius: 6px; }
 .button.lg { height: 64px; font-size: 26px; border-radius: 12px; }
