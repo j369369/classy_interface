@@ -132,7 +132,7 @@ export function ImportToken({ tokens, onBack, onDismiss, handleCurrencySelect }:
               </>
             )
           })}
-          <article className="dis_flex_col gap20 text_center">
+          <article className="dis_flex_col gap10 text_center">
             <section className="f_cookie">
               <h1 className={`text ${fromLists ? 'yellow' : 'red'}`}><i className="fas fa-exclamation-circle"></i></h1>
               <h4 className={`text ${fromLists ? 'yellow' : 'red'}`}>Trade at your own risk!</h4>

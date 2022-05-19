@@ -182,11 +182,6 @@ export function CurrencySearch({
           />
         </div>
       </section>
-      <div>
-      <h6>
-          0xA4d4ED99C3d455a86015426878a67BC29028Ba91
-          </h6>
-      </div>
       
       {showCommonBases && (
         <section className="modal_body bg_box">

@@ -42,83 +42,81 @@ export default function SwapModalFooter({
 
   return (
     <>
-      <AutoColumn gap="0px">
-        <RowBetween align="center">
-          <Text fontWeight={400} fontSize={14} color={theme.text2}>
-            Price
-          </Text>
-          <Text
-            fontWeight={500}
-            fontSize={14}
-            color={theme.text1}
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              display: 'flex',
-              textAlign: 'right',
-              paddingLeft: '10px'
-            }}
-          >
-            {formatExecutionPrice(trade, showInverted)}
-            <StyledBalanceMaxMini onClick={() => setShowInverted(!showInverted)}>
-              <Repeat size={14} />
-            </StyledBalanceMaxMini>
-          </Text>
-        </RowBetween>
-
-        <RowBetween>
-          <RowFixed>
-            <TYPE.black fontSize={14} fontWeight={400} color={theme.text2}>
+      <section className="swap_info_box">
+        <ul className="swap_info">
+            <li>
+              <div className="info_title">
+                <span className="yellow_title">Price</span>
+              </div>
+              <div className="info_contents">
+                <span className="num">{formatExecutionPrice(trade, showInverted)}</span>
+                <StyledBalanceMaxMini onClick={() => setShowInverted(!showInverted)}>
+                  <Repeat size={14} />
+              </StyledBalanceMaxMini>
+              </div>
+            </li>
+        </ul>
+        <ul className="swap_info">
+          <li>
+            <div className="info_title">
               {trade.tradeType === TradeType.EXACT_INPUT ? 'Minimum received' : 'Maximum sold'}
-            </TYPE.black>
-            <QuestionHelper text="Your transaction will revert if there is a large, unfavorable price movement before it is confirmed." />
-          </RowFixed>
-          <RowFixed>
-            <TYPE.black fontSize={14}>
-              {trade.tradeType === TradeType.EXACT_INPUT
+              <QuestionHelper text="Your transaction will revert if there is a large, unfavorable price movement before it is confirmed." />
+            </div>
+            <div className="info_contents">
+              <span className="num">
+                {trade.tradeType === TradeType.EXACT_INPUT
                 ? slippageAdjustedAmounts[Field.OUTPUT]?.toSignificant(4) ?? '-'
                 : slippageAdjustedAmounts[Field.INPUT]?.toSignificant(4) ?? '-'}
-            </TYPE.black>
-            <TYPE.black fontSize={14} marginLeft={'4px'}>
-              {trade.tradeType === TradeType.EXACT_INPUT
-                ? trade.outputAmount.currency.symbol
-                : trade.inputAmount.currency.symbol}
-            </TYPE.black>
-          </RowFixed>
-        </RowBetween>
-        <RowBetween>
-          <RowFixed>
-            <TYPE.black color={theme.text2} fontSize={14} fontWeight={400}>
+              </span>
+              <span className="symbol">
+                {trade.tradeType === TradeType.EXACT_INPUT
+                  ? trade.outputAmount.currency.symbol
+                  : trade.inputAmount.currency.symbol}
+              </span>
+            </div>
+          </li>
+          <li>
+            <div className="info_title">
               Price Impact
-            </TYPE.black>
-            <QuestionHelper text="The difference between the market price and your price due to trade size." />
-          </RowFixed>
-          <FormattedPriceImpact priceImpact={priceImpactWithoutFee} />
-        </RowBetween>
-        <RowBetween>
-          <RowFixed>
-            <TYPE.black fontSize={14} fontWeight={400} color={theme.text2}>
+              <QuestionHelper text="The difference between the market price and your price due to trade size." />
+            </div>
+            <div className="info_contents">
+              <span className="num">
+                <FormattedPriceImpact priceImpact={priceImpactWithoutFee} />
+              </span>
+            </div>
+          </li>
+          <li>
+            <div className="info_title">
               Liquidity Provider Fee
-            </TYPE.black>
-            <QuestionHelper text="A portion of each trade (0.30%) goes to liquidity providers as a protocol incentive." />
-          </RowFixed>
-          <TYPE.black fontSize={14}>
-            {realizedLPFee ? realizedLPFee?.toSignificant(6) + ' ' + trade.inputAmount.currency.symbol : '-'}
-          </TYPE.black>
-        </RowBetween>
-      </AutoColumn>
-
+              <QuestionHelper text="A portion of each trade (0.30%) goes to liquidity providers as a protocol incentive." />
+            </div>
+            <div className="info_contents">
+              {realizedLPFee ? (
+                <>
+                  <span className="num">{realizedLPFee?.toSignificant(6)}</span>
+                  <span className="symbol">{trade.inputAmount.currency.symbol}</span>
+                </>
+              ) : '-'}
+            </div>
+          </li>
+        </ul>
+      </section>
       <AutoRow>
+        {/* <button 
+        type="button" 
+        className="button round sm tropical"
+        onClick={onConfirm}
+        >
+          {severity > 2 ? 'Swap Anyway' : 'Confirm Swap'}
+        </button> */}
         <ButtonError
           onClick={onConfirm}
           disabled={disabledConfirm}
           error={severity > 2}
-          style={{ margin: '10px 0 0 0' }}
-          id="confirm-swap-or-send"
+          className="button round lg tropical"
         >
-          <Text fontSize={16} fontWeight={500}>
-            {severity > 2 ? 'Swap Anyway' : 'Confirm Swap'}
-          </Text>
+          {severity > 2 ? 'Swap Anyway' : 'Confirm Swap'}
         </ButtonError>
 
         {swapErrorMessage ? <SwapCallbackError error={swapErrorMessage} /> : null}

@@ -23,7 +23,7 @@
 /* proceeding */
 .modal_proceeding { width: 100%; border: 4px solid var(--yellow); border-radius: inherit; }
 .modal_proceeding .modal_waiting { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; padding: 60px 40px; width: 100%; }
-.modal_proceeding .modal_waiting .img { width: 140px; }
+.modal_proceeding .modal_waiting .img { width: 150px; }
 .modal_proceeding .modal_waiting .img_cont { display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; }
 .modal_proceeding .modal_waiting .text_cont { width: 100%; }
 .modal_proceeding .modal_waiting .swap_info { padding: 0 5% }
@@ -55,6 +55,14 @@
 .swap_card_wrap .swap_card_body .swap_card_body_token_wrap .swap_card_body_token .swap_card_body_token_value { font-family: 'CookieRun'; font-size: 20px; font-weight: 700; }
 
 .swap_card_wrap .swap_card_body .swap_card_body_info_wrap { padding: 10px 0; }
+
+.swap_info_box .swap_info { bottom: 101%; padding: 0 10px; }
+.swap_info_box .swap_info > li { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+.swap_info_box .swap_info > li .info_title { min-width: 80px; color: var(--gray); font-size: 14px; font-weight: 300; text-align: left; }
+.swap_info_box .swap_info > li .info_contents { color: var(--white); font-size: 15px;  text-align: right; }
+.swap_info_box .swap_info > li .info_contents .num { font-family: 'CookieRun'; font-weight: 700; }
+.swap_info_box .swap_info > li .info_contents .symbol { margin-left: 4px; color: var(--gray); font-weight: 500; }
+
 
 .swap_card_wrap .swap_card_foot { padding: 0 20px; }
 

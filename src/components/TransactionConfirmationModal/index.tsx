@@ -132,7 +132,7 @@ export function ConfirmationModalContent({
       </section>
       <section className="modal_body">
         {topContent()}
-        <BottomSection gap="12px">{bottomContent()}</BottomSection>
+        {bottomContent()}
       </section>
     </div>
   )

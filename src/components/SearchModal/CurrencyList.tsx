@@ -195,17 +195,13 @@ export default function CurrencyList({
       if (index === breakIndex || !data) {
         return (
           <FixedContentRow style={style}>
-            <LightGreyCard padding="8px 12px" borderRadius="8px">
-              <RowBetween>
-                <RowFixed>
-                  <TokenListLogoWrapper src={TokenListLogo} />
-                  <TYPE.main ml="6px" fontSize="12px" color={theme.text1}>
-                    Expanded results from inactive Token Lists
-                  </TYPE.main>
-                </RowFixed>
-                <QuestionHelper text="Tokens from inactive lists. Import specific tokens below or click 'Manage' to activate more lists." />
-              </RowBetween>
-            </LightGreyCard>
+            <section className="dis_flex between label dark4">
+              <div className="dis_flex gap4">
+                <TokenListLogoWrapper src={TokenListLogo} />
+                <span>Expanded results from inactive Token Lists</span>
+              </div>
+              <QuestionHelper text="Tokens from inactive lists. Import specific tokens below or click 'Manage' to activate more lists." />
+            </section>
           </FixedContentRow>
         )
       }
