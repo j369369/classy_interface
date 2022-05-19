@@ -2,32 +2,20 @@
 
 #intro { overflow: hidden; display: table; width: 100%; height: 100%; }
 #intro .intro_in { display: table-cell; padding: 0 10%; vertical-align: middle; }
-#intro .intro_in .intro_title { color: var(--white); font-size: 7vw; font-weight: 900; text-shadow: 0 0.1875rem 0.5rem rgba(58,91,126,.2); line-height: 1.2; }
-#intro .intro_in .intro_link { display: flex; flex-direction: row; margin-top: 2rem; }
-#intro .intro_in .intro_link .li { position: relative; margin-right: 2rem; color: var(--lightBlue-05); font-size: 1.8vw; font-weight: 500; }
+#intro .intro_in .intro_title { color: var(--white); font-size: 7vw; font-weight: 900; text-shadow: 0 0.1875rem 0.5rem rgba(58,91,126,.2); text-align: center; line-height: 1.2; }
+#intro .intro_in .intro_link { display: flex; justify-content: center; align-items: center;gap: 20px; margin-top: 2rem; }
+#intro .intro_in .intro_link a { width: 100%; max-width: 300px; }
+#intro .intro_in .intro_link .button { width: 100%; max-width: 100%; }
 
-
-/* Laptop ----------------------------------------------------- */
-@media (min-width: 768px) {
-	#intro .intro_in .intro_link .li::after { position: absolute; bottom: -0.5rem; left: -5%; width: 0%; height: 0.125rem; background: var(--lightBlue-05); content: ""; transition: all 0.3s; }
-	#intro .intro_in .intro_link .li:hover::after { width: 110%; }
-}
-
-/* Tablet ----------------------------------------------------- */
-@media(max-width: 768px) {
-	#intro .intro_in .intro_title { font-size: 8vw; }
-	#intro .intro_in .intro_link .li { font-size: 2.6vw; }
-}
-
-/* Mobile ----------------------------------------------------- */
-@media(max-width: 480px) {
+@media(max-width: 980px) {
 	#intro .intro_in { padding: 0 1rem; text-align: center; }
-	#intro .intro_in .intro_title { font-size: 12vw; }
+	#intro .intro_in .intro_title { font-size: 8vw; }
 	#intro .intro_in .intro_link { flex-direction: column; margin-top: 1.5rem; }
-	#intro .intro_in .intro_link .li { margin-bottom: 0.5rem; width: 100%; height: 3rem; background: var(--bg-gradient-white-01); backdrop-filter: var(--bg-filter-blur); border: 0.0625rem solid var(--blue-03); border-radius: 0.25rem; font-size: 1rem; line-height: 2.75rem; }
 }
 
-
+@media(max-width: 480px) {
+	#intro .intro_in .intro_title { font-size: 12vw; }
+}
 
 
 

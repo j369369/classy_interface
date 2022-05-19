@@ -1,38 +1,45 @@
 import React, { useEffect }  from 'react'
 import { NavLink } from 'react-router-dom'
+import { isBrowser } from 'react-device-detect';
 import VanillaTilt from 'vanilla-tilt'
 import './home.css'
 
 const Tilt = () => {
-  let intro = document.querySelector('#container #intro') as HTMLParagraphElement
+  let intro = document.querySelector('#container .contents') as HTMLParagraphElement
   VanillaTilt.init(intro);
 }
 
 export default function Home() {
   useEffect(() => {
-    Tilt();
+    if(isBrowser) {
+      Tilt();
+    }
   }, []);
-
+  
   return (
     <section id="intro" data-tilt data-tilt-scale="1">
       <article className="intro_in">
-        <h1 id="introTitle" className="intro_title">
+        <h1 id="introTitle" className="intro_title f_cookie">
           Decentralized <br/>
           Crypto Assets Land
         </h1>
-          <ul id="introLink" className="intro_link">
-          <li className="li">
-            <NavLink to={'/swap'}>
+          <div id="introLink" className="intro_link">
+          <a href="/">
+            <button className="button lg indigo">
               <i className="fas fa-exchange-alt"></i> Classy App
-            </NavLink>
-           </li>
-          <li className="li">
-            <i className="fas fa-images"></i> Classy NFTs
-          </li>
-          <li className="li">
-            <i className="fas fa-burn"></i> Classy Stadium
-          </li>
-        </ul>
+            </button>
+          </a>
+          <a href="/">
+            <button className="button lg blue">
+              <i className="fas fa-images"></i> Classy NFTs
+            </button>
+          </a>
+          <a href="/">
+            <button className="button lg mint">
+              <i className="fas fa-burn"></i> Classy Stadium
+            </button>
+          </a>
+        </div>
       </article>
     </section>
   )

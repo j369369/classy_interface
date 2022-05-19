@@ -5,7 +5,7 @@ import { isMobile } from 'react-device-detect'
 import ReactDOM from 'react-dom'
 import ReactGA from 'react-ga'
 import { Provider } from 'react-redux'
-import { HashRouter } from 'react-router-dom'
+import { HashRouter, BrowserRouter, Switch, Route } from 'react-router-dom'
 import Blocklist from './components/Blocklist'
 import { NetworkContextName } from './constants'
 import './i18n'
@@ -19,6 +19,7 @@ import TransactionUpdater from './state/transactions/updater'
 import UserUpdater from './state/user/updater'
 import ThemeProvider, { FixedGlobalStyle, ThemedGlobalStyle } from './theme'
 import getLibrary from './utils/getLibrary'
+import Landing from './pages/Home';
 
 const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName)
 
@@ -55,6 +56,28 @@ function Updaters() {
   )
 }
 
+const isApp = (): boolean => {
+  // return true; //window.location.host.includes("app");
+  return window.location.pathname === "/home";
+};
+
+const app = () => (
+  <HashRouter>
+    <App />
+  </HashRouter>
+);
+
+const Home = () => (
+  <BrowserRouter>
+      <Switch>
+          <Route path="/home">
+              <Landing /> 
+          </Route>
+      </Switch>
+  </BrowserRouter>
+);
+
+
 ReactDOM.render(
   <StrictMode>
     <FixedGlobalStyle />
@@ -64,10 +87,9 @@ ReactDOM.render(
           <Provider store={store}>
             <Updaters />
             <ThemeProvider>
-              <ThemedGlobalStyle />
-              <HashRouter>
-                <App />
-              </HashRouter>
+              {/* <ThemedGlobalStyle /> */}
+              
+              {isApp() ? Home() : app()}
             </ThemeProvider>
           </Provider>
         </Blocklist>

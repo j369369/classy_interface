@@ -12,10 +12,10 @@ export default function Footer() {
     <footer id="footer">
       <ul className="footer_nav">
         <li>
-          <NavLink to={'/Home'}>
+          <a href="/home">
             <i className="fas fa-home"></i>
             <h6>{t('HOME')}</h6>
-          </NavLink>
+          </a>
         </li>
         <li>
           <NavLink to={'/swap'}>

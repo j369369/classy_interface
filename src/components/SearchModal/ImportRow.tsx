@@ -72,12 +72,12 @@ export default function ImportRow({
       <Column>
         <h5>{token.symbol}</h5>
         <AutoRow gap="2px">
-          <span className="text sm gray">{token.name}</span>
+          <h6 className="text sm gray">{token.name}</h6>
           {list && list.logoURI && (
             <RowFixed>
-              <span className="text xs brown">
+              <h6 className="text xs brown">
                 via {list.name}
-              </span>
+              </h6>
               {/* <ListLogo logoURI={list.logoURI} size="12px" /> */}
             </RowFixed>
           )}
