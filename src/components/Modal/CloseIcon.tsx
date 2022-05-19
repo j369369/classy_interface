@@ -2,7 +2,7 @@ import React from 'react'
 import './Modal.css'
 
 interface ModalProps {
-  close: () => void
+  close: any
   }
 
 

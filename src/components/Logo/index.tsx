@@ -4,6 +4,7 @@ import { ImageProps } from 'rebass'
 import './Logo.css'
 
 import TokenDefaultImg from '../../assets/images/palmtree_gray.gif'
+import TokenDefaultLogo from 'components/TokenDefaultLogo'
 
 const BAD_SRCS: { [tokenAddress: string]: true } = {}
 
@@ -35,5 +36,6 @@ export default function Logo({ srcs, alt, ...rest }: LogoProps) {
     )
   }
 
-  return <HelpCircle className="token_logo" {...rest} />
+  // return <HelpCircle className="token_logo" {...rest} />
+  return <div  className="token_logo"><TokenDefaultLogo /></div>
 }

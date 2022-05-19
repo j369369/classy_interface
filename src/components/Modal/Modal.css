@@ -2,7 +2,7 @@
 .modal .modal_container { position: relative; width: 100%; }
 .modal .modal_container .modal_head { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; background: rgba(118, 121, 131, 0.5); font-family: 'CookieRun'; font-weight: 700; }
 .modal .modal_container .modal_head .ic_close { cursor: pointer; }
-.modal .modal_container .modal_body { display: flex; flex-direction: column; gap: 16px; padding: 20px; }
+.modal .modal_container .modal_body { overflow: auto; display: flex; flex-direction: column; gap: 16px; padding: 20px; max-height: 100%; }
 .modal .modal_container .modal_body .m_card { position: relative; padding: 1rem; background: var(--dark-4);  border-radius: 0.5rem; }
 .modal .modal_container .modal_body .m_cont { }
 
@@ -53,6 +53,8 @@
 .swap_card_wrap .swap_card_body .swap_card_body_token_wrap .swap_card_body_token.right{ text-align: right; }
 .swap_card_wrap .swap_card_body .swap_card_body_token_wrap .swap_card_body_token .swap_card_body_token_name { display: none; color: var(--gray); font-size: 12px; font-weight: 700; }
 .swap_card_wrap .swap_card_body .swap_card_body_token_wrap .swap_card_body_token .swap_card_body_token_value { font-family: 'CookieRun'; font-size: 20px; font-weight: 700; }
+
+.swap_card_wrap .swap_card_body .swap_card_body_info_wrap { padding: 10px 0; }
 
 .swap_card_wrap .swap_card_foot { padding: 0 20px; }
 

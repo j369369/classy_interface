@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react'
 import { Token } from '@uniswap/sdk'
 import { AutoRow, RowFixed } from 'components/Row'
-import { AutoColumn } from 'components/Column'
+import Column, { AutoColumn } from 'components/Column'
 import CurrencyLogo from 'components/CurrencyLogo'
 import { TYPE } from 'theme'
 import ListLogo from 'components/ListLogo'
@@ -66,43 +66,43 @@ export default function ImportRow({
   const isActive = useIsTokenActive(token)
 
   return (
+    <>
     <TokenSection style={style}>
-      <CurrencyLogo currency={token} size={'24px'} style={{ opacity: dim ? '0.6' : '1' }} />
-      <AutoColumn gap="4px" style={{ opacity: dim ? '0.6' : '1' }}>
-        <AutoRow>
-          <TYPE.body fontWeight={500}>{token.symbol}</TYPE.body>
-          <TYPE.darkGray ml="8px" fontWeight={300}>
-            <NameOverflow title={token.name}>{token.name}</NameOverflow>
-          </TYPE.darkGray>
+      <div className="token_logo" style={{ width: "32px", height: "32px" }}><CurrencyLogo currency={token} /></div>
+      <Column>
+        <h5>{token.symbol}</h5>
+        <AutoRow gap="2px">
+          <span className="text sm gray">{token.name}</span>
+          {list && list.logoURI && (
+            <RowFixed>
+              <span className="text xs brown">
+                via {list.name}
+              </span>
+              {/* <ListLogo logoURI={list.logoURI} size="12px" /> */}
+            </RowFixed>
+          )}
         </AutoRow>
-        {list && list.logoURI && (
-          <RowFixed>
-            <TYPE.small mr="4px" color={theme.text3}>
-              via {list.name}
-            </TYPE.small>
-            <ListLogo logoURI={list.logoURI} size="12px" />
+      </Column>
+      <RowFixed style={{ justifySelf: 'flex-end' }}>
+        {!isActive && !isAdded ? (
+          <button 
+          type="button" 
+          className="button round sm yellow"
+          onClick={() => {
+              setImportToken && setImportToken(token)
+              showImportView()
+            }}
+          >
+            Import
+          </button>
+        ) : (
+          <RowFixed style={{ minWidth: 'fit-content' }}>
+            <CheckIcon />
+            <TYPE.main color={theme.green1}>Active</TYPE.main>
           </RowFixed>
         )}
-      </AutoColumn>
-      {!isActive && !isAdded ? (
-        <ButtonPrimary
-          width="fit-content"
-          padding="6px 12px"
-          fontWeight={500}
-          fontSize="14px"
-          onClick={() => {
-            setImportToken && setImportToken(token)
-            showImportView()
-          }}
-        >
-          Import
-        </ButtonPrimary>
-      ) : (
-        <RowFixed style={{ minWidth: 'fit-content' }}>
-          <CheckIcon />
-          <TYPE.main color={theme.green1}>Active</TYPE.main>
-        </RowFixed>
-      )}
+      </RowFixed>
     </TokenSection>
+   </>
   )
 }

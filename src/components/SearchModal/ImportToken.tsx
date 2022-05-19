@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Token, Currency } from '@uniswap/sdk'
 import styled from 'styled-components'
-import { TYPE, CloseIcon } from 'theme'
+import { TYPE } from 'theme'
 import Card from 'components/Card'
 import { AutoColumn } from 'components/Column'
 import { RowBetween, RowFixed, AutoRow } from 'components/Row'
@@ -14,15 +14,26 @@ import { SectionBreak } from 'components/swap/styleds'
 import { useAddUserToken } from 'state/user/hooks'
 import { getEtherscanLink } from 'utils'
 import { useActiveWeb3React } from 'hooks'
-import { ExternalLink } from '../../theme/components'
+import { ExternalLink, LinkIcon } from '../../theme/components'
 import { useCombinedInactiveList } from 'state/lists/hooks'
 import ListLogo from 'components/ListLogo'
 import { PaddedColumn, Checkbox } from './styleds'
+import CloseIcon from '../Modal/CloseIcon'
 
 const Wrapper = styled.div`
   position: relative;
   width: 100%;
   overflow: auto;
+`
+
+const HoverText = styled.div`
+  font-size: 14px;
+  :hover {
+    cursor: pointer;
+  }
+`
+const LeftArrowIcon = styled.span`
+  margin-right: 0.25rem;
 `
 
 const WarningWrapper = styled(Card)<{ highWarning: boolean }>`
@@ -64,101 +75,98 @@ export function ImportToken({ tokens, onBack, onDismiss, handleCurrencySelect }:
     (chainId && inactiveTokenList?.[chainId]?.[tokens[1]?.address]?.list)
 
   return (
-    <Wrapper>
-      <PaddedColumn gap="14px" style={{ width: '100%', flex: '1 1' }}>
-        <RowBetween>
-          {onBack ? <ArrowLeft style={{ cursor: 'pointer' }} onClick={onBack} /> : <div></div>}
-          <TYPE.mediumHeader>Import {tokens.length > 1 ? 'Tokens' : 'Token'}</TYPE.mediumHeader>
-          {onDismiss ? <CloseIcon onClick={onDismiss} /> : <div></div>}
-        </RowBetween>
-      </PaddedColumn>
-      <SectionBreak />
-      <PaddedColumn gap="md">
-        {tokens.map(token => {
-          const list = chainId && inactiveTokenList?.[chainId]?.[token.address]?.list
-          return (
-            <Card backgroundColor={theme.bg2} key={'import' + token.address} className=".token-warning-container">
-              <AutoColumn gap="10px">
-                <AutoRow align="center">
-                  <CurrencyLogo currency={token} size={'24px'} />
-                  <TYPE.body ml="8px" mr="8px" fontWeight={500}>
-                    {token.symbol}
-                  </TYPE.body>
-                  <TYPE.darkGray fontWeight={300}>{token.name}</TYPE.darkGray>
-                </AutoRow>
-                {chainId && (
-                  <ExternalLink href={getEtherscanLink(chainId, token.address, 'address')}>
-                    <AddressText>{token.address}</AddressText>
-                  </ExternalLink>
-                )}
-                {list !== undefined ? (
-                  <RowFixed>
-                    {list.logoURI && <ListLogo logoURI={list.logoURI} size="12px" />}
-                    <TYPE.small ml="6px" color={theme.text3}>
-                      via {list.name}
-                    </TYPE.small>
-                  </RowFixed>
-                ) : (
-                  <WarningWrapper borderRadius="4px" padding="4px" highWarning={true}>
-                    <RowFixed>
-                      <AlertTriangle stroke={theme.red1} size="10px" />
-                      <TYPE.body color={theme.red1} ml="4px" fontSize="10px" fontWeight={500}>
-                        Unknown Source
-                      </TYPE.body>
-                    </RowFixed>
-                  </WarningWrapper>
-                )}
-              </AutoColumn>
-            </Card>
-          )
-        })}
-
-        <Card
-          style={{ backgroundColor: fromLists ? transparentize(0.8, theme.yellow2) : transparentize(0.8, theme.red1) }}
-        >
-          <AutoColumn justify="center" style={{ textAlign: 'center', gap: '16px', marginBottom: '12px' }}>
-            <AlertTriangle stroke={fromLists ? theme.yellow2 : theme.red1} size={32} />
-            <TYPE.body fontWeight={600} fontSize={18} color={fromLists ? theme.yellow2 : theme.red1}>
-              Trade at your own risk!
-            </TYPE.body>
-          </AutoColumn>
-
-          <AutoColumn style={{ textAlign: 'center', gap: '16px', marginBottom: '12px' }}>
-            <TYPE.body fontWeight={400} fontSize={14} color={fromLists ? theme.yellow2 : theme.red1}>
-              Anyone can create a token, including creating fake versions of existing tokens that claim to represent
-              projects.
-            </TYPE.body>
-            <TYPE.body fontWeight={600} color={fromLists ? theme.yellow2 : theme.red1}>
-              If you purchase this token, you may not be able to sell it back.
-            </TYPE.body>
-          </AutoColumn>
-          <AutoRow justify="center" style={{ cursor: 'pointer' }} onClick={() => setConfirmed(!confirmed)}>
-            <Checkbox
-              className=".understand-checkbox"
-              name="confirmed"
-              type="checkbox"
-              checked={confirmed}
-              onChange={() => setConfirmed(!confirmed)}
-            />
-            <TYPE.body ml="10px" fontSize="16px" /*color={fromLists ? theme.yellow2 : theme.red1}*/ fontWeight={500}>
-              I understand
-            </TYPE.body>
-          </AutoRow>
-        </Card>
-        <ButtonPrimary
-          disabled={!confirmed}
-          altDisabledStyle={true}
-          borderRadius="0.5rem"
-          padding="10px 1rem"
-          onClick={() => {
-            tokens.map(token => addToken(token))
-            handleCurrencySelect && handleCurrencySelect(tokens[0])
-          }}
-          className=".token-dismiss-button"
-        >
-          Import
-        </ButtonPrimary>
-      </PaddedColumn>
-    </Wrapper>
+    <div className='dis_flex_col'>
+      <div className="modal_container">
+        <section className="modal_head">
+          {onBack && (
+            <HoverText
+              onClick={onBack}
+              className='text sm'
+            >
+              <LeftArrowIcon>
+                <i className="fas fa-angle-left"></i> 
+              </LeftArrowIcon>
+              <span>Back</span>
+            </HoverText>
+          )}
+          <h4>Import {tokens.length > 1 ? 'Tokens' : 'Token'}</h4>
+          <CloseIcon close={onDismiss} />
+        </section>
+        <section className="modal_body">
+          {tokens.map(token => {
+            const list = chainId && inactiveTokenList?.[chainId]?.[token.address]?.list
+            return (
+              <>
+                <div className="m_card">
+                  <section className='dis_flex_col gap8'>
+                    <AutoRow>
+                      <CurrencyLogo currency={token} size={'24px'} />
+                      <AutoRow gap="4px">
+                        <h4 className="">{token.symbol}</h4>
+                        <span className="text gray">{token.name}</span>
+                        {list !== undefined && (
+                          <RowFixed>
+                            {/* {list.logoURI && <ListLogo logoURI={list.logoURI} size="12px" />} */}
+                            <TYPE.small ml="6px" color={theme.text3}>
+                              via {list.name}
+                            </TYPE.small>
+                          </RowFixed>
+                        )}
+                      </AutoRow>
+                    </AutoRow>
+                    {chainId && (
+                      <ExternalLink className="text sm aqua" href={getEtherscanLink(chainId, token.address, 'address')}>
+                          <div className='dis_flex start gap4'>
+                            <span><i className="fas fa-external-link-alt"></i></span>
+                            <span>{token.address}</span>
+                          </div>
+                      </ExternalLink>
+                    )}
+                    {list === undefined && (
+                      <div>
+                        <span className='label red'><i className="fas fa-exclamation-triangle"></i> Unknown Source</span>
+                      </div>
+                    )}
+                  </section>
+                </div>
+              </>
+            )
+          })}
+          <article className="dis_flex_col gap20 text_center">
+            <section className="f_cookie">
+              <h1 className={`text ${fromLists ? 'yellow' : 'red'}`}><i className="fas fa-exclamation-circle"></i></h1>
+              <h4 className={`text ${fromLists ? 'yellow' : 'red'}`}>Trade at your own risk!</h4>
+            </section>
+            <section className="dis_flex_col gap10">
+              <p className="text sm">
+                Anyone can create a token, including creating fake versions of existing tokens that claim to represent projects.
+              </p>
+              <h5 className={`text ${fromLists ? 'yellow' : 'red'}`}>If you purchase this token, you may not be able to sell it back.</h5>
+            </section>
+            <section className="dis_flex center gap10" onClick={() => setConfirmed(!confirmed)}>
+              <Checkbox
+                className=".understand-checkbox"
+                name="confirmed"
+                type="checkbox"
+                checked={confirmed}
+                onChange={() => setConfirmed(!confirmed)}
+              />
+              <h6>I understand</h6>
+            </section>
+          </article>
+          {confirmed && (
+            <button
+              onClick={() => {
+                tokens.map(token => addToken(token))
+                handleCurrencySelect && handleCurrencySelect(tokens[0])
+              }}
+              className="button md yellow"
+            >
+              Import
+            </button>
+          )}
+        </section>
+    </div>
+  </div>
   )
 }

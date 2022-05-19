@@ -29,55 +29,53 @@ function TradeSummary({ trade, allowedSlippage }: { trade: Trade; allowedSlippag
 
   return (
     <>
-      <ul className="swap_info">
-        <li>
-          <div className="info_title">
-            {isExactIn ? 'Minimum received' : 'Maximum sold'}
-            <QuestionHelper text="Your transaction will revert if there is a large, unfavorable price movement before it is confirmed." />
-          </div>
-          
-          <div className="info_contents">
-            {isExactIn ? (
-                <>
-                  <span className="num">{slippageAdjustedAmounts[Field.OUTPUT]?.toSignificant(4)}</span>
-                  <span className="symbol">{trade.outputAmount.currency.symbol}</span>
-                </>
-            ) ?? '-'
-            : (
-                <>
-                  <span className="num">{slippageAdjustedAmounts[Field.INPUT]?.toSignificant(4)}</span>
-                  <span className="symbol">{trade.inputAmount.currency.symbol}</span>
-                </>
-            ) ?? '-' }
-            </div>
-        </li>
-        <li>
-          <div className="info_title">
-            Price Impact
-            <QuestionHelper text="The difference between the market price and estimated price due to trade size." />
-          </div>
-          <div className="info_contents">
-            <span className="num">
-              <FormattedPriceImpact priceImpact={priceImpactWithoutFee} />
-            </span>
-          </div>
-        </li>
-        <li>
-          <div className="info_title">
-            Liquidity Provider Fee
-            <QuestionHelper text="A portion of each trade (0.30%) goes to liquidity providers as a protocol incentive." />
-          </div>
-          <div className="info_contents">
-           
-            {realizedLPFee ? (
+      <li>
+        <div className="info_title">
+          {isExactIn ? 'Minimum received' : 'Maximum sold'}
+          <QuestionHelper text="Your transaction will revert if there is a large, unfavorable price movement before it is confirmed." />
+        </div>
+        
+        <div className="info_contents">
+          {isExactIn ? (
               <>
-                <span className="num">{realizedLPFee.toSignificant(4)}</span>
+                <span className="num">{slippageAdjustedAmounts[Field.OUTPUT]?.toSignificant(4)}</span>
+                <span className="symbol">{trade.outputAmount.currency.symbol}</span>
+              </>
+          ) ?? '-'
+          : (
+              <>
+                <span className="num">{slippageAdjustedAmounts[Field.INPUT]?.toSignificant(4)}</span>
                 <span className="symbol">{trade.inputAmount.currency.symbol}</span>
               </>
-            ) : '-'}
+          ) ?? '-' }
           </div>
-        </li>
-      </ul>
+      </li>
+      <li>
+        <div className="info_title">
+          Price Impact
+          <QuestionHelper text="The difference between the market price and estimated price due to trade size." />
+        </div>
+        <div className="info_contents">
+          <span className="num">
+            <FormattedPriceImpact priceImpact={priceImpactWithoutFee} />
+          </span>
+        </div>
+      </li>
+      <li>
+        <div className="info_title">
+          Liquidity Provider Fee
+          <QuestionHelper text="A portion of each trade (0.30%) goes to liquidity providers as a protocol incentive." />
+        </div>
+        <div className="info_contents">
+          
+          {realizedLPFee ? (
+            <>
+              <span className="num">{realizedLPFee.toSignificant(4)}</span>
+              <span className="symbol">{trade.inputAmount.currency.symbol}</span>
+            </>
+          ) : '-'}
+        </div>
+      </li>
     </>
   )
 }
@@ -94,22 +92,22 @@ export function AdvancedSwapDetails({ trade }: AdvancedSwapDetailsProps) {
   const showRoute = Boolean(trade && trade.route.path.length > 2)
 
   return (
-    <div>
+    <ul className="swap_info">
       {trade && (
         <>
           <TradeSummary trade={trade} allowedSlippage={allowedSlippage} />
           {showRoute && (
-            <>
-              <RowBetween style={{ padding: '0 16px' }}>
-                <span style={{ display: 'flex', alignItems: 'center' }}>
-                  <TYPE.black>
-                    Route
-                  </TYPE.black>
-                  <QuestionHelper text="Routing through these tokens resulted in the best price for your trade." />
+            <li>
+              <div className="info_title">
+              Route
+                <QuestionHelper text="Routing through these tokens resulted in the best price for your trade." />
+              </div>
+              <div className="info_contents">
+                <span className="">
+                  <SwapRoute trade={trade} />
                 </span>
-                <SwapRoute trade={trade} />
-              </RowBetween>
-            </>
+              </div>
+            </li>
           )}
           {/* {!showRoute && (
             <AutoColumn style={{ padding: '12px 16px 0 16px' }}>
@@ -123,6 +121,6 @@ export function AdvancedSwapDetails({ trade }: AdvancedSwapDetailsProps) {
           )} */}
         </>
       )}
-    </div>
+    </ul>
   )
 }

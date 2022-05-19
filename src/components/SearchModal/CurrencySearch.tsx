@@ -174,6 +174,7 @@ export function CurrencySearch({
             type="text"
             placeholder={t('tokenSearchPlaceholder')}
             autoComplete="off"
+            // value={searchQuery}
             value={searchQuery}
             ref={inputRef as RefObject<HTMLInputElement>}
             onChange={handleInput}
@@ -181,6 +182,11 @@ export function CurrencySearch({
           />
         </div>
       </section>
+      <div>
+      <h6>
+          0xA4d4ED99C3d455a86015426878a67BC29028Ba91
+          </h6>
+      </div>
       
       {showCommonBases && (
         <section className="modal_body bg_box">
@@ -218,11 +224,11 @@ export function CurrencySearch({
          <h5 className="text gray text_center f_cookie">No results found.</h5>
         </section>
       )}
-      <section className="modal_body">
+      {/* <section className="modal_body">
         <button type="button" className="button round md blue" onClick={showManageView}>
             Manage
         </button>
-      </section>
+      </section> */}
     </ContentWrapper>
   )
 }

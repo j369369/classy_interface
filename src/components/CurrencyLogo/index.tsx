@@ -60,7 +60,7 @@ export default function CurrencyLogo({
 
 
 export const getImageUrlFromToken = (address: string) =>
-  `/images/tokens/${address}.svg`
+  "`/images/tokens/${address}.svg`"
 
 export function TokenLogo({
   address,

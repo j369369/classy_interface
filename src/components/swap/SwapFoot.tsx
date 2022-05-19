@@ -205,23 +205,25 @@ export default function SwapFoot({
           </li>
         )}
       </ul>
-      <ul className="swap_info">
-        {allowedSlippage !== INITIAL_ALLOWED_SLIPPAGE && (
-          <li>
-            <div className="info_title">
-              Slippage Tolerance
-            </div>
-            <div className="info_contents">
-              <span className="num">{allowedSlippage / 100}%</span>
-            </div>
-          </li>
-        )} 
-      </ul>
+      <div className="info_list">
+        <ul className="swap_info">
+          {allowedSlippage !== INITIAL_ALLOWED_SLIPPAGE && (
+            <li>
+              <div className="info_title">
+                Slippage Tolerance
+              </div>
+              <div className="info_contents">
+                <span className="num">{allowedSlippage / 100}%</span>
+              </div>
+            </li>
+          )} 
+        </ul>
         {!swapIsUnsupported ? (
           <AdvancedSwapDetailsDropdown trade={trade} />
         ) : (
           <UnsupportedCurrencyFooter show={swapIsUnsupported} currencies={[currencies.INPUT, currencies.OUTPUT]} />
         )} 
+      </div>
       
       <div className="swap_button_box">
         {swapIsUnsupported ? (

@@ -315,8 +315,65 @@ export function ManageLists({
   }, [listUrlInput, setImportList, setListUrl, setModalView, tempList])
 
   return (
-    <Wrapper>
-      <PaddedColumn gap="14px">
+    <Wrapper className="modal_container">
+      <section className="modal_head dis_flex_col start">
+        <div className="input_box">
+          <input
+            type="text"
+            placeholder="https:// or ipfs:// or ENS name"
+            autoComplete="off"
+            value={listUrlInput}
+            onChange={handleInput}
+          />
+        </div>
+        {addError && (
+          <p className="text sm red" style={{marginTop: '4px'}}>{addError}</p>
+        )}
+      </section>
+      {tempList && (
+        <PaddedColumn style={{ paddingTop: 0 }}>
+          <Card backgroundColor={theme.bg2} padding="12px 20px">
+            <RowBetween>
+              <RowFixed>
+                {tempList.logoURI && <ListLogo logoURI={tempList.logoURI} size="40px" />}
+                <AutoColumn gap="4px" style={{ marginLeft: '20px' }}>
+                  <TYPE.body fontWeight={600}>{tempList.name}</TYPE.body>
+                  <TYPE.main fontSize={'12px'}>{tempList.tokens.length} tokens</TYPE.main>
+                </AutoColumn>
+              </RowFixed>
+              {isImported ? (
+                <RowFixed>
+                  <IconWrapper stroke={theme.text2} size="16px" marginRight={'10px'}>
+                    <CheckCircle />
+                  </IconWrapper>
+                  <TYPE.body color={theme.text2}>Loaded</TYPE.body>
+                </RowFixed>
+              ) : (
+                <ButtonPrimary
+                  style={{ fontSize: '14px' }}
+                  padding="6px 8px"
+                  width="fit-content"
+                  onClick={handleImport}
+                >
+                  Import
+                </ButtonPrimary>
+              )}
+            </RowBetween>
+          </Card>
+        </PaddedColumn>
+      )}
+      <Separator />
+      <ListContainer>
+        <AutoColumn gap="md">
+          {sortedLists.map(listUrl => (
+            <ListRow key={listUrl} listUrl={listUrl} />
+          ))}
+        </AutoColumn>
+      </ListContainer>
+      
+
+
+      {/* <PaddedColumn gap="14px">
         <Row>
           <SearchInput
             type="text"
@@ -371,7 +428,7 @@ export function ManageLists({
             <ListRow key={listUrl} listUrl={listUrl} />
           ))}
         </AutoColumn>
-      </ListContainer>
+      </ListContainer> */}
     </Wrapper>
   )
 }
