@@ -14,6 +14,7 @@ import { toV2LiquidityToken, useTrackedTokenPairs } from '../../state/user/hooks
 import { Dots } from '../../components/swap/styleds'
 import { useStakingInfo } from '../../state/stake/hooks'
 import { BIG_INT_ZERO, CURRENCIES_FULL_NAME } from '../../constants'
+import TokenDefaultLogo from '../../components/TokenDefaultLogo/index';
 
 export default function Pool() {
   const { account } = useActiveWeb3React()
@@ -96,9 +97,9 @@ export default function Pool() {
               </span>
             </div>
           ) : allV2PairsWithLiquidity?.length > 0 || stakingPairs?.length > 0 ? (
-            <div className="pool_card_list">
+            <div className="dis_flex_col gap10">
               <h5 className="pool_title">My Pool</h5>
-              <section>
+              <section className='pool_card_list'>
                 {v2PairsWithoutStakedAmount.map(v2Pair => (
                   <>
                     <FullPositionCard key={v2Pair.liquidityToken.address} pair={v2Pair} />

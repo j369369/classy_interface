@@ -28,8 +28,8 @@
 .modal_proceeding .modal_waiting .text_cont { width: 100%; }
 .modal_proceeding .modal_waiting .swap_info { padding: 0 5% }
 .modal_proceeding .modal_waiting .swap_info > li { display: flex; justify-content: space-between; align-items: center; margin: 10px 0; }
-.modal_proceeding .modal_waiting .swap_info > li .info_title { min-width: 80px; color: var(--gray); font-size: 14px; font-weight: 300; text-align: left; }
-.modal_proceeding .modal_waiting .swap_info > li .info_contents { color: var(--white); font-size: 15px;  text-align: right; }
+.modal_proceeding .modal_waiting .swap_info > li .info_title { min-width: 80px; max-width: 60%; color: var(--gray); font-size: 14px; font-weight: 300; text-align: left; }
+.modal_proceeding .modal_waiting .swap_info > li .info_contents { color: var(--white); font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right; }
 .modal_proceeding .modal_waiting .swap_info > li .info_contents .num { font-family: 'CookieRun'; font-weight: 700; }
 .modal_proceeding .modal_waiting .swap_info > li .info_contents .symbol { margin-left: 4px; color: var(--gray); font-weight: 500; }
 .modal_proceeding .modal_transaction { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; padding: 40px; width: 100%; }
@@ -41,10 +41,10 @@
 .swap_card_wrap .swap_card_head { display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
 .swap_card_wrap .swap_card_head .swap_card_head_logo { display: flex; justify-content: space-between; align-items: center; margin-top: -20px; width: 55%; }
 .swap_card_wrap .swap_card_head .swap_card_head_logo .img_logo { position: relative; overflow: hidden; width: 60px; height: 60px; background: var(--white); border-radius: 100px; z-index: 1; }
-.swap_card_wrap .swap_card_head .swap_card_head_logo .img_logo.to { border: 4px solid var(--gray); }
-.swap_card_wrap .swap_card_head .swap_card_head_logo .img_logo.from { border: 4px solid transparent; border-radius: 100px; background-image: var(--gradient-tropical-h), var(--gradient-tropical-h); background-origin: border-box; background-clip: content-box, border-box; }
+.swap_card_wrap .swap_card_head .swap_card_head_logo .img_logo.to { border: 2px solid var(--gray); }
+.swap_card_wrap .swap_card_head .swap_card_head_logo .img_logo.from { border: 2px solid transparent; border-radius: 100px; background-image: var(--gradient-tropical-h), var(--gradient-tropical-h); background-origin: border-box; background-clip: content-box, border-box; }
 .swap_card_wrap .swap_card_head .swap_card_head_logo .img_logo img { width: 100% !important; height: 100% !important; }
-.swap_card_wrap .swap_card_head .swap_card_head_logo .line { width: calc(100% - 120px); height: 4px; background: linear-gradient( to right, var(--gray), var(--yellow), var(--aqua) ); }
+.swap_card_wrap .swap_card_head .swap_card_head_logo .line { width: calc(100% - 120px); height: 3px; background: linear-gradient( to right, var(--gray), var(--yellow), var(--aqua) ); }
 .swap_card_wrap .swap_card_head .swap_card_head_token_name { color: var(--gray); font-size: 16px; }
 
 .swap_card_wrap .swap_card_body { padding: 10px 20px; }

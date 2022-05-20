@@ -40,9 +40,9 @@
 
 #swap .swap_foot { text-align: center; }
 #swap .swap_foot .swap_info { bottom: 101%; padding: 0 10px; }
-#swap .swap_foot .swap_info > li { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-#swap .swap_foot .swap_info > li .info_title { min-width: 80px; color: var(--gray); font-size: 14px; font-weight: 300; text-align: left; }
-#swap .swap_foot .swap_info > li .info_contents { color: var(--white); font-size: 15px;  text-align: right; }
+#swap .swap_foot .swap_info > li { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 5px; }
+#swap .swap_foot .swap_info > li .info_title { min-width: 80px; max-width: 60%; color: var(--gray); font-size: 14px; font-weight: 300; text-align: left; }
+#swap .swap_foot .swap_info > li .info_contents { color: var(--white); font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right; }
 #swap .swap_foot .swap_info > li .info_contents .num { font-family: 'CookieRun'; font-weight: 700; }
 #swap .swap_foot .swap_info > li .info_contents .symbol { margin-left: 4px; color: var(--gray); font-weight: 500; }
 #swap .swap_foot .info_list { margin: 2vh 0; }

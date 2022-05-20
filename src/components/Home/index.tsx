@@ -5,7 +5,7 @@ import VanillaTilt from 'vanilla-tilt'
 import './home.css'
 
 const Tilt = () => {
-  let intro = document.querySelector('#container .contents') as HTMLParagraphElement
+  let intro = document.querySelector('#intro') as HTMLParagraphElement
   VanillaTilt.init(intro);
 }
 

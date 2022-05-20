@@ -37,67 +37,6 @@ export const HoverCard = styled(Card)`
   }
 `
 
-const StyledPositionCard = styled(LightCard)<{ bgColor: any }>`
-  border: none;
-  background: var(--bg-gradient-white-03); 
-  backdrop-filter: var(--bg-filter-blur); 
-  box-shadow: var(--bg-box-shadow);
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-
-  @media(max-width: 768px) {
-    padding: 0.75rem;
-  }
-`
-
-const Pooltext = styled.span`
-  font-size: 18px;
-  font-weight: 500;
-  @media(max-width: 768px) {
-    font-size: 16px;
-  }
-`
-
-const Pdnbap = styled.div`
-  height: 0.5rem;
-  @media(max-width: 768px) {
-    width:100%;
-    height: 0.25rem;
-  }
-`
-
-/*
-const StyledPositionHead = styled.section`
-  display: flex;
-  justify-content: space-around;
-  position: relative;
-  padding: 0.5rem 1rem;
-  background: var(--lightBlue-04); 
-  box-shadow: var(--bg-box-shadow);
-  border-radius: 0.5rem;
-  color: var(--white);
-  font-weight: 500;
-  text-align: center;
-`
-
-const StyledPositionBody = styled.section`
-  display: flex;
-  justify-content: space-around;
-  position: relative;
-  padding: 0.5rem 1rem;
-  background: var(--bg-gradient-white-03); 
-  backdrop-filter: var(--bg-filter-blur); 
-  box-shadow: var(--bg-box-shadow);
-`
-
-
-const StyleRow = styled.div`
-  
-`
-*/
-
-
 interface PositionCardProps {
   pair: Pair
   showUnwrapped?: boolean
@@ -248,26 +187,97 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
 
   return (
     <>
-    {/* <StyledPositionHead>
-      <StyleRow>Pair</StyleRow>
-      <StyleRow>APR</StyleRow>
-      <StyleRow>TVL</StyleRow>
-      <StyleRow>Volume 24H</StyleRow>
-    </StyledPositionHead>
-    
-    <StyledPositionBody>
-      <StyleRow>
-        <DoubleCurrencyLogo currency0={currency0} currency1={currency1} size={20} />
-        <Text fontWeight={500} fontSize={20}>
-          {!currency0 || !currency1 ? <Dots>Loading</Dots> : `${currency0.symbol}/${currency1.symbol}`}
-        </Text>
-      </StyleRow>
-      <StyleRow>APR</StyleRow>
-      <StyleRow>TVL</StyleRow>
-      <StyleRow>Volume 24H</StyleRow>
-    </StyledPositionBody> */}
-
-    <StyledPositionCard border={border} bgColor={backgroundColor}>
+    <div className="pool_card">
+      <article className="pool_card_head">
+        <div className="swap_card_head">
+          <h5 className="swap_card_head_token_name to">
+            {!currency0 || !currency1 ? <Dots>Loading</Dots> : currency0.symbol}
+          </h5>
+          <article className="swap_card_head_logo">
+            <section className="img_logo_wrap">
+              <div className="img_logo to">
+                <DoubleCurrencyLogo currency0={currency0} />
+              </div>
+            </section>
+            <div className="line"></div>
+            <section className="img_logo_wrap">
+              <div className="img_logo from">
+                  <DoubleCurrencyLogo currency1={currency1} />
+              </div>
+            </section>
+          </article>
+          <h5 className="swap_card_head_token_name from">
+            {!currency0 || !currency1 ? <Dots>Loading</Dots> : currency1.symbol}
+          </h5>
+        </div>
+      </article>
+      <article className="pool_card_body">
+        <ul className="poll_card_list_info">
+          <li className="li">
+            <div className="poll_card_list_title">Your total pool tokens</div>
+            <div className="poll_card_list_text"><strong className="num">{userPoolBalance ? userPoolBalance.toSignificant(4) : '-'}</strong></div>
+          </li>
+          {stakedBalance && (
+            <li className="li">
+              <div className="poll_card_list_title">Pool tokens in rewards pool</div>
+              <div className="poll_card_list_text"><strong className="num">{stakedBalance.toSignificant(4)}</strong></div>
+            </li>
+          )}
+          <li className="li">
+            <div className="poll_card_list_title">Pooled {currency0.symbol}</div>
+            <div className="poll_card_list_text">
+              {token0Deposited ? (
+                <strong className="num">{token0Deposited?.toSignificant(6)}</strong>
+              ) : (
+                '-'
+              )}
+            </div>
+          </li>
+          <li className="li">
+            <div className="poll_card_list_title">Pooled {currency1.symbol}</div>
+            <div className="poll_card_list_text">
+              {token1Deposited ? (
+                <strong className="num">{token1Deposited?.toSignificant(6)}</strong>
+              ) : (
+                '-'
+              )}
+            </div>
+          </li>
+          <li className="li">
+            <div className="poll_card_list_title">Your pool share</div>
+            <div className="poll_card_list_text">
+              {poolTokenPercentage
+                ? <strong className="num">{(poolTokenPercentage.toFixed(2) === '0.00' ? '<0.01' : poolTokenPercentage.toFixed(2)) + '%'}</strong>
+                : '-'
+              }
+            </div>
+          </li>
+        </ul>
+      </article>
+      <article className="pool_card_foot">
+        <div className="pool_card_button_box">
+          {userDefaultPoolBalance && JSBI.greaterThan(userDefaultPoolBalance.raw, BIG_INT_ZERO) && (
+            <>
+              <ButtonPrimary
+                as={Link}
+                to={`/add/${currencyId(currency0)}/${currencyId(currency1)}`}
+                className="button md yellow"
+              >
+                Add
+              </ButtonPrimary>
+              <ButtonPrimary
+                as={Link}
+                className="button md white"
+                to={`/remove/${currencyId(currency0)}/${currencyId(currency1)}`}
+              >
+                Remove
+              </ButtonPrimary>
+            </>
+          )}
+        </div>
+      </article>
+    </div>
+    {/* <StyledPositionCard border={border} bgColor={backgroundColor}>
       <CardNoise />
       <AutoColumn gap="12px">
         <FixedHeightRow>
@@ -369,14 +379,14 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
               </Text>
             </FixedHeightRow>
             <Pdnbap />
-            {/* <ButtonSecondary padding="8px" borderRadius="8px">
+            <ButtonSecondary padding="8px" borderRadius="8px">
               <ExternalLink
                 style={{ width: '100%', textAlign: 'center', fontSize: '12px' }}
                 href={`https://uniswap.info/account/${account}`}
               >
                 View accrued fees and analytics<span style={{ fontSize: '11px' }}>↗</span>
               </ExternalLink>
-            </ButtonSecondary> */}
+            </ButtonSecondary>
             {userDefaultPoolBalance && JSBI.greaterThan(userDefaultPoolBalance.raw, BIG_INT_ZERO) && (
               <RowBetween marginTop="10px">
                 <ButtonPrimary
@@ -413,7 +423,7 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
           </AutoColumn>
         )}
       </AutoColumn>
-    </StyledPositionCard>
+    </StyledPositionCard> */}
     </>
   )
 }

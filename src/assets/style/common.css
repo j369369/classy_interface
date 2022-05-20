@@ -126,6 +126,8 @@ h6, .h6 { font-size: 14px; }
 .text.purple { color: var(--purple) !important; }
 .text.brown { color: var(--brown) !important; }
 
+.overflow { display: inline-block; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
 .yellow_title { color: var(--yellow) !important; font-family: 'CookieRun' !important; font-size: 18px; font-weight: 700; }
 
 .button { display: inline-block; position: relative; min-width: 50px; height: 24px; border: 1px solid transparent; border-radius: 3px; font-family: 'CookieRun'; font-size: 14px; font-weight: 700; }
