@@ -44,22 +44,11 @@ export default function CommonBases({
         <QuestionHelper text="These tokens are commonly paired with other tokens." />
       </article>
       <article className="body">
-        <BaseWrapper
-          onClick={() => {
-            if (!selectedCurrency || !currencyEquals(selectedCurrency, ETHER)) {
-              onSelect(ETHER)
-            }
-          }}
-          disable={selectedCurrency === ETHER}
-        >
-          <CurrencyLogo currency={ETHER} style={{ marginRight: 4 }} />
-          <h6>ETH</h6>
-        </BaseWrapper>
         {(chainId ? SUGGESTED_BASES[chainId] : []).map((token: Token) => {
           const selected = selectedCurrency instanceof Token && selectedCurrency.address === token.address
           return (
             <BaseWrapper onClick={() => !selected && onSelect(token)} disable={selected} key={token.address}>
-              <CurrencyLogo currency={token} style={{ marginRight: 4 }} />
+              {/* <CurrencyLogo currency={token} style={{ marginRight: 4 }} /> */}
               <h6>{token.symbol}</h6>
             </BaseWrapper>
           )

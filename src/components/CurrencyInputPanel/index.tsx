@@ -147,9 +147,7 @@ export default function CurrencyInputPanel({
             </>
           )}
 
-          <div className={`app_form_footer f_cookie ${label}`}>
-            {label}
-          </div>
+          <div className={`app_form_footer f_cookie ${label}`}></div>
         </article>
         
         {!disableCurrencySelect && onCurrencySelect && (

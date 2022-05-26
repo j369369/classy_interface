@@ -11,6 +11,7 @@ import Settings from '../Settings'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'state'
 import { resetMintState } from 'state/mint/actions'
+import { RowFixed } from '../Row'
 
 const Tabs = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
@@ -76,15 +77,16 @@ export function SwapPoolTabs({ active }: { active: 'swap' | 'pool' }) {
 
 export function FindPoolTabs() {
   return (
-    <Tabs>
-      <RowBetween style={{ padding: '1rem 1rem 0 1rem' }}>
-        <HistoryLink to="/pool">
-          <StyledArrowLeft />
-        </HistoryLink>
-        <ActiveText>Import Pool</ActiveText>
-        <Settings />
-      </RowBetween>
-    </Tabs>
+    <article className="swap_head f_cookie">
+      <HistoryLink to="/pool">
+        <span className="ic_back">
+          <i className="fas fa-angle-left"></i> 
+        </span>
+        <span>Back</span>
+      </HistoryLink>
+      <h4 className="title">Import Pool</h4>
+      <div></div>
+    </article>
   )
 }
 
@@ -93,19 +95,20 @@ export function AddRemoveTabs({ adding, creating }: { adding: boolean; creating:
   const dispatch = useDispatch<AppDispatch>()
 
   return (
-    <Tabs>
-      <RowBetween style={{ padding: '1rem 1rem 0 1rem' }}>
-        <HistoryLink
+    <article className="swap_head f_cookie">
+      <HistoryLink
           to="/pool"
           onClick={() => {
             adding && dispatch(resetMintState())
           }}
         >
-          <StyledArrowLeft />
+          <span className="ic_back">
+            <i className="fas fa-angle-left"></i> 
+          </span>
+          <span>Back</span>
         </HistoryLink>
-        <ActiveText>{creating ? 'Create a pair' : adding ? 'Add Liquidity' : 'Remove Liquidity'}</ActiveText>
-        <Settings />
-      </RowBetween>
-    </Tabs>
+        <h4 className="title">{creating ? 'Create a pair' : adding ? 'Add Liquidity' : 'Remove Liquidity'}</h4>
+        <div></div>
+    </article>
   )
 }

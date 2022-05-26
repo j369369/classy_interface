@@ -487,7 +487,7 @@ export default function RemoveLiquidity({
 
   return (
     <>
-      <AppBody>
+      <AppBody id="swap">
         <AddRemoveTabs creating={false} adding={false} />
         <Wrapper>
           <TransactionConfirmationModal

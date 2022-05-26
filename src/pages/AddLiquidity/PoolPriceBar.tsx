@@ -21,32 +21,40 @@ export function PoolPriceBar({
 }) {
   const theme = useContext(ThemeContext)
   return (
-    <AutoColumn gap="md">
-      <AutoRow justify="space-around" gap="4px">
-        <AutoColumn justify="center">
-          <TYPE.black>{price?.toSignificant(6) ?? '-'}</TYPE.black>
-          <Text fontWeight={500} fontSize={14} color={theme.text2} pt={1}>
-            {currencies[Field.CURRENCY_B]?.symbol} per {currencies[Field.CURRENCY_A]?.symbol}
-          </Text>
-        </AutoColumn>
-        <AutoColumn justify="center">
-          <TYPE.black>{price?.invert()?.toSignificant(6) ?? '-'}</TYPE.black>
-          <Text fontWeight={500} fontSize={14} color={theme.text2} pt={1}>
-            {currencies[Field.CURRENCY_A]?.symbol} per {currencies[Field.CURRENCY_B]?.symbol}
-          </Text>
-        </AutoColumn>
-        <AutoColumn justify="center">
-          <TYPE.black>
-            {noLiquidity && price
-              ? '100'
-              : (poolTokenPercentage?.lessThan(ONE_BIPS) ? '<0.01' : poolTokenPercentage?.toFixed(2)) ?? '0'}
-            %
-          </TYPE.black>
-          <Text fontWeight={500} fontSize={14} color={theme.text2} pt={1}>
+    <>
+    <div className="info_list">
+      <ul className="swap_info">
+        <li>
+          <div className="info_title">
+            <strong>{currencies[Field.CURRENCY_B]?.symbol}</strong> per <strong>{currencies[Field.CURRENCY_A]?.symbol}</strong>
+          </div>
+          <div className="info_contents">
+            <span className="num">{price?.toSignificant(6) ?? '-'}</span>
+          </div>
+        </li>
+        <li>
+          <div className="info_title">
+            <strong>{currencies[Field.CURRENCY_A]?.symbol}</strong> per <strong>{currencies[Field.CURRENCY_B]?.symbol}</strong>
+          </div>
+          <div className="info_contents">
+            <span className="num">{price?.invert()?.toSignificant(6) ?? '-'}</span>
+          </div>
+        </li>
+        <li>
+          <div className="info_title">
             Share of Pool
-          </Text>
-        </AutoColumn>
-      </AutoRow>
-    </AutoColumn>
+          </div>
+          <div className="info_contents">
+            <span className="num">
+              {noLiquidity && price
+                ? '100'
+                : (poolTokenPercentage?.lessThan(ONE_BIPS) ? '<0.01' : poolTokenPercentage?.toFixed(2)) ?? '0'}
+              %
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+    </>
   )
 }

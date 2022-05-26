@@ -43,6 +43,7 @@
 .swap_card_wrap .swap_card_head .swap_card_head_logo .img_logo { position: relative; overflow: hidden; width: 60px; height: 60px; background: var(--white); border-radius: 100px; z-index: 1; }
 .swap_card_wrap .swap_card_head .swap_card_head_logo .img_logo.to { border: 2px solid var(--gray); }
 .swap_card_wrap .swap_card_head .swap_card_head_logo .img_logo.from { border: 2px solid transparent; border-radius: 100px; background-image: var(--gradient-tropical-h), var(--gradient-tropical-h); background-origin: border-box; background-clip: content-box, border-box; }
+.swap_card_wrap .swap_card_head .swap_card_head_logo .img_logo .token_logo { width: 100% !important; height: 100% !important; }
 .swap_card_wrap .swap_card_head .swap_card_head_logo .img_logo img { width: 100% !important; height: 100% !important; }
 .swap_card_wrap .swap_card_head .swap_card_head_logo .line { width: calc(100% - 120px); height: 3px; background: linear-gradient( to right, var(--gray), var(--yellow), var(--aqua) ); }
 .swap_card_wrap .swap_card_head .swap_card_head_token_name { color: var(--gray); font-size: 16px; }

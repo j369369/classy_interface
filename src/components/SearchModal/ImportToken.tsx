@@ -83,9 +83,9 @@ export function ImportToken({ tokens, onBack, onDismiss, handleCurrencySelect }:
               onClick={onBack}
               className='text sm'
             >
-              <LeftArrowIcon>
+              <span className="ic_back">
                 <i className="fas fa-angle-left"></i> 
-              </LeftArrowIcon>
+              </span>
               <span>Back</span>
             </HoverText>
           )}

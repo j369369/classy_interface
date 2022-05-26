@@ -23,7 +23,7 @@ import { TYPE } from '../../theme'
 import Modal from '../Modal'
 
 // import { Dots } from '../swap/styleds'
-import Logo from '../../assets/images/com/logo.svg'
+import Logo from '../../assets/images/com/logo_white.svg'
 
 import './Header.css'
 

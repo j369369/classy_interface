@@ -335,9 +335,9 @@ export default function WalletModal({
                   setWalletView(WALLET_VIEWS.ACCOUNT)
                 }}
               >
-                <LeftArrowIcon>
+                <span className="ic_back">
                   <i className="fas fa-angle-left"></i> 
-                </LeftArrowIcon>
+                </span>
                 <span>Back</span>
               </HoverText>
             
