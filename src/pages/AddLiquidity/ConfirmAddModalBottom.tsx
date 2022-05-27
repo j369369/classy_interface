@@ -23,45 +23,49 @@ export function ConfirmAddModalBottom({
   onAdd: () => void
 }) {
   return (
-    <>
-      <RowBetween>
-        <TYPE.subHeader>{currencies[Field.CURRENCY_A]?.symbol} Deposited</TYPE.subHeader>
-        <RowFixed>
-          <CurrencyLogo currency={currencies[Field.CURRENCY_A]} style={{ marginRight: '8px', width: '20px', height: '20px' }} />
-          <TYPE.subHeader>{parsedAmounts[Field.CURRENCY_A]?.toSignificant(6)}</TYPE.subHeader>
-        </RowFixed>
-      </RowBetween>
-      <RowBetween>
-        <TYPE.subHeader>{currencies[Field.CURRENCY_B]?.symbol} Deposited</TYPE.subHeader>
-        <RowFixed>
-          <CurrencyLogo currency={currencies[Field.CURRENCY_B]} style={{ marginRight: '8px', width: '20px', height: '20px' }} />
-          <TYPE.subHeader>{parsedAmounts[Field.CURRENCY_B]?.toSignificant(6)}</TYPE.subHeader>
-        </RowFixed>
-      </RowBetween>
-      <RowBetween>
-        <TYPE.subHeader>Rates</TYPE.subHeader>
-        <TYPE.subHeader>
-          {`1 ${currencies[Field.CURRENCY_A]?.symbol} = ${price?.toSignificant(4)} ${
-            currencies[Field.CURRENCY_B]?.symbol
-          }`}
-        </TYPE.subHeader>
-      </RowBetween>
-      <RowBetween style={{ justifyContent: 'flex-end' }}>
-        <TYPE.subHeader>
-          {`1 ${currencies[Field.CURRENCY_B]?.symbol} = ${price?.invert().toSignificant(4)} ${
-            currencies[Field.CURRENCY_A]?.symbol
-          }`}
-        </TYPE.subHeader>
-      </RowBetween>
-      <RowBetween>
-        <TYPE.subHeader>Share of Pool:</TYPE.subHeader>
-        <TYPE.subHeader>{noLiquidity ? '100' : poolTokenPercentage?.toSignificant(4)}%</TYPE.subHeader>
-      </RowBetween>
-      <ButtonPrimary style={{ margin: '20px 0 0 0' }} onClick={onAdd}>
-        <Text fontWeight={500} fontSize={18}>
+    <section className="swap_info_box">
+      <ul className="swap_info">
+        <li>
+          <div className="info_title"><strong>{currencies[Field.CURRENCY_A]?.symbol}</strong> Deposited</div>
+          <div className="info_contents">
+            <span className="num">{parsedAmounts[Field.CURRENCY_A]?.toSignificant(6)}</span>
+          </div>
+        </li>
+        <li>
+          <div className="info_title">{currencies[Field.CURRENCY_B]?.symbol} Deposited</div>
+          <div className="info_contents">
+            <span className="num">{parsedAmounts[Field.CURRENCY_B]?.toSignificant(6)}</span>
+          </div>
+        </li>
+        <li>
+          <div className="info_title">Rates</div>
+          <div className="info_contents">
+            <section>
+              <span className="num">1 </span>
+              <span className="symbol">{currencies[Field.CURRENCY_A]?.symbol}</span> = <span className="num">{price?.toSignificant(4)} </span>
+              <span className="symbol">{currencies[Field.CURRENCY_B]?.symbol}</span>
+            </section>
+            <section>
+              <span className="num">1 </span>
+              <span className="symbol">{currencies[Field.CURRENCY_B]?.symbol}</span> = <span className="num">{price?.invert().toSignificant(4)} </span>
+              <span className="symbol">{currencies[Field.CURRENCY_A]?.symbol}</span>
+            </section>
+          </div>
+        </li>
+        <li>
+          <div className="info_title">Share of Pool</div>
+          <div className="info_contents">
+            <span className="num">{noLiquidity ? '100' : poolTokenPercentage?.toSignificant(4)}%</span>
+          </div>
+        </li>
+      </ul>
+      <div className="swap_button_box">
+        <button type="button" className={`button round lg ${noLiquidity ? "line error" : "samba"} w100p`} 
+          onClick={onAdd}
+        >
           {noLiquidity ? 'Create Pool & Supply' : 'Confirm Supply'}
-        </Text>
-      </ButtonPrimary>
-    </>
+        </button>
+      </div>
+    </section>
   )
 }

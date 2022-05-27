@@ -43,7 +43,8 @@ const StyledLogo = styled.img`
   margin-left: 6px;
 `
 
-function ConfirmationPendingContent({ onDismiss, pendingText }: { onDismiss: () => void; pendingText: any }) {
+function ConfirmationPendingContent({ onDismiss, pendingText }: { onDismiss: () => void; pendingText?: any }) {
+  const pendingTextType = typeof(pendingText);
   return (
     <div className="modal_proceeding">
       <section className="modal_waiting">
@@ -52,7 +53,7 @@ function ConfirmationPendingContent({ onDismiss, pendingText }: { onDismiss: () 
           <h4 className="text yellow f_cookie">Waiting For Confirmation</h4>
         </div>
         <div className="text_cont">
-          {pendingText()}
+          { pendingTextType === "function" ? pendingText() : pendingText }
         </div>
         <p className="bottom_text text aqua">Confirm this transaction in your wallet</p>
       </section>
