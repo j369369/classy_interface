@@ -43,8 +43,8 @@ strong { font-weight: 700; }
 ::selection { background: var(--yellow); color: var(--black); }
 
 a { color: inherit; text-decoration: none; }
-a:hover { text-decoration: none; background: auto; }
-a:link { outline: none; }
+a:hover, a:active { text-decoration: none !important; background: auto; }
+a:link { outline: none; text-decoration: none !important; }
 a.a { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
 

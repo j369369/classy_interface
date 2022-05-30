@@ -1,6 +1,13 @@
 @charset "UTF-8";
 
 #swap { display: flex; flex-direction: column; gap: 20px; }
+#swap .remove_swap_info_box { padding: 20px 0; }
+#swap .swap_info { bottom: 101%; padding: 0 10px; }
+#swap .swap_info > li { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 5px; }
+#swap .swap_info > li .info_title { min-width: 80px; max-width: 60%; color: var(--gray); font-size: 14px; font-weight: 300; text-align: left; }
+#swap .swap_info > li .info_contents { color: var(--white); font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right; }
+#swap .swap_info > li .info_contents .num { font-family: 'CookieRun'; font-weight: 700; }
+#swap .swap_info > li .info_contents .symbol { margin-left: 4px; color: var(--gray); font-weight: 500; }
 
 #swap .swap_head { display: flex; justify-content: space-between; align-items: center; }
 #swap .swap_head .title { padding: 0 10px; font-family: 'CookieRun'; }
@@ -37,21 +44,19 @@
 #swap .swap_body .send_box > .contents .recipient > .head { width: 100px; color: var(--gray); font-size: 12px; }
 #swap .swap_body .send_box > .contents .recipient > .body { width: 100%; }
 #swap .swap_body .send_box > .contents .recipient > .body .address_input { width: 100%; height: 20px; background: transparent; border: transparent; color: var(--white); font-size: 14px; }
+#swap .swap_body .amount_slider_box { margin-bottom: 10px; padding: 10px 20px; background: var(--dark-0); border-radius: 100px; }
+#swap .swap_body .amount_slider_box .slider { width: calc(100% - 120px); }
 
 #swap .swap_foot { text-align: center; }
-#swap .swap_foot .swap_info { bottom: 101%; padding: 0 10px; }
-#swap .swap_foot .swap_info > li { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 5px; }
-#swap .swap_foot .swap_info > li .info_title { min-width: 80px; max-width: 60%; color: var(--gray); font-size: 14px; font-weight: 300; text-align: left; }
-#swap .swap_foot .swap_info > li .info_contents { color: var(--white); font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right; }
-#swap .swap_foot .swap_info > li .info_contents .num { font-family: 'CookieRun'; font-weight: 700; }
-#swap .swap_foot .swap_info > li .info_contents .symbol { margin-left: 4px; color: var(--gray); font-weight: 500; }
 #swap .swap_foot .info_list { margin: 2vh 0; }
+#swap .swap_foot .info_list.mg0 { margin: 0; }
 #swap .swap_foot .unsupported { margin: 2vh 0; }
 
 #swap .swap_foot .swap_button_box {  }
 #swap .swap_foot .swap_button_box .button { width: 100%; }
 #swap .swap_foot .swap_button_box .any { display: flex; flex-direction: column; gap: 10px; }
 #swap .swap_foot .swap_card { margin-bottom: 1.5vh; padding: 10px; width: 100%; border-radius: 10px; color: var(--aqua); font-size: 14px; }
+#swap .swap_foot .text_message { padding: 0 10px; color: var(--mint); font-size: 14px; text-align: left; }
 
 #swapFrom .balance { top: 110%; }
 #swapTo .balance { bottom: 110%; }

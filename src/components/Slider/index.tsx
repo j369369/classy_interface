@@ -19,7 +19,7 @@ const StyledRangeInput = styled.input<{ size: number }>`
     -webkit-appearance: none;
     height: ${({ size }) => size}px;
     width: ${({ size }) => size}px;
-    background-color: #565a69;
+    background-color: var(--yellow);
     border-radius: 100%;
     border: none;
     transform: translateY(-50%);
@@ -35,7 +35,7 @@ const StyledRangeInput = styled.input<{ size: number }>`
   &::-moz-range-thumb {
     height: ${({ size }) => size}px;
     width: ${({ size }) => size}px;
-    background-color: #565a69;
+    background-color: var(--yellow);
     border-radius: 100%;
     border: none;
     color: ${({ theme }) => theme.bg1};
@@ -50,7 +50,7 @@ const StyledRangeInput = styled.input<{ size: number }>`
   &::-ms-thumb {
     height: ${({ size }) => size}px;
     width: ${({ size }) => size}px;
-    background-color: #565a69;
+    background-color: var(--yellow);
     border-radius: 100%;
     color: ${({ theme }) => theme.bg1};
 
@@ -62,13 +62,15 @@ const StyledRangeInput = styled.input<{ size: number }>`
   }
 
   &::-webkit-slider-runnable-track {
-    background: linear-gradient(90deg, ${({ theme }) => theme.bg5}, ${({ theme }) => theme.bg3});
-    height: 2px;
+    background: var(--gradient-tropical-h);
+    height: 3px;
+    border-radius: 100px;
   }
 
   &::-moz-range-track {
-    background: linear-gradient(90deg, ${({ theme }) => theme.bg5}, ${({ theme }) => theme.bg3});
-    height: 2px;
+    background: var(--gradient-tropical-h);
+    height: 3px;
+    border-radius: 100px;
   }
 
   &::-ms-track {
@@ -76,14 +78,14 @@ const StyledRangeInput = styled.input<{ size: number }>`
     border-color: transparent;
     color: transparent;
 
-    background: ${({ theme }) => theme.bg5};
-    height: 2px;
+    background: var(--gray);
+    height: 3px;
   }
   &::-ms-fill-lower {
-    background: ${({ theme }) => theme.bg5};
+    background: var(--gray);
   }
   &::-ms-fill-upper {
-    background: ${({ theme }) => theme.bg3};
+    background: var(--gray);
   }
 `
 

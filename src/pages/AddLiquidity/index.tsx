@@ -384,84 +384,82 @@ export default function AddLiquidity({
               noLiquidity={noLiquidity}
               price={price}
             />
-
-            <div className="swap_button_box">
-              {addIsUnsupported ? (
-                <button type="button" className="button round line lg error" disabled>Unsupported Asset</button>
-              ) : !account ? (
-                <button type="button" className="button round lg blue" onClick={toggleWalletModal}>Connect Wallet</button>
-              ) : (
-                <AutoColumn gap={'md'}>
-                  {(approvalA === ApprovalState.NOT_APPROVED ||
-                    approvalA === ApprovalState.PENDING ||
-                    approvalB === ApprovalState.NOT_APPROVED ||
-                    approvalB === ApprovalState.PENDING) &&
-                    isValid && (
-                      <div className="dis_flex gap8">
-                        {approvalA !== ApprovalState.APPROVED && (
-                          <button type="button" className="button round lg green" onClick={approveACallback}>
-                            {approvalA === ApprovalState.PENDING ? (
-                              <Dots>Approving {currencies[Field.CURRENCY_A]?.symbol}</Dots>
-                            ) : (
-                              'Approve ' + currencies[Field.CURRENCY_A]?.symbol
-                            )}
-                          </button>
-                        )}
-                        {approvalB !== ApprovalState.APPROVED && (
-                          <button type="button" className="button round lg green" onClick={approveBCallback}>
-                            {approvalB === ApprovalState.PENDING ? (
-                              <Dots>Approving {currencies[Field.CURRENCY_B]?.symbol}</Dots>
-                            ) : (
-                              'Approve ' + currencies[Field.CURRENCY_B]?.symbol
-                            )}
-                          </button>
-                        )}
-                      </div>
-                    )}
-                  <button type="button" className={`button round lg ${!isValid ? "line error" : "samba"}`} 
-                    onClick={() => {
-                      expertMode ? onAdd() : setShowConfirm(true)
-                    }}
-                  >
-                    {error ?? 'Supply'}
-                  </button>
-                </AutoColumn>
-              )}
-            </div>
           </>
           )}
-        </article>
-        
-        <TransactionConfirmationModal
-          isOpen={showConfirm}
-          onDismiss={handleDismissConfirmation}
-          attemptingTxn={attemptingTxn}
-          hash={txHash}
-          content={() => (
-            <ConfirmationModalContent
-              title={noLiquidity ? 'You are creating a pool' : 'You will receive'}
-              onDismiss={handleDismissConfirmation}
-              topContent={modalHeader}
-              bottomContent={modalBottom}
+          {!addIsUnsupported ? (
+            pair && !noLiquidity && pairState !== PairState.INVALID ? (
+              <MinimalPositionCard showUnwrapped={oneCurrencyIsWETH} pair={pair} />
+            ) : null
+          ) : (
+            <UnsupportedCurrencyFooter
+              show={addIsUnsupported}
+              currencies={[currencies.CURRENCY_A, currencies.CURRENCY_B]}
             />
           )}
-          pendingText={pendingText}
-          currencyToAdd={pair?.liquidityToken}
-        />
-
+        </article>
+        <article className="swap_foot">
+          <div className="swap_button_box">
+            {addIsUnsupported ? (
+              <button type="button" className="button round line lg error" disabled>Unsupported Asset</button>
+            ) : !account ? (
+              <button type="button" className="button round lg blue" onClick={toggleWalletModal}>Connect Wallet</button>
+            ) : (
+              <AutoColumn gap={'md'}>
+                {(approvalA === ApprovalState.NOT_APPROVED ||
+                  approvalA === ApprovalState.PENDING ||
+                  approvalB === ApprovalState.NOT_APPROVED ||
+                  approvalB === ApprovalState.PENDING) &&
+                  isValid && (
+                    <div className="dis_flex gap8">
+                      {approvalA !== ApprovalState.APPROVED && (
+                        <button type="button" className="button round lg green" onClick={approveACallback}>
+                          {approvalA === ApprovalState.PENDING ? (
+                            <Dots>Approving {currencies[Field.CURRENCY_A]?.symbol}</Dots>
+                          ) : (
+                            'Approve ' + currencies[Field.CURRENCY_A]?.symbol
+                          )}
+                        </button>
+                      )}
+                      {approvalB !== ApprovalState.APPROVED && (
+                        <button type="button" className="button round lg green" onClick={approveBCallback}>
+                          {approvalB === ApprovalState.PENDING ? (
+                            <Dots>Approving {currencies[Field.CURRENCY_B]?.symbol}</Dots>
+                          ) : (
+                            'Approve ' + currencies[Field.CURRENCY_B]?.symbol
+                          )}
+                        </button>
+                      )}
+                    </div>
+                  )}
+                <button type="button" className={`button round lg ${!isValid ? "line error" : "samba"}`} 
+                  onClick={() => {
+                    expertMode ? onAdd() : setShowConfirm(true)
+                  }}
+                >
+                  {error ?? 'Supply'}
+                </button>
+              </AutoColumn>
+            )}
+          </div>
+        </article>
       </AppBody>
-      {!addIsUnsupported ? (
-        pair && !noLiquidity && pairState !== PairState.INVALID ? (
-          <AutoColumn style={{ minWidth: '20rem', width: '100%', maxWidth: '400px', marginTop: '1rem' }}>
-            <MinimalPositionCard showUnwrapped={oneCurrencyIsWETH} pair={pair} />
-          </AutoColumn>
-        ) : null
-      ) : (
-        <UnsupportedCurrencyFooter
-          show={addIsUnsupported}
-          currencies={[currencies.CURRENCY_A, currencies.CURRENCY_B]}
-        />
-      )}
+
+      <TransactionConfirmationModal
+        isOpen={showConfirm}
+        onDismiss={handleDismissConfirmation}
+        attemptingTxn={attemptingTxn}
+        hash={txHash}
+        content={() => (
+          <ConfirmationModalContent
+            title={noLiquidity ? 'You are creating a pool' : 'You will receive'}
+            onDismiss={handleDismissConfirmation}
+            topContent={modalHeader}
+            bottomContent={modalBottom}
+          />
+        )}
+        pendingText={pendingText}
+        currencyToAdd={pair?.liquidityToken}
+      />
     </>
   )
 }

@@ -75,78 +75,46 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
   return (
     <>
       {userPoolBalance && JSBI.greaterThan(userPoolBalance.raw, JSBI.BigInt(0)) ? (
-        <GreyCard border={border}>
-          <AutoColumn gap="12px">
-            <FixedHeightRow>
-              <RowFixed>
-                <Text fontWeight={500} fontSize={14}>
-                  Your position
-                </Text>
-              </RowFixed>
-            </FixedHeightRow>
-            <FixedHeightRow onClick={() => setShowMore(!showMore)}>
-              <RowFixed>
-                <DoubleCurrencyLogo currency0={currency0} currency1={currency1} margin={true} size={18} />
-                <Text fontWeight={500} fontSize={18} style={{ marginLeft: "0.5rem" }}> 
-                  {currency0.symbol}/{currency1.symbol}
-                </Text>
-              </RowFixed>
-              <RowFixed>
-                <Text fontWeight={500} fontSize={18}>
-                  {userPoolBalance ? userPoolBalance.toSignificant(4) : '-'}
-                </Text>
-              </RowFixed>
-            </FixedHeightRow>
-            <AutoColumn gap="4px">
-              <FixedHeightRow>
-                <Text fontSize={14} fontWeight={400}>
-                  Your pool share:
-                </Text>
-                <Text fontSize={14} fontWeight={400}>
-                  {poolTokenPercentage ? poolTokenPercentage.toFixed(6) + '%' : '-'}
-                </Text>
-              </FixedHeightRow>
-              <FixedHeightRow>
-                <Text fontSize={14} fontWeight={400}>
-                  {currency0.symbol}:
-                </Text>
-                {token0Deposited ? (
-                  <RowFixed>
-                    <Text fontSize={14} fontWeight={400} marginLeft={'6px'}>
-                      {token0Deposited?.toSignificant(6)}
-                    </Text>
-                  </RowFixed>
-                ) : (
-                  '-'
-                )}
-              </FixedHeightRow>
-              <FixedHeightRow>
-                <Text fontSize={14} fontWeight={400}>
-                  {currency1.symbol}:
-                </Text>
-                {token1Deposited ? (
-                  <RowFixed>
-                    <Text fontSize={14} fontWeight={400} marginLeft={'6px'}>
-                      {token1Deposited?.toSignificant(6)}
-                    </Text>
-                  </RowFixed>
-                ) : (
-                  '-'
-                )}
-              </FixedHeightRow>
-            </AutoColumn>
-          </AutoColumn>
-        </GreyCard>
+        <div className="info_list mg0">
+          <ul className="swap_info">
+            <li>
+              <div className="info_title">
+                Your position
+              </div>
+              <div className="info_contents">
+                <strong className="text gray">{currency0.symbol}/{currency1.symbol}</strong> <span className="num">{userPoolBalance ? userPoolBalance.toSignificant(4) : '-'}</span>
+              </div>
+            </li>
+            <li>
+              <div className="info_title">
+                Your pool share
+              </div>
+              <div className="info_contents">
+                <span className="num">{poolTokenPercentage ? poolTokenPercentage.toFixed(6) + '%' : '-'}</span>
+              </div>
+            </li>
+            <li>
+              <div className="info_title">
+                <strong>{currency0.symbol}</strong>
+              </div>
+              <div className="info_contents">
+                <span className="num">{token0Deposited ? token0Deposited?.toSignificant(6) : '-'}</span>
+              </div>
+            </li>
+            <li>
+              <div className="info_title">
+                <strong>{currency1.symbol}</strong>
+              </div>
+              <div className="info_contents">
+                <span className="num">{token0Deposited ? token1Deposited?.toSignificant(6) : '-'}</span>
+              </div>
+            </li>
+          </ul>
+        </div>
       ) : (
-        <LightCard>
-          <TYPE.subHeader style={{ textAlign: 'center' }}>
-            <span role="img" aria-label="wizard-icon">
-              ⭐️
-            </span>{' '}
-            By adding liquidity you&apos;ll earn 0.3% of all trades on this pair proportional to your share of the pool.
-            Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.
-          </TYPE.subHeader>
-        </LightCard>
+        <div className="text_message">
+          ⭐️ By adding liquidity you&apos;ll earn 0.3% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.
+        </div>
       )}
     </>
   )
