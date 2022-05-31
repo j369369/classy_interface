@@ -183,11 +183,11 @@ export function CurrencySearch({
         </div>
       </section>
       
-      {showCommonBases && (
+      {/* {showCommonBases && (
         <section className="modal_body bg_box">
           <CommonBases chainId={chainId} onSelect={handleCurrencySelect} selectedCurrency={selectedCurrency} />
         </section>
-      )}
+      )} */}
       
       {searchToken && !searchTokenIsAdded ? (
         <Column style={{ padding: '20px 0', height: '100%' }}>

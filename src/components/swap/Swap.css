@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 #swap { display: flex; flex-direction: column; gap: 20px; }
-#swap .remove_swap_info_box { padding: 20px 0; }
+#swap .remove_swap_info_box { padding: 10px 0; }
 #swap .swap_info { bottom: 101%; padding: 0 10px; }
 #swap .swap_info > li { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 5px; }
 #swap .swap_info > li .info_title { min-width: 80px; max-width: 60%; color: var(--gray); font-size: 14px; font-weight: 300; text-align: left; }

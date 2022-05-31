@@ -23,9 +23,7 @@ export default function Home() {
       <section id="container" className="home">
         <Background/>
         <article className="contents">
-          <div className="contents_in">
-            <HomeWrapper/>
-          </div>
+          <HomeWrapper/>
         </article>
       </section>
       {/* <footer id='footer'></footer> */}

@@ -16,7 +16,9 @@ export default function Container({ children }: { children: React.ReactNode }) {
       <Background/>
       <article className="contents">
         <div className="contents_in">
+          <div className="contents_in_box">
           { children }
+          </div>
         </div>
       </article>
     </section>

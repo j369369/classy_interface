@@ -90,7 +90,7 @@ function TransactionSubmittedContent({
             <ExternalLink href={getEtherscanLink(chainId, hash, 'transaction')} className="text aqua">
             <span className="ic_link">
               <LinkIcon size={16} />
-            </span> View on Etherscan
+            </span> View on Polygon
             </ExternalLink>
           )}
           {currencyToAdd && library?.provider?.isMetaMask && (

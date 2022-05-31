@@ -338,7 +338,7 @@ export default function AccountDetails({
                           <span className="ic_link">
                            <LinkIcon size={16} />
                           </span>
-                          <span>View on Etherscan</span>
+                          <span>View on Polygon</span>
                         </AddressLink>
                       )}
                     </div>
@@ -362,7 +362,7 @@ export default function AccountDetails({
                           <span className="ic_link">
                            <LinkIcon size={16} />
                           </span>
-                          <span>View on Etherscan</span>
+                          <span>View on Polygon</span>
                         </AddressLink>
                       )}
                     </div>
