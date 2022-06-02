@@ -45,25 +45,40 @@ function fetchClaim(account: string, chainId: ChainId): Promise<UserClaimData | 
 
 // parse distributorContract blob and detect if user has claim data
 // null means we know it does not
-export function useUserClaimData(account: string | null | undefined): UserClaimData | null | undefined {
-  const { chainId } = useActiveWeb3React()
+// export function useUserClaimData(account: string | null | undefined): UserClaimData | null | undefined {
+//   const { chainId } = useActiveWeb3React()
 
-  const key = `${chainId}:${account}`
-  const [claimInfo, setClaimInfo] = useState<{ [key: string]: UserClaimData | null }>({})
+//   const key = `${chainId}:${account}`
+//   const [claimInfo, setClaimInfo] = useState<{ [key: string]: UserClaimData | null }>({})
+
+//   useEffect(() => {
+//     if (!account || !chainId) return
+//     fetchClaim(account, chainId).then(accountClaimInfo =>
+//       setClaimInfo(claimInfo => {
+//         return {
+//           ...claimInfo,
+//           [key]: accountClaimInfo
+//         }
+//       })
+//     )
+//   }, [account, chainId, key])
+
+//   return account && chainId ? claimInfo[key] : undefined
+// }
+
+export function useUserClaimData(
+  account: string | null | undefined,
+): UserClaimData | null | undefined {
+  const { chainId } = useActiveWeb3React();
+
+  const key = `${chainId}:${account}`;
+  const [claimInfo] = useState<{ [key: string]: UserClaimData | null }>({});
 
   useEffect(() => {
-    if (!account || !chainId) return
-    fetchClaim(account, chainId).then(accountClaimInfo =>
-      setClaimInfo(claimInfo => {
-        return {
-          ...claimInfo,
-          [key]: accountClaimInfo
-        }
-      })
-    )
-  }, [account, chainId, key])
+    return;
+  }, [account, chainId, key]);
 
-  return account && chainId ? claimInfo[key] : undefined
+  return account && chainId ? claimInfo[key] : undefined;
 }
 
 // check if user is in blob and has not yet claimed UNI
