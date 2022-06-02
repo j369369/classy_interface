@@ -27,7 +27,6 @@ import BigNumber from 'bignumber.js'
 
 import { usePriceCakeBusd,useFarmUser } from 'state/farms/hooks'
 
-
 import useApproveFarm from './hooks/useApproveFarm'
 import useHarvestFarm from './hooks/useHarvestFarm'
 import useStakeFarms from './hooks/useStakeFarms'
@@ -42,7 +41,6 @@ import { useTranslation } from 'react-i18next'
 import { Input as NumericalInput } from '../../components/NumericalInput'
 import { useWalletModalToggle } from 'state/application/hooks'
 import { CURRENCIES } from '../../constants/index';
-
 
 export const FixedHeightRow = styled(RowBetween)`
   height: 24px;
@@ -144,7 +142,6 @@ const getDisplayApr = (cakeRewardsApr?: number, lpRewardsApr?: number) => {
   }
   return null
 }
-
 
 const parseRowData = (farm:any, price:any) => {
   const { token, quoteToken } = farm

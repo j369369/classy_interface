@@ -11,7 +11,7 @@ import { useETHBalances, useAggregateUniBalance } from '../../state/wallet/hooks
 import { useToggleSelfClaimModal, useShowClaimPopup } from '../../state/application/hooks'
 import { useUserHasAvailableClaim } from '../../state/claim/hooks'
 import { useUserHasSubmittedClaim } from '../../state/transactions/hooks'
-import UniBalanceContent from './UniBalanceContent'
+import BalanceContent from './BalanceContent'
 import usePrevious from '../../hooks/usePrevious'
 
 
@@ -131,7 +131,7 @@ export default function Header() {
       <URLWarning />
       <ClaimModal />
       <Modal isOpen={showUniBalanceModal} onDismiss={() => setShowUniBalanceModal(false)}>
-        <UniBalanceContent setShowUniBalanceModal={setShowUniBalanceModal} />
+        <BalanceContent setShowUniBalanceModal={setShowUniBalanceModal} />
       </Modal>
     </>
   )

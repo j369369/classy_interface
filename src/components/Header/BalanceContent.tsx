@@ -17,6 +17,10 @@ import { AutoColumn } from '../Column'
 import { RowBetween } from '../Row'
 import { Break, CardNoise, CardSection, DataCard } from '../earn/styled'
 import { CURRENCIES } from '../../constants';
+import { ExternalLink as LinkIcon } from 'react-feather'
+
+import CloseIcon from '../Modal/CloseIcon'
+import '../Modal/Modal.css'
 
 const ContentWrapper = styled(AutoColumn)`
   width: 100%;
@@ -50,7 +54,7 @@ const TokenInfoWrap = styled.div`
 /**
  * Content for balance stats modal
  */
-export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowUniBalanceModal: any }) {
+export default function BalanceContent({ setShowUniBalanceModal }: { setShowUniBalanceModal: any }) {
   const { account, chainId } = useActiveWeb3React()
   const uni = chainId ? UNI[chainId] : undefined
 
@@ -71,71 +75,71 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
   )
 
   return (
-    <ContentWrapper gap="lg">
-      <ModalUpper>
-        {/* <CardBGImage /> */}
-        <CardNoise />
-        <CardSection gap="md">
-          <RowBetween>
-            <TYPE.title>Your {CURRENCIES} Breakdown</TYPE.title>
-            <StyledClose onClick={() => setShowUniBalanceModal(false)} />
-          </RowBetween>
-        </CardSection>
-        <Break />
-        {account && (
-          <>
-            <CardSection gap="sm" id="infoBreakdown" className="card">
-              <AutoColumn gap="md">
-                <RowBetween>
-                  <TokenInfoWrap>
-                    <UniTokenAnimated width="48px" src={tokenLogo} />{' '}
-                    <TYPE.title_B fontSize={24} fontWeight={600}>
-                      {total?.toFixed(2, { groupSeparator: ',' })}
-                    </TYPE.title_B>
-                  </TokenInfoWrap>
-                </RowBetween>
-              </AutoColumn>
-              <AutoColumn gap="md">
-                <RowBetween>
-                  <TYPE.title_L>Balance:</TYPE.title_L>
-                  <TYPE.main>{uniBalance?.toFixed(2, { groupSeparator: ',' })}</TYPE.main>
-                </RowBetween>
-                {/* <RowBetween>
-                  <TYPE.title_L>Unclaimed:</TYPE.title_L>
-                  <TYPE.main>
+    <div className="modal_container">
+      <section className="modal_head">
+        <h4>Your {CURRENCIES} Breakdown</h4>
+        <CloseIcon close={() => setShowUniBalanceModal(false)} />
+      </section>
+      <section className="modal_body">
+        <div className="m_card">
+          {/* <UniTokenAnimated width="48px" src={tokenLogo} />{' '} */}
+          {account && (
+            <article className="dis_flex between">
+              <h5 className="text gray">{CURRENCIES}</h5>
+              <h5 className="f_cookie">{total?.toFixed(2, { groupSeparator: ',' })}</h5>
+            </article>
+          )}
+        </div>
+        <ul className="modal_info_list">
+          {account && (
+            <>
+              <li>
+                <div className="info_title">Balance</div>
+                <div className="info_contents">
+                  <span className="num">{uniBalance?.toFixed(2, { groupSeparator: ',' })}</span>
+                </div>
+              </li>
+              <li>
+                <div className="info_title">Unclaimed</div>
+                <div className="info_contents">
+                  <span className="num">
                     {uniToClaim?.toFixed(4, { groupSeparator: ',' })}{' '}
                     {uniToClaim && uniToClaim.greaterThan('0') && (
                       <StyledInternalLink onClick={() => setShowUniBalanceModal(false)} to="/uni">
                         (claim)
                       </StyledInternalLink>
                     )}
-                  </TYPE.main>
-                </RowBetween> */}
-              </AutoColumn>
-            </CardSection>
-            <Break />
-          </>
-        )}
-        <CardSection gap="sm">
-          <AutoColumn gap="md">
-            <RowBetween>
-              <TYPE.title_L>{CURRENCIES} price:</TYPE.title_L>
-              <TYPE.main>${uniPrice?.toFixed(2) ?? '-'}</TYPE.main>
-            </RowBetween>
-            <RowBetween>
-              <TYPE.title_L>{CURRENCIES} in circulation:</TYPE.title_L>
-              <TYPE.main>{circulation?.toFixed(0, { groupSeparator: ',' })}</TYPE.main>
-            </RowBetween>
-            <RowBetween>
-              <TYPE.title_L>Total Supply</TYPE.title_L>
-              <TYPE.main>{totalSupply?.toFixed(0, { groupSeparator: ',' })}</TYPE.main>
-            </RowBetween>
-            {uni && uni.chainId === ChainId.MATIC ? (
-              <ExternalLink href={`https://uniswap.info/token/${uni.address}`}>View {CURRENCIES} Analytics</ExternalLink>
-            ) : null}
-          </AutoColumn>
-        </CardSection>
-      </ModalUpper>
-    </ContentWrapper>
+                  </span>
+                </div>
+              </li>
+            </>
+          )}
+          <li>
+            <div className="info_title">{CURRENCIES} price</div>
+            <div className="info_contents">
+              <span className="num">{uniBalance?.toFixed(2, { groupSeparator: ',' })}</span>
+            </div>
+          </li>
+          <li>
+            <div className="info_title">{CURRENCIES} in circulation</div>
+            <div className="info_contents">
+              <span className="num">{circulation?.toFixed(0, { groupSeparator: ',' })}</span>
+            </div>
+          </li>
+          <li>
+            <div className="info_title">Total Supply</div>
+            <div className="info_contents">
+              <span className="num">{totalSupply?.toFixed(0, { groupSeparator: ',' })}</span>
+            </div>
+          </li>
+        </ul>
+        {uni && uni.chainId === ChainId.MATIC ? (
+          <article className="dis_flex gap4 text aqua">
+            <span className="ic_link"><LinkIcon size={16} /></span>
+            <ExternalLink href={`https://uniswap.info/token/${uni.address}`} className="text aqua" style={{fontSize: '14px'}}>View {CURRENCIES} Analytics</ExternalLink>
+          </article>
+        ) : null}
+      </section>
+    </div>
   )
 }
