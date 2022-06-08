@@ -32,11 +32,44 @@ const FarmTable: React.FC<ITableProps> = (props) => {
 
     return (
          <>
+         <ul className="farm_card_list_info">
+          <li className="li">
+            <div className="farm_card_list_title">TVL</div>
+            <div className="farm_card_list_text">
+              <strong className="num">
+              {!Number(data.details.liquidity) ? '-' : (
+                <>${Number(data.details.liquidity).toLocaleString(undefined, { maximumFractionDigits: 0 })}</>
+              )} 
+              </strong>
+            </div>
+          </li>
+          <li className="li">
+            <div className="farm_card_list_title">Rewards</div>
+            <div className="farm_card_list_text">
+              <strong className="num">
+                {!Number(data.details.liquidity) ? '-' : (
+                  <>{rewardPerDay.toLocaleString(undefined, { maximumFractionDigits: 0 })} {CURRENCIES} / DAY</>
+                )}
+              </strong>
+            </div>
+          </li>
+          <li className="li">
+            <div className="farm_card_list_title">APR</div>
+            <div className="farm_card_list_text">
+              <strong className="num">
+                {!Number(data.details.liquidity) ? '-' : (
+                  <>{data.apr.value} %</>
+                )}
+              </strong>
+            </div>
+          </li>
+        </ul>
+        {/* 
           {!Number(data.details.liquidity) ? <Dots>Loading</Dots> : 
           <>
           <Pooltext>
           ${Number(data.details.liquidity).toLocaleString(undefined, { maximumFractionDigits: 0 })}
-          {/* `$${Number(liquidity).toLocaleString(undefined, { maximumFractionDigits: 0 })}` */}
+          {/* `$${Number(liquidity).toLocaleString(undefined, { maximumFractionDigits: 0 })}`
         </Pooltext>
 
         <Pooltext>
@@ -48,7 +81,7 @@ const FarmTable: React.FC<ITableProps> = (props) => {
         </Pooltext>
         </>
           }
-            
+        */}
      </>
     )
 }

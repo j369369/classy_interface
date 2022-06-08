@@ -9,7 +9,7 @@
 #pool .pool_body .pool_no_contents { display: flex; justify-content: center; align-items: center; padding: 20px; width: 100%; height: 140px; background: var(--dark-0); border-radius: 20px; color: var(--dark-4); font-family: 'CookieRun'; font-weight: 700; text-align: center; }
 
 #pool .pool_body .pool_card_list { display: flex; flex-wrap: wrap; gap: 20px; justify-content: flex-start; }
-#pool .pool_body .pool_card_list .token_logo { width: inherit; height: inherit; }
+#pool .pool_body .pool_card_list .token_logo { width: inherit; height: inherit; background: var(--white); }
 
 #pool .pool_body .pool_card_list .pool_card { display: flex; flex-direction: column; gap: 20px; margin-top: 20px; padding: 20px; width: calc(100% - 20px); max-width: 380px; height: 240px; background: var(--dark-4); border-radius: 16px; }
 #pool .pool_body .pool_card_list .pool_card .swap_card_head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: -14px; }

@@ -254,6 +254,47 @@ export const FarmRow = ({ farm, price, ...rest } : FarmProp) => {
 
   return (
     <>
+    <div className={`farm_card ${!account && !isApproved ? "min" : ""}`}>
+      <article className="farm_card_head">
+        <h3 className="farm_card_head_token_name to">
+          {!farm.lpSymbol ? '-' : `${farm.lpSymbol}`}
+        </h3>
+      </article>
+      <article className="farm_card_body">
+        <RenderReward data={rowData} userDataReady={true}/>
+        <ul className="farm_card_list_info">
+          <li className="li">
+            <div className="farm_card_list_title">Wallet Balance</div>
+            <div className="farm_card_list_text"><strong className="num">{tokenBalance}</strong></div>
+          </li>
+          <li className="li">
+            <div className="farm_card_list_title"><strong>{!farm.lpSymbol ? '-' : `${farm.lpSymbol}`} LP</strong> Staked</div>
+            <div className="farm_card_list_text"><strong className="num">{hasStakedAmount}</strong></div>
+          </li>
+          <li className="li">
+            <div className="farm_card_list_title"><strong>{CURRENCIES}</strong> Earned</div>
+            <div className="farm_card_list_text"><strong className="num">{earnings}</strong></div>
+          </li>
+        </ul>
+        {account && (
+          <div className="farm_card_link">
+            <ExternalLink href={addLiquidityUrl} className="link">
+              <i className="fas fa-external-link-alt"></i> Get {farm.lpSymbol} LP
+            </ExternalLink>
+          </div>
+        )}
+      </article>
+      <article className="farm_card_foot">
+        <div className="connect-wallet">
+          {!account && !isApproved && (
+            <button type="button" className="button md" onClick={toggleWalletModal}>
+              <i className="fas fa-plug"></i> Connect Wallet
+            </button>
+          )}
+        </div>
+      </article>
+    </div>
+
     <StyledPositionCard bgColor={useDefaultBg()}>
       <CardNoise />
       <AutoColumn gap="12px">
@@ -323,9 +364,6 @@ export const FarmRow = ({ farm, price, ...rest } : FarmProp) => {
                   {/* <CurrencyLogo size="16px" style={{ marginLeft: '8px', width: '18px', height: '18px' }} currency={currency0} /> */}
                 </RowFixed>
             </FixedHeightRow>
-
-
- 
             <FixedHeightRow>
               <RowFixed>
                 <ButtonSecondary>
@@ -344,102 +382,102 @@ export const FarmRow = ({ farm, price, ...rest } : FarmProp) => {
             account ? 
             isApproved ?
               <>
-              <RowBetween marginTop="10px">
-              <NumericalInput
-                className="w-full p-3 pr-20 rounded bg-dark-700 focus:ring focus:ring-blue"
-                value={depositValue}
-                onUserInput={setDepositValue}
-              />
-              <ButtonOutlined
-                  variant="outlined"
-                  color="blue"
-                  width="7%"
-                  onClick={() => {
-                    if (!new BigNumber(tokenBalance).eq(0)) {
-                      setDepositValue(`${tokenBalance}`)
-                    }
-                  }}
-                >
-                  MAX
-                </ButtonOutlined>
-                <ButtonPrimary
-                  disabled={pendingTx || !depositValue || new BigNumber(depositValue).gt(tokenBalance) || new BigNumber(depositValue).eq(0)}
-                  padding="8px 8px"
-                  width="48%"
-                  borderRadius="8px"
-                  mt="1rem"
-                  onClick={handleStake}
-                >
-                  Deposit
-                </ButtonPrimary>
-              </RowBetween>
+                <RowBetween marginTop="10px">
+                  <NumericalInput
+                    className="w-full p-3 pr-20 rounded bg-dark-700 focus:ring focus:ring-blue"
+                    value={depositValue}
+                    onUserInput={setDepositValue}
+                  />
+                  <ButtonOutlined
+                      variant="outlined"
+                      color="blue"
+                      width="7%"
+                      onClick={() => {
+                        if (!new BigNumber(tokenBalance).eq(0)) {
+                          setDepositValue(`${tokenBalance}`)
+                        }
+                      }}
+                    >
+                    MAX
+                  </ButtonOutlined>
+                  <ButtonPrimary
+                    disabled={pendingTx || !depositValue || new BigNumber(depositValue).gt(tokenBalance) || new BigNumber(depositValue).eq(0)}
+                    padding="8px 8px"
+                    width="48%"
+                    borderRadius="8px"
+                    mt="1rem"
+                    onClick={handleStake}
+                  >
+                    Deposit
+                  </ButtonPrimary>
+                </RowBetween>
 
-              <RowBetween marginTop="10px">
-              <NumericalInput
-                className="w-full p-3 pr-20 rounded bg-dark-700 focus:ring focus:ring-blue"
-                value={withdrawValue}
-                onUserInput={setWithdrawValue}
-              />
-              <ButtonOutlined
-                  variant="outlined"
-                  color="blue"
-                  width="7%"
-                  onClick={() => {
-                    if (!new BigNumber(hasStakedAmount).eq(0)) {
-                      setWithdrawValue(`${hasStakedAmount}`)
+                <RowBetween marginTop="10px">
+                  <NumericalInput
+                    className="w-full p-3 pr-20 rounded bg-dark-700 focus:ring focus:ring-blue"
+                    value={withdrawValue}
+                    onUserInput={setWithdrawValue}
+                  />
+                  <ButtonOutlined
+                    variant="outlined"
+                    color="blue"
+                    width="7%"
+                    onClick={() => {
+                      if (!new BigNumber(hasStakedAmount).eq(0)) {
+                        setWithdrawValue(`${hasStakedAmount}`)
+                      }
+                    }}
+                  >
+                    MAX
+                  </ButtonOutlined>
+                  <ButtonPrimary
+                    // disabled={requestedApproval}
+                    disabled={pendingTx || !withdrawValue || new BigNumber(withdrawValue).gt(hasStakedAmount) || new BigNumber(withdrawValue).eq(0)}
+                    padding="8px 8px"
+                    width="48%"
+                    borderRadius="8px"
+                    mt="1rem"
+                    onClick={handleUnstake}
+                  >
+                    Withdraw
+                  </ButtonPrimary>
+                </RowBetween>
+                <ButtonPrimary
+                  disabled={earnings==0 || harvestPendingTx }
+                  onClick={async () => {
+                    setHarvestPendingTx(true)
+                    try {
+                      await onReward()
+                      alert(
+                        t(`Your ${CURRENCIES} earnings have been sent to your wallet!`)
+                      )
+                    } catch (e) {
+                      alert(
+                        t('Please try again. Confirm the transaction and make sure you are paying enough gas!')
+                      )
+                      console.error(e)
+                    } finally {
+                      setHarvestPendingTx(false)
                     }
+                    if (account) dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
                   }}
                 >
-                  MAX
-                </ButtonOutlined>
-                <ButtonPrimary
-                  // disabled={requestedApproval}
-                  disabled={pendingTx || !withdrawValue || new BigNumber(withdrawValue).gt(hasStakedAmount) || new BigNumber(withdrawValue).eq(0)}
-                  padding="8px 8px"
-                  width="48%"
-                  borderRadius="8px"
-                  mt="1rem"
-                  onClick={handleUnstake}
-                >
-                  Withdraw
+                  {t('Harvest')}
                 </ButtonPrimary>
-              </RowBetween>
-              <ButtonPrimary
-              disabled={earnings==0 || harvestPendingTx }
-              onClick={async () => {
-                setHarvestPendingTx(true)
-                try {
-                  await onReward()
-                  alert(
-                    t(`Your ${CURRENCIES} earnings have been sent to your wallet!`)
-                  )
-                } catch (e) {
-                  alert(
-                    t('Please try again. Confirm the transaction and make sure you are paying enough gas!')
-                  )
-                  console.error(e)
-                } finally {
-                  setHarvestPendingTx(false)
-                }
-                if (account) dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
-              }}
-            >
-              {t('Harvest')}
-            </ButtonPrimary>
               </>
             :
-            <ButtonPrimary
-              disabled={requestedApproval}
-              padding="16px 16px"
-              width="100%"
-              borderRadius="12px"
-              mt="1rem"
-              onClick={handleApprove}
-              >
-              ENABLE FARM
-            </ButtonPrimary>
+              <ButtonPrimary
+                disabled={requestedApproval}
+                padding="16px 16px"
+                width="100%"
+                borderRadius="12px"
+                mt="1rem"
+                onClick={handleApprove}
+                >
+                ENABLE FARM
+              </ButtonPrimary>
             :
-            <ButtonLight onClick={toggleWalletModal}>Connect Wallet</ButtonLight>
+              <ButtonLight onClick={toggleWalletModal}>Connect Wallet</ButtonLight>
             }
           </AutoColumn>
         )}

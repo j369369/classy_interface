@@ -8,6 +8,8 @@ const Wrapper = styled.div<{ margin: boolean; sizeraw: number }>`
   display: flex;
   flex-direction: row;
   //margin-right: ${({ sizeraw, margin }) => margin && (sizeraw / 3 + 8).toString() + 'px'};
+  width: 100%;
+  height: 100%;
 `
 
 interface DoubleCurrencyLogoProps {

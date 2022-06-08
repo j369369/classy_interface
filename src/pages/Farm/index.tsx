@@ -1,3 +1,4 @@
+import './Farm.css';
 import React, { useContext, useCallback } from 'react'
 // import React, { useEffect, useCallback, useState, useMemo, useRef } from 'react'
 
@@ -160,38 +161,17 @@ export default function Farm() {
     },
     [classyPrice, isActive],
   )
-  
-  
-  const renderContent = (): JSX.Element => {
-    return <> 
-    <div className="space-y-4">
+
+  return (
+    <div id="farm">
+      <section className="farm_body">
+        <h4 className="farm_title">Stake LP tokens to earn</h4>
+        <article className="farm_card_list">
           {farmsList(farmsLP).map((farm, index) => (
             <FarmRow key={index} farm={farm} price={classyPrice} />
           ))}
-        </div>
-    </>
-  }
-
-
-
-  return (
-    <>
-      <PageWrapper>
-        <SwapPoolTabs active={'pool'} />
-        <AutoColumn gap="lg" justify="center">
-          <AutoColumn gap="lg" style={{ width: '100%' }}>
-            <TitleRow padding={'0'}>
-              <TYPE.title_B style={{ fontSize: '16px', justifySelf: 'flex-start' }}>
-              Stake LP tokens to earn.
-              </TYPE.title_B>
-            </TitleRow>
-
-            {renderContent()}
-
-            
-          </AutoColumn>
-        </AutoColumn>
-      </PageWrapper>
-    </>
+        </article>
+      </section>
+    </div>
   )
 }

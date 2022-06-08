@@ -219,11 +219,11 @@ export function CurrencySearch({
          <h5 className="text gray text_center f_cookie">No results found.</h5>
         </section>
       )}
-      {/* <section className="modal_body">
+      <section className="modal_body">
         <button type="button" className="button round md blue" onClick={showManageView}>
             Manage
         </button>
-      </section> */}
+      </section>
     </ContentWrapper>
   )
 }

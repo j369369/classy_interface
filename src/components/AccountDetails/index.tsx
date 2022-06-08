@@ -360,7 +360,7 @@ export default function AccountDetails({
                           href={getEtherscanLink(chainId, account, 'address')}
                         >
                           <span className="ic_link">
-                           <LinkIcon size={16} />
+                            <LinkIcon size={16} />
                           </span>
                           <span>View on Polygon</span>
                         </AddressLink>
