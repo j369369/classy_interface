@@ -281,14 +281,40 @@ export const FarmRow = ({ farm, price, ...rest } : FarmProp) => {
             <ExternalLink href={addLiquidityUrl} className="link">
               <i className="fas fa-external-link-alt"></i> Get {farm.lpSymbol} LP
             </ExternalLink>
+            <div className="farm_card_link_button_box">
+              <button type="button" className="button md yellow">Skate</button>
+              <button type="button" className="button md white">UnSkate</button>
+            </div>
           </div>
         )}
       </article>
       <article className="farm_card_foot">
         <div className="connect-wallet">
-          {!account && !isApproved && (
-            <button type="button" className="button md" onClick={toggleWalletModal}>
+          {!account && !isApproved ? (
+            <button type="button" className="button md blue" onClick={toggleWalletModal}>
               <i className="fas fa-plug"></i> Connect Wallet
+            </button>
+          ) : (
+            <button type="button" className="button md sunset"
+              onClick={async () => {
+                setHarvestPendingTx(true)
+                try {
+                  await onReward()
+                  alert(
+                    t(`Your ${CURRENCIES} earnings have been sent to your wallet!`)
+                  )
+                } catch (e) {
+                  alert(
+                    t('Please try again. Confirm the transaction and make sure you are paying enough gas!')
+                  )
+                  console.error(e)
+                } finally {
+                  setHarvestPendingTx(false)
+                }
+                if (account) dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
+              }}
+            >
+              Harvest
             </button>
           )}
         </div>

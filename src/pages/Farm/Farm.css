@@ -2,12 +2,13 @@
 
 #farm { overflow: auto; display: flex; flex-direction: column; gap: 40px; position: absolute; top: 0; left: 0; padding: 40px; width: 100%; height: 100%; background: var(--dark-2); color: var(--white); }
 
-#farm .farm_body { display: flex; flex-direction: column; gap: 20px; }
+#farm .farm_body { display: flex; flex-direction: column; gap: 16px; }
 #farm .farm_body .farm_title { font-family: 'CookieRun'; }
 
 
 #farm .farm_body .farm_card_list { display: flex; flex-wrap: wrap; gap: 20px; justify-content: flex-start; }
-#farm .farm_body .farm_card_list .farm_card { display: flex; flex-direction: column; gap: 20px; margin-top: 20px; padding: 20px; width: calc(100% - 20px); max-width: 380px; height: 400px; background: var(--dark-4); border-radius: 16px; }
+#farm .farm_body .farm_card_list .farm_card { display: flex; flex-direction: column; gap: 20px; margin-top: 20px; padding: 20px; width: calc(100% - 20px); max-width: 380px; height: 410px; background: var(--dark-4); border-radius: 16px; }
+#farm .farm_body .farm_card_list .farm_card.min { height: 330px; }
 #farm .farm_body .farm_card_list .farm_card .farm_card_head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
 #farm .farm_body .farm_card_list .farm_card .farm_card_head_token_name { font-family: 'CookieRun'; color: var(--yellow); }
 #farm .farm_body .farm_card_list .farm_card .farm_card_body { display: flex; flex-direction: column; gap: 20px; }
@@ -17,9 +18,12 @@
 #farm .farm_body .farm_card_list .farm_card .farm_card_body .farm_card_list_info .li .farm_card_list_text { min-width: 80px; max-width: 60%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right; }
 #farm .farm_body .farm_card_list .farm_card .farm_card_body .farm_card_list_info .li .farm_card_list_text .num { font-family: 'CookieRun'; }
 #farm .farm_body .farm_card_list .farm_card .farm_card_body .hr { margin: 10px 0; border: none; border-top: 1px solid var(--dark-5); }
-#farm .farm_body .farm_card_list .farm_card .farm_card_body .farm_card_link {  }
+#farm .farm_body .farm_card_list .farm_card .farm_card_body .farm_card_link { display: flex; flex-direction: column; gap: 16px; }
 #farm .farm_body .farm_card_list .farm_card .farm_card_body .farm_card_link .link { color: var(--aqua); font-size: 14px; font-weight: 700; }
+#farm .farm_body .farm_card_list .farm_card .farm_card_body .farm_card_link .farm_card_link_button_box { display: flex; align-items: center; gap: 8px; }
+#farm .farm_body .farm_card_list .farm_card .farm_card_body .farm_card_link .farm_card_link_button_box .button { width: 100%; }
 #farm .farm_body .farm_card_list .farm_card .farm_card_foot .connect-wallet { width: 100%; }
+#farm .farm_body .farm_card_list .farm_card .farm_card_foot .connect-wallet .button { width: 100%; }
 
 
 
