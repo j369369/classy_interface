@@ -25,20 +25,20 @@ export default function Home() {
         </h1>
           <div id="introLink" className="intro_link">
           <a href="/">
-            <button className="button lg indigo">
-              <i className="fas fa-exchange-alt"></i> Classy App
+            <button className="button lg yellow">
+              <i className="fas fa-exchange-alt"></i> Lanai App
             </button>
           </a>
-          <a href="/">
-            <button className="button lg blue">
-              <i className="fas fa-images"></i> Classy NFTs
+          <a href="https://hancomartpia.com/" target="_blank" rel="noopener noreferrer">
+            <button className="button lg aqua">
+              <i className="fas fa-images"></i> Lanai NFTs
             </button>
           </a>
-          <a href="/">
+          {/* <a href="/">
             <button className="button lg mint">
               <i className="fas fa-burn"></i> Classy Stadium
             </button>
-          </a>
+          </a> */}
         </div>
       </article>
     </section>
