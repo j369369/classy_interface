@@ -41,6 +41,9 @@ import { useTranslation } from 'react-i18next'
 import { Input as NumericalInput } from '../../components/NumericalInput'
 import { useWalletModalToggle } from 'state/application/hooks'
 import { CURRENCIES } from '../../constants/index';
+import StakeModal from './Modal/StakeModal';
+import UnStakeModal from './Modal/UnStakeModal';
+import Modal from '../Modal'
 
 export const FixedHeightRow = styled(RowBetween)`
   height: 24px;
@@ -191,6 +194,8 @@ export const FarmRow = ({ farm, price, ...rest } : FarmProp) => {
 
   const { account, chainId } = useActiveWeb3React()
   const [showMore, setShowMore] = useState(false)
+  const [showStakeModal, setShowStakeModal] = useState(false);
+  const [showUnStakeModal, setShowUnStakeModal] = useState(false);
 
   const { t } = useTranslation()
 
@@ -282,8 +287,8 @@ export const FarmRow = ({ farm, price, ...rest } : FarmProp) => {
               <i className="fas fa-external-link-alt"></i> Get {farm.lpSymbol} LP
             </ExternalLink>
             <div className="farm_card_link_button_box">
-              <button type="button" className="button md yellow">Skate</button>
-              <button type="button" className="button md white">UnSkate</button>
+              <button type="button" className="button md yellow" onClick={() => setShowStakeModal(true)}>Skate</button>
+              <button type="button" className="button md white" onClick={() => setShowUnStakeModal(true)}>UnSkate</button>
             </div>
           </div>
         )}
@@ -321,7 +326,14 @@ export const FarmRow = ({ farm, price, ...rest } : FarmProp) => {
       </article>
     </div>
 
-    <StyledPositionCard bgColor={useDefaultBg()}>
+    <Modal isOpen={showStakeModal} onDismiss={() => setShowStakeModal(false)}>
+      <StakeModal onDismiss={() => setShowStakeModal(false)} farm={farm} tokenBalance={tokenBalance} withdrawValue={withdrawValue} setWithdrawValue={setWithdrawValue} />
+    </Modal>
+    <Modal isOpen={showUnStakeModal} onDismiss={() => setShowUnStakeModal(false)}>
+      <UnStakeModal onDismiss={() => setShowUnStakeModal(false)} farm={farm} />
+    </Modal>
+
+    {/* <StyledPositionCard bgColor={useDefaultBg()}>
       <CardNoise />
       <AutoColumn gap="12px">
         <FixedHeightRow>
@@ -387,7 +399,6 @@ export const FarmRow = ({ farm, price, ...rest } : FarmProp) => {
                   <Text fontSize={14} fontWeight={400} marginLeft={'6px'}>
                     {earnings}
                   </Text>
-                  {/* <CurrencyLogo size="16px" style={{ marginLeft: '8px', width: '18px', height: '18px' }} currency={currency0} /> */}
                 </RowFixed>
             </FixedHeightRow>
             <FixedHeightRow>
@@ -508,7 +519,7 @@ export const FarmRow = ({ farm, price, ...rest } : FarmProp) => {
           </AutoColumn>
         )}
       </AutoColumn>
-    </StyledPositionCard>
+    </StyledPositionCard> */}
     </>
   )
 }

@@ -98,7 +98,7 @@ export default function Pool() {
             </div>
           ) : allV2PairsWithLiquidity?.length > 0 || stakingPairs?.length > 0 ? (
             <div className="dis_flex_col gap10">
-              <h5 className="pool_title">My Pool</h5>
+              <h5 className="pool_title text yellow">My Pool</h5>
               <section className='pool_card_list'>
                 {v2PairsWithoutStakedAmount.map(v2Pair => (
                   <>
