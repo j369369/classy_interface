@@ -121,7 +121,7 @@ export default function CurrencyInputPanel({
                     currency.symbol.slice(currency.symbol.length - 5, currency.symbol.length)
                   : 
                     currency?.symbol
-                  ) || <h5 className='none'>{t('Token')}</h5>
+                  ) || <span className='none'>{t('Token')}</span>
                 }
               </h5>
             )}

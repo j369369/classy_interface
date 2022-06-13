@@ -27,10 +27,6 @@ const Footer = styled.div`
   position: absolute;
   bottom: 0;
   width: 100%;
-  border-radius: 20px;
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
-  border-top: 1px solid ${({ theme }) => theme.bg3};
   padding: 20px;
   text-align: center;
 `
@@ -94,49 +90,65 @@ export default function ManageTokens({
   }, [userAddedTokens, chainId, removeToken])
 
   return (
-    <Wrapper>
-      <Column style={{ width: '100%', flex: '1 1' }}>
-        <PaddedColumn gap="14px">
-          <Row>
-            <SearchInput
-              type="text"
-              id="token-search-input"
-              placeholder={'0x0000'}
-              value={searchQuery}
-              autoComplete="off"
-              ref={inputRef as RefObject<HTMLInputElement>}
-              onChange={handleInput}
+    <Wrapper className="modal_container">
+      <section className="modal_head dis_flex_col start">
+        <div className="input_box">
+          <input
+            type="text"
+            placeholder="0x0000"
+            autoComplete="off"
+            value={searchQuery}
+            ref={inputRef as RefObject<HTMLInputElement>}
+            onChange={handleInput}
+          />
+        </div>
+        {searchQuery !== '' && !isAddressSearch && (
+          <p className="text sm red" style={{marginTop: '4px'}}>Enter valid token address</p>
+        )}
+        {searchToken && (
+          <Card backgroundColor={theme.bg2} padding="10px 0">
+            <ImportRow
+              token={searchToken}
+              showImportView={() => setModalView(CurrencyModalView.importToken)}
+              setImportToken={setImportToken}
+              style={{ height: 'fit-content' }}
             />
-          </Row>
-          {searchQuery !== '' && !isAddressSearch && <TYPE.error error={true}>Enter valid token address</TYPE.error>}
-          {searchToken && (
-            <Card backgroundColor={theme.bg2} padding="10px 0">
-              <ImportRow
-                token={searchToken}
-                showImportView={() => setModalView(CurrencyModalView.importToken)}
-                setImportToken={setImportToken}
-                style={{ height: 'fit-content' }}
-              />
-            </Card>
-          )}
-        </PaddedColumn>
-        <Separator />
-        <PaddedColumn gap="lg">
-          <RowBetween>
-            <TYPE.main fontWeight={600}>
-              {userAddedTokens?.length} Custom {userAddedTokens.length === 1 ? 'Token' : 'Tokens'}
-            </TYPE.main>
+          </Card>
+        )}
+      </section>
+      <section className="modal_body">
+        <article>
+          <div className="dis_flex between">
+            <h6 className="dis_flex gap4">
+              <span className="f_cookie text yellow">{userAddedTokens?.length}</span> <span className="text gray">Custom {userAddedTokens.length === 1 ? 'Token' : 'Tokens'}</span>
+            </h6>
             {userAddedTokens.length > 0 && (
-              <ButtonText onClick={handleRemoveAll}>
-                <TYPE.blue>Clear all</TYPE.blue>
-              </ButtonText>
+              <button type="button" className="button round sm yellow" onClick={handleRemoveAll}>
+                Clear all
+              </button>
             )}
-          </RowBetween>
+          </div>
+        </article>
+        <article className="token_list">
           {tokenList}
-        </PaddedColumn>
-      </Column>
-      <Footer>
-        <TYPE.darkGray>Tip: Custom tokens are stored locally in your browser</TYPE.darkGray>
+          <RowBetween key={1} width="100%">
+            <RowFixed>
+              <div>로고로고</div>
+              <ExternalLink href="/">
+                <TYPE.main ml={'10px'} fontWeight={600}>
+                  ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㄹㅇ
+                </TYPE.main>
+              </ExternalLink>
+            </RowFixed>
+            <RowFixed>
+              <TrashIcon />
+              <ExternalLinkIcon href="/" />
+            </RowFixed>
+          </RowBetween>
+        </article>
+      </section>
+      <Footer className="modal_body">
+        <h6>Tip: Custom tokens are stored locally in your browser</h6>
       </Footer>
     </Wrapper>
   )

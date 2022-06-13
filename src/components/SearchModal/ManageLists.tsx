@@ -362,7 +362,7 @@ export function ManageLists({
           </Card>
         </PaddedColumn>
       )}
-      <Separator />
+      {/* <Separator /> */}
       <ListContainer>
         <AutoColumn gap="md">
           {sortedLists.map(listUrl => (
