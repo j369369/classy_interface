@@ -19,12 +19,12 @@ const KLEROS_LIST = 't2crtokens.eth'
 const GEMINI_LIST = 'https://www.gemini.com/uniswap/manifest.json'
 // const POLYGON_LIST = 'https://unpkg.com/quickswap-default-token-list@1.2.36/build/quickswap-default.tokenlist.json'
 const POLYGON_LIST = 'https://api-polygon-tokens.polygon.technology/tokenlists/default.tokenlist.json'
-// const MUMBAI_LIST = 'https://api-polygon-tokens.polygon.technology/tokenlists/testnet.tokenlist.json'
+const MUMBAI_LIST = 'https://api-polygon-tokens.polygon.technology/tokenlists/testnet.tokenlist.json'
 
 // lower index == higher priority for token import
 export const DEFAULT_LIST_OF_LISTS: string[] = [
   POLYGON_LIST,
-  // MUMBAI_LIST,
+  MUMBAI_LIST,
   ...UNSUPPORTED_LIST_URLS // need to load unsupported tokens as well
 ]
 

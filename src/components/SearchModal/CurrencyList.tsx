@@ -9,7 +9,7 @@ import { useCurrencyBalance } from '../../state/wallet/hooks'
 import { TYPE } from '../../theme'
 import { useIsUserAddedToken, useAllInactiveTokens } from '../../hooks/Tokens'
 import Column from '../Column'
-import { RowFixed } from '../Row'
+import { RowFixed, RowBetween } from '../Row'
 import CurrencyLogo from '../CurrencyLogo'
 import { MouseoverTooltip } from '../Tooltip'
 import { MenuItem } from './styleds'
@@ -79,10 +79,11 @@ function TokenTags({ currency }: { currency: Currency }) {
   const tag = tags[0]
 
   return (
-    <TagContainer>
-      <MouseoverTooltip text={tag.description}>
+    <TagContainer className="dis_flex gap8">
+      {/* <MouseoverTooltip text={tag.description}>
         <Tag key={tag.id}>{tag.name}</Tag>
-      </MouseoverTooltip>
+      </MouseoverTooltip> */}
+      <h6 className="text green f_cookie fw_400" key={tag.id}>{tag.name}</h6> 
       {tags.length > 1 ? (
         <MouseoverTooltip
           text={tags
@@ -90,7 +91,8 @@ function TokenTags({ currency }: { currency: Currency }) {
             .map(({ name, description }) => `${name}: ${description}`)
             .join('; \n')}
         >
-          <Tag>...</Tag>
+          <span className="text yellow"><i className="fas fa-question-circle"></i></span>
+          {/* <Tag>...</Tag> */}
         </MouseoverTooltip>
       ) : null}
     </TagContainer>

@@ -72,20 +72,28 @@ const StyledTitleText = styled.div<{ active: boolean }>`
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: 600;
-  color: ${({ theme, active }) => (active ? theme.white : theme.text2)};
+  color: ${({ theme, active }) => (active ? 'var(--black)' : 'var(--dark-6)')};
 `
 
 const StyledListUrlText = styled(TYPE.main)<{ active: boolean }>`
   font-size: 12px;
-  color: ${({ theme, active }) => (active ? theme.white : theme.text2)};
+  color: ${({ theme, active }) => (active ? 'var(--black)' : 'var(--dark-6)')};
 `
 
 const RowWrapper = styled(Row)<{ bgColor: string; active: boolean }>`
-  background-color: ${({ bgColor, active, theme }) => (active ? bgColor ?? 'transparent' : theme.bg2)};
+  background-color: ${({ bgColor, active, theme }) => (active ? 'var(--gray)' ?? 'transparent' : 'var(--dark-4)')};
   transition: 200ms;
   align-items: center;
   padding: 1rem;
-  border-radius: 20px;
+  border-radius: 8px;
+  gap: 10px;
+`
+const ManageCard = styled.div`
+  margin-top: 10px;
+  padding: 1rem;
+  width: 100%;
+  background: var(--white);
+  border-radius: 8px;
 `
 
 function listUrlRowHTMLId(listUrl: string) {
@@ -177,7 +185,7 @@ const ListRow = memo(function ListRow({ listUrl }: { listUrl: string }) {
           </StyledListUrlText>
           <StyledMenu ref={node as any}>
             <ButtonEmpty onClick={toggle} ref={setReferenceElement} padding="0">
-              <Settings stroke={isActive ? theme.bg1 : theme.text1} size={12} />
+              <Settings stroke={isActive ? 'var(--black)' : 'var(--dark-6)'} size={12} />
             </ButtonEmpty>
             {open && (
               <PopoverContainer show={true} ref={setPopperElement as any} style={styles.popper} {...attributes.popper}>
@@ -329,10 +337,9 @@ export function ManageLists({
         {addError && (
           <p className="text sm red" style={{marginTop: '4px'}}>{addError}</p>
         )}
-      </section>
-      {tempList && (
-        <PaddedColumn style={{ paddingTop: 0 }}>
-          <Card backgroundColor={theme.bg2} padding="12px 20px">
+
+        {tempList && (
+          <ManageCard>
             <RowBetween>
               <RowFixed>
                 {tempList.logoURI && <ListLogo logoURI={tempList.logoURI} size="40px" />}
@@ -349,19 +356,18 @@ export function ManageLists({
                   <TYPE.body color={theme.text2}>Loaded</TYPE.body>
                 </RowFixed>
               ) : (
-                <ButtonPrimary
-                  style={{ fontSize: '14px' }}
-                  padding="6px 8px"
-                  width="fit-content"
+                <button
+                  className="button round md yellow"
                   onClick={handleImport}
                 >
                   Import
-                </ButtonPrimary>
+                </button>
               )}
             </RowBetween>
-          </Card>
-        </PaddedColumn>
-      )}
+          </ManageCard>
+        )}
+      </section>
+      
       {/* <Separator /> */}
       <ListContainer>
         <AutoColumn gap="md">

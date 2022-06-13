@@ -220,7 +220,7 @@ export function CurrencySearch({
         </section>
       )}
       <section className="modal_body">
-        <button type="button" className="button round md blue" onClick={showManageView}>
+        <button type="button" className="button md blue" onClick={showManageView}>
             Manage
         </button>
       </section>
