@@ -338,7 +338,7 @@ export function ManageLists({
           <p className="text sm red" style={{marginTop: '4px'}}>{addError}</p>
         )}
 
-        {tempList && (
+        {tempList && !addError && (
           <ManageCard>
             <RowBetween>
               <RowFixed>

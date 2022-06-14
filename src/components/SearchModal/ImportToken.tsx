@@ -98,12 +98,14 @@ export function ImportToken({ tokens, onBack, onDismiss, handleCurrencySelect }:
             return (
               <>
                 <div className="m_card">
-                  <section className='dis_flex_col gap8'>
-                    <AutoRow>
-                      <CurrencyLogo currency={token} size={'24px'} />
-                      <AutoRow gap="4px">
-                        <h4 className="">{token.symbol}</h4>
-                        <span className="text gray">{token.name}</span>
+                  <section className='dis_flex_col gap10'>
+                    <div className="dis_flex between">
+                      <section className="dis_flex gap4">
+                        <article className="dis_flex gap8">
+                          <CurrencyLogo currency={token} />
+                          <h4 className="">{token.symbol}</h4>
+                          <span className="text gray">{token.name}</span>
+                        </article>
                         {list !== undefined && (
                           <RowFixed>
                             {/* {list.logoURI && <ListLogo logoURI={list.logoURI} size="12px" />} */}
@@ -112,8 +114,13 @@ export function ImportToken({ tokens, onBack, onDismiss, handleCurrencySelect }:
                             </TYPE.small>
                           </RowFixed>
                         )}
-                      </AutoRow>
-                    </AutoRow>
+                      </section>
+                      {list === undefined && (
+                        <div>
+                          <span className='label yellow'><i className="fas fa-exclamation-triangle"></i> Unknown Source</span>
+                        </div>
+                      )}
+                    </div>
                     {chainId && (
                       <ExternalLink className="text sm aqua" href={getEtherscanLink(chainId, token.address, 'address')}>
                           <div className='dis_flex start gap4'>
@@ -121,11 +128,6 @@ export function ImportToken({ tokens, onBack, onDismiss, handleCurrencySelect }:
                             <span>{token.address}</span>
                           </div>
                       </ExternalLink>
-                    )}
-                    {list === undefined && (
-                      <div>
-                        <span className='label red'><i className="fas fa-exclamation-triangle"></i> Unknown Source</span>
-                      </div>
                     )}
                   </section>
                 </div>
@@ -156,6 +158,7 @@ export function ImportToken({ tokens, onBack, onDismiss, handleCurrencySelect }:
           </article>
           {confirmed && (
             <button
+              type="button"
               onClick={() => {
                 tokens.map(token => addToken(token))
                 handleCurrencySelect && handleCurrencySelect(tokens[0])
