@@ -12,9 +12,9 @@ import { ButtonPrimary } from 'components/Button'
 import styled from 'styled-components'
 import { useIsUserAddedToken, useIsTokenActive } from 'hooks/Tokens'
 import { CheckCircle } from 'react-feather'
+import Row, { RowBetween } from '../Row'
 
 const TokenSection = styled.div<{ dim?: boolean }>`
-  padding: 4px 20px;
   height: 56px;
   display: grid;
   grid-template-columns: auto minmax(auto, 1fr) auto;
@@ -67,42 +67,30 @@ export default function ImportRow({
 
   return (
     <>
-    <TokenSection style={style}>
+    <RowBetween>
+      <RowFixed>
       <div className="token_logo" style={{ width: "32px", height: "32px" }}><CurrencyLogo currency={token} /></div>
-      <Column>
-        <h5>{token.symbol}</h5>
-        <AutoRow gap="2px">
-          <h6 className="text sm gray">{token.name}</h6>
-          {list && list.logoURI && (
-            <RowFixed>
-              <h6 className="text xs brown">
-                via {list.name}
-              </h6>
-              {/* <ListLogo logoURI={list.logoURI} size="12px" /> */}
-            </RowFixed>
-          )}
-        </AutoRow>
-      </Column>
-      <RowFixed style={{ justifySelf: 'flex-end' }}>
-        {!isActive && !isAdded ? (
-          <button 
-          type="button" 
-          className="button round sm yellow"
-          onClick={() => {
-              setImportToken && setImportToken(token)
-              showImportView()
-            }}
-          >
-            Import
-          </button>
-        ) : (
-          <RowFixed style={{ minWidth: 'fit-content' }}>
-            <CheckIcon />
-            <TYPE.main color={theme.green1}>Active</TYPE.main>
-          </RowFixed>
-        )}
+        <AutoColumn gap="4px" style={{ marginLeft: '20px' }}>
+          <TYPE.body fontWeight={600}>{token.symbol}</TYPE.body>
+          <TYPE.main fontSize={'12px'}>
+            {token.name} {list && list.logoURI && ` / via ${list.name}`}
+          </TYPE.main>
+        </AutoColumn>
       </RowFixed>
-    </TokenSection>
+      {!isActive && !isAdded && (
+        <button 
+        type="button" 
+        className="button round sm yellow"
+        onClick={() => {
+            setImportToken && setImportToken(token)
+            showImportView()
+          }}
+        >
+          Import
+        </button>
+      )}
+    </RowBetween>
+   
    </>
   )
 }

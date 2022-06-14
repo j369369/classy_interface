@@ -348,14 +348,7 @@ export function ManageLists({
                   <TYPE.main fontSize={'12px'}>{tempList.tokens.length} tokens</TYPE.main>
                 </AutoColumn>
               </RowFixed>
-              {isImported ? (
-                <RowFixed>
-                  <IconWrapper stroke={theme.text2} size="16px" marginRight={'10px'}>
-                    <CheckCircle />
-                  </IconWrapper>
-                  <TYPE.body color={theme.text2}>Loaded</TYPE.body>
-                </RowFixed>
-              ) : (
+              {!isImported && (
                 <button
                   className="button round md yellow"
                   onClick={handleImport}

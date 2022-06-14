@@ -32,8 +32,10 @@ const HoverText = styled.div`
     cursor: pointer;
   }
 `
-const LeftArrowIcon = styled.span`
-  margin-right: 0.25rem;
+const UnknownSource = styled.div`
+  position: absolute;
+  top: -4px;
+  right: -4px;
 `
 
 const WarningWrapper = styled(Card)<{ highWarning: boolean }>`
@@ -116,9 +118,9 @@ export function ImportToken({ tokens, onBack, onDismiss, handleCurrencySelect }:
                         )}
                       </section>
                       {list === undefined && (
-                        <div>
+                        <UnknownSource>
                           <span className='label yellow'><i className="fas fa-exclamation-triangle"></i> Unknown Source</span>
-                        </div>
+                        </UnknownSource>
                       )}
                     </div>
                     {chainId && (

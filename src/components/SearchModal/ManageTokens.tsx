@@ -30,6 +30,13 @@ const Footer = styled.div`
   padding: 20px;
   text-align: center;
 `
+const ManageCard = styled.div`
+  margin-top: 10px;
+  padding: 1rem;
+  width: 100%;
+  background: var(--white);
+  border-radius: 8px;
+`
 
 export default function ManageTokens({
   setModalView,
@@ -106,14 +113,14 @@ export default function ManageTokens({
           <p className="text sm red" style={{marginTop: '4px'}}>Enter valid token address</p>
         )}
         {searchToken && (
-          <Card backgroundColor={theme.bg2} padding="10px 0">
+          <ManageCard>
             <ImportRow
               token={searchToken}
               showImportView={() => setModalView(CurrencyModalView.importToken)}
               setImportToken={setImportToken}
               style={{ height: 'fit-content' }}
             />
-          </Card>
+          </ManageCard>
         )}
       </section>
       <section className="modal_body">
@@ -148,7 +155,7 @@ export default function ManageTokens({
         </article>
       </section>
       <Footer className="modal_body">
-        <h6>Tip: Custom tokens are stored locally in your browser</h6>
+        <h6 className="text yellow fw_400">Tip: Custom tokens are stored locally in your browser</h6>
       </Footer>
     </Wrapper>
   )

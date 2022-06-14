@@ -19,6 +19,7 @@ import { ExternalLink as LinkIcon } from 'react-feather'
 
 import ImgWaiting from '../../assets/images/img_waiting.gif'
 import ImgCircleCheck from '../../assets/images/img_circle_check.svg'
+import { CURRENCIES } from '../../constants'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -97,7 +98,7 @@ function TransactionSubmittedContent({
             <button type="button" className="button" onClick={addToken}>
               {!success ? (
                 <RowFixed>
-                  Add {currencyToAdd.symbol} to Metamask <StyledLogo src={MetaMaskLogo} />
+                  Add {CURRENCIES} to Metamask <StyledLogo src={MetaMaskLogo} />
                 </RowFixed>
               ) : (
                 <RowFixed>
