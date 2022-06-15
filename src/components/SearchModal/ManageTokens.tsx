@@ -38,6 +38,14 @@ const ManageCard = styled.div`
   border-radius: 8px;
 `
 
+const TokenCard = styled(RowBetween)`
+  margin-bottom: 10px;
+  padding: 8px 16px;
+  width: 100%;
+  background: var(--dark-4);
+  border-radius: 8px;
+`
+
 export default function ManageTokens({
   setModalView,
   setImportToken
@@ -78,20 +86,18 @@ export default function ManageTokens({
     return (
       chainId &&
       userAddedTokens.map(token => (
-        <RowBetween key={token.address} width="100%">
-          <RowFixed>
-            <CurrencyLogo currency={token} size={'20px'} />
-            <ExternalLink href={getEtherscanLink(chainId, token.address, 'address')}>
-              <TYPE.main ml={'10px'} fontWeight={600}>
-                {token.symbol}
-              </TYPE.main>
+        <TokenCard key={token.address}>
+          <div className="dis_flex gap16">
+            <div><CurrencyLogo currency={token} size={'20px'} /></div>
+            <ExternalLink className="dis_flex gap8" href={getEtherscanLink(chainId, token.address, 'address')}>
+              <span className="text gray"><i className="fas fa-external-link-alt"></i></span>
+              <span className="text white">{token.symbol}</span> 
             </ExternalLink>
-          </RowFixed>
-          <RowFixed>
-            <TrashIcon onClick={() => removeToken(chainId, token.address)} />
-            <ExternalLinkIcon href={getEtherscanLink(chainId, token.address, 'address')} />
-          </RowFixed>
-        </RowBetween>
+          </div>
+          <div className="dis_flex gap16">
+            <span className="text red cursor" onClick={() => removeToken(chainId, token.address)}><i className="fas fa-trash"></i></span>
+          </div>
+        </TokenCard>
       ))
     )
   }, [userAddedTokens, chainId, removeToken])
@@ -138,20 +144,6 @@ export default function ManageTokens({
         </article>
         <article className="token_list">
           {tokenList}
-          <RowBetween key={1} width="100%">
-            <RowFixed>
-              <div>로고로고</div>
-              <ExternalLink href="/">
-                <TYPE.main ml={'10px'} fontWeight={600}>
-                  ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㄹㅇ
-                </TYPE.main>
-              </ExternalLink>
-            </RowFixed>
-            <RowFixed>
-              <TrashIcon />
-              <ExternalLinkIcon href="/" />
-            </RowFixed>
-          </RowBetween>
         </article>
       </section>
       <Footer className="modal_body">
